@@ -28,7 +28,7 @@ library(dplyr)
 
 ## Data Manipulation
 
-We now discuss a **grammar for data manipulation**.  Other terms for "data manipulation" include:
+We discuss a **grammar for data manipulation**.  Other terms for "data manipulation" include:
 
 * **data wrangling**
 * **data munging**
@@ -58,7 +58,7 @@ We will revisit [this concept](https://cran.r-project.org/web/packages/tidyr/vig
 
 ## Grammar of Data Manipulation
 
-~85% of data manipulations can be achieved by the following **verbs** on tidy data.
+~85% of data manipulations can be achieved by the following **5 verbs** on tidy data.
 
 1. **`filter()`**: subset rows matching criteria
 1. **`select()`**: subset columns chosen by name
