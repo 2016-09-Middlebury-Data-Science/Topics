@@ -1,5 +1,5 @@
 ---
-title: "Lecture 02: More dplyr"
+title: "Lecture 02: More dplyr and Basic Webscraping"
 author: "Albert Y. Kim"
 date: "September 14, 2016"
 output: ioslides_presentation
