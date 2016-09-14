@@ -28,7 +28,7 @@ library(dplyr)
 ## Today's Data
 
 We consider data on tuition and financial aid from various institutions across 
-the United States from the <a
+the US from the <a
 href="http://apps.washingtonpost.com/g/page/local/college-grants-for-the-affluent/1526/"
 target="_blank">Washington Post</a>.
 
