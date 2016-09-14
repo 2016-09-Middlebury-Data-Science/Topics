@@ -1,7 +1,7 @@
 ---
-title: "Lecture 02: Loading Data"
+title: "Lecture 03: Loading CSVs and dplyr joins"
 author: "Albert Y. Kim"
-date: "September 14, 2016"
+date: "September 16, 2016"
 output: ioslides_presentation
 ---
 
@@ -29,30 +29,6 @@ library(dplyr)
 ## Preparation for Today
 
 * Open `UCBAdmissions.xlsx` in Excel
-* Open the HW schedule in Google Docs: [http://bit.ly/1oJKpVS](http://bit.ly/1oJKpVS)
-* Install the [`rvest`](http://blog.rstudio.org/2014/11/24/rvest-easy-web-scraping-with-r/) package in RStudio
-
-
-
-
-<!--
-## Statistics Pedagogy
-
-From the American Statistician (Cobb 2015): [Mere Renovation is Too Little Too Late: We Need to Rethink our Undergraduate Curriculum from the Ground Up](http://www.tandfonline.com/doi/full/10.1080/00031305.2015.1093029#abstract)
-
-Cobb advocates "minimizing prerequisites to research":
-
->> In the Humanities, students in a first course engage with original sources. You do not just prepare your students to read Austen; they read Austen. You do not just prepare students to hear Bach; they hear Bach.
-
-
-
-## Statistics Pedagogy
-
-In the context of this class: you need to be doing research QUICK!
-
-Research here doesn't not mean necessary publishing in journals, but more simply **looking at real data that's relevant to the student**.
--->
-
 
 
 
@@ -67,15 +43,6 @@ UCBAdmissions %>% as.data.frame() %>% head()
 
 
 
-## Today's Data
-
-We also consider data on tuition and financial aid from various institutions across
-the United States from the
-<a href="http://apps.washingtonpost.com/g/page/local/college-grants-for-the-affluent/1526/" target="_blank">Washington Post</a>.
-
-
-
-
 
 
 ## Loading Data
@@ -85,7 +52,6 @@ We will explore two methods for loading data:
 * Via a Comma Separated Values (CSV) file, from 
     + Excel files
     + Google docs
-* Via the web using the [`rvest`](http://blog.rstudio.org/2014/11/24/rvest-easy-web-scraping-with-r/) package in RStudio package
 
 
 
@@ -144,28 +110,88 @@ From the Google Docs menu bar (not your browser's menu bar):
 
 
 
-## Basic Webscraping
 
-The other way we'll load is by basic **web-scraping** via the [`rvest`](http://blog.rstudio.org/2014/11/24/rvest-easy-web-scraping-with-r/) package in RStudio package. Run the following code in RStudio:
 
-```{r, eval=FALSE}
-library(rvest)
-webpage <- "http://apps.washingtonpost.com/g/page/local/college-grants-for-the-affluent/1526/"
-wp_data <- webpage %>%
-  read_html() %>% 
-  html_nodes("table") %>% 
-  .[[1]] %>% 
-  html_table()
-View(wp_data)
+## Combining Data Sets via Join Operations
+
+Imagine we have two data frames **`x** and **y`**:
+
+```{r, echo=FALSE}
+x <- data.frame(x1=c("A","B","C"), x2=c(1,2,3))
+y <- data.frame(x1=c("A","B","D"), x3=c(TRUE,FALSE,TRUE))
+x
+y
+```
+
+We want to **join** them along the categorical variable `x1`and end up with a
+new data frame that has all three variables:
+
+
+
+## Combining Data Sets via Join Operations
+
+
+```{r, echo=TRUE}
+inner_join(x, y, by = "x1")
+full_join(x, y, by = "x1")
 ```
 
 
 
-## Basic Webscraping
+## Combining Data Sets via Join Operations
 
-The rvest package works by scraping HTML code used to make webpages.  To view a webpage's raw HTML code:
 
-* In Google Chrome's menu bar -> View -> Developer -> View Source
-* In Firefox's menu bar -> Tools -> Web Developer -> Page Source
+* `dplyr`'s operations to join data sets are inspired by SQL (Structured Query
+Language), which is used to query large databases.
+* If a value is missing during the join, `NA` (R code for missing value) is
+inserted.
 
-The `html_nodes()` function looks for HTML tags.
+In our example, both data frames `x` and `y` the had the "join by" variable
+named the same: `x1`. Hence:
+
+```
+inner_join(x, y, by = "x1")
+```
+
+
+
+## The "join by" variable
+
+
+If the "join by" variable has different names in the data frames.  Ex:
+
+* name `a` in data frame `x`
+* name `b` in data frame `y`
+
+then run:  `inner_join(x, y, by = c("a"="b"))`. 
+
+Note it is
+
+* ` by = c("a"="b")` and not
+* `by = c("a"=="b")`
+
+See `by` in the "Argument" section of the help file `?join`.
+
+
+
+## Types of Joins
+
+* See `?join` for a list of the different types of joins
+* This
+[illustration](https://twitter.com/yutannihilation/status/551572539697143808)
+succinctly summarizes all of them.
+
+
+
+## Good Practice
+
+
+At the beginning of `Lec03.R`, I load all necessary packages at the beginning.
+
+This is good practice people know which packages they need 
+installed. For example, I didn't know I needed a particular package before I 
+boarded a 4 hour flight because the package loading was buried in
+the file.
+
+
+

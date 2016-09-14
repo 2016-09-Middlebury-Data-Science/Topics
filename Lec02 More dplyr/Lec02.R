@@ -122,7 +122,8 @@ currency_to_numeric("$19,999")
 wp_data <- wp_data %>%
   mutate(
     comp_fee = currency_to_numeric(comp_fee),
-    ave_no_need_grant = currency_to_numeric(ave_no_need_grant)
+    ave_no_need_grant = currency_to_numeric(ave_no_need_grant),
+    p_need_grant = currency_to_numeric(ave_no_need_grant)
   )
 wp_data
 
