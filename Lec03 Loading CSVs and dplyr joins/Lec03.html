@@ -104,129 +104,133 @@ slides > slide.backdrop {
 }
 </style>
 
-<slide class=''><hgroup><h2>Preparation for Today</h2></hgroup><article  id="preparation-for-today">
+<slide class=''><hgroup><h2>I Hate Excel</h2></hgroup><article  id="i-hate-excel">
 
 <ul>
-<li>Open <code>UCBAdmissions.xlsx</code> in Excel</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Today&#39;s Data</h2></hgroup><article  id="todays-data">
-
-<p>The University of California Berkeley was sued in 1973 for bias against women who had applied for admission to graduate schools. We consider the \(n=4526\) people who applied to the 6 largest departments.</p>
-
-<pre >##      Admit Gender Dept Freq
-## 1 Admitted   Male    A  512
-## 2 Rejected   Male    A  313
-## 3 Admitted Female    A   89
-## 4 Rejected Female    A   19
-## 5 Admitted   Male    B  353
-## 6 Rejected   Male    B  207</pre>
-
-</article></slide><slide class=''><hgroup><h2>Loading Data</h2></hgroup><article  id="loading-data">
-
-<p>We will explore two methods for loading data:</p>
+<li>It&#39;s slow, especially on Macs</li>
+<li>I hate Microsoft&#39;s business model</li>
+<li>Using it for analysis can lead to some disastruous errors
 
 <ul>
-<li>Via a Comma Separated Values (CSV) file, from
-
-<ul>
-<li>Excel files</li>
-<li>Google docs</li>
+<li><a href='http://www.economist.com/blogs/graphicdetail/2016/09/daily-chart-3?fsrc=scn/fb/te/bl/ed/excelerrorsandsciencepapers' title=''>The Economist</a> article</li>
+<li><a href='http://www.bloomberg.com/news/articles/2013-04-18/faq-reinhart-rogoff-and-the-excel-error-that-changed-history' title=''>Reinhart/Rogoff</a> and the Excel error that changed history</li>
 </ul></li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>CSV Files</h2></hgroup><article  id="csv-files">
+<p><strong>Comma-separated values</strong> files are a &quot;liberated&quot; format for spreadsheet data</p>
+
+</article></slide><slide class=''><hgroup><h2>What is a CSV file?</h2></hgroup><article  id="what-is-a-csv-file">
 
 <ul>
-<li>An Excel <code>.xlsx</code> file not only contains data, but also lots of <a href='https://www.google.com/search?q=metadata&amp;oq=metadata&amp;aqs=chrome..69i57j69i65j0l4.1567j0j9&amp;sourceid=chrome&amp;es_sm=119&amp;ie=UTF-8' title=''>metadata</a>, i.e. data about data, that we don&#39;t need.</li>
-<li>A CSV file is just data, where values for a given row are separated by commas. It is the most flexible way to share a table of data.</li>
-</ul>
-
-<p>CSV = No fluff, just stuff.</p>
-
-</article></slide><slide class=''><hgroup><h2>Excel Files</h2></hgroup><article  id="excel-files">
-
-<p>To load data in an Excel spreadsheet in RStudio, we need the values to be in <strong>tidy</strong> format:</p>
+<li>An Excel <code>.xlsx</code> file not only contains the data, but also lots of metadata (data about the data) that we don&#39;t need.</li>
+<li>A <a href='http://www.sqlshack.com/wp-content/uploads/2015/02/word-image35.png' title=''><code>.csv</code></a> file is just data and no fluff:
 
 <ul>
-<li>Data are in a table: i.e. perfect rectangular shpe</li>
-<li>Columns are variables</li>
-<li>Rows are observations, with the exception of the first row which are the variable names AKA a <em>header</em> row.</li>
+<li>Rows are separated by lines.</li>
+<li>Values for a given row (i.e. variables) are separated by commas. Each row has equal number of commas.</li>
+<li>The first row is typically a header row with the column/variable names</li>
+</ul></li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>Excel Files</h2></hgroup><article  id="excel-files-1">
+<p>Note <code>.csv</code> files are in <strong>tidy</strong> data format (from Lec02).</p>
 
-<p>We convert the <code>UCBAdmissions.xlsx</code> file to CSV format to eliminate the metadata:</p>
+</article></slide><slide class=''><hgroup><h2>Convert to CSV</h2></hgroup><article  id="convert-to-csv">
+
+<ul>
+<li>Typically in the open source community, data is shared in <code>.csv</code> format.</li>
+<li>But if someone sends you a <code>.xlsx</code> file, there are two ways to convert it to <code>.csv</code> format:
 
 <ol>
-<li>From Excel&#39;s menu bar -&gt; <em>File</em> -&gt; <em>Save As&#8230;</em> -&gt; <em>Format</em> -&gt; <em>Windows Comma Separated (.csv)</em></li>
-<li>Add <code>.csv</code> to the filename to <em>Save As</em>. i.e. your filename should be <code>UCBAdmissions.csv</code></li>
-<li>Click <em>Continue</em></li>
+<li>Using Excel (necessitates Microsoft Office)</li>
+<li>Using Google Docs (free, but necessitates a Gmail address)</li>
+</ol></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>1. Convert to CSV with Excel</h2></hgroup><article  id="convert-to-csv-with-excel">
+
+<ol>
+<li>Open <code>states.xlsx</code> in Excel</li>
+<li>From Excel&#39;s menu bar -&gt; <em>File</em> -&gt; <em>Save As&#8230;</em> -&gt; <em>File Format</em> -&gt; <em>Windows Comma Separated (.csv)</em></li>
+<li>Add <code>.csv</code> to the filename to <em>Save As</em>. Your filename should be <code>states.csv</code></li>
 </ol>
 
-</article></slide><slide class=''><hgroup><h2>Excel Files</h2></hgroup><article  id="excel-files-2">
-
-<p>We load the CSV file into R.</p>
+</article></slide><slide class=''><hgroup><h2>2. Convert to CSV with Google Sheets</h2></hgroup><article  id="convert-to-csv-with-google-sheets">
 
 <ol>
-<li>From RStudio -&gt; <em>Environment</em> Panel -&gt; <em>Import Dataset</em> -&gt; <em>From Text File&#8230;</em> -&gt; Click on <code>UCBAdmissions.csv</code></li>
-<li>Make sure <em>Heading</em> is set to <em>Yes</em>. This indicates that the first row is a <em>header</em> row.</li>
+<li>While logged-in to your gmail, open your <a href='https://drive.google.com/drive/my-drive' title=''>Google Drive</a></li>
+<li>Drop the file <code>states.xlsx</code> into the browser and double-click it</li>
+<li>Click on open in Google Sheets</li>
+<li>From the Google Sheets menu bar go to <em>File</em> -&gt; <em>Download As</em> -&gt; <em>Comma-separated values</em> -&gt; Save the file to your computer.</li>
+<li>Rename the file <code>states.csv</code></li>
+</ol>
+
+</article></slide><slide class=''><hgroup><h2>Load CSV into RStudio</h2></hgroup><article  id="load-csv-into-rstudio">
+
+<ol>
+<li>In the RStudio Files panel, navigate to the file and click it, and click &quot;Import Dataset&quot;</li>
+<li>Copy the commands in the Code Preview box in the bottom right. You can paste this an R Script so that you can automate this procedure in the future.</li>
 <li>Click <em>Import</em></li>
 </ol>
 
-<p>Note in your console panel R spits out the command to do this automatically. You can copy this line into your R scripts.</p>
+<p>Note: <code>readr::read_csv()</code> is an improved version of <code>read.csv()</code> in base (default) R.</p>
 
-</article></slide><slide class=''><hgroup><h2>Google Docs</h2></hgroup><article  id="google-docs">
+</article></slide><slide class=''><hgroup><h2>Directory Structure</h2></hgroup><article  id="directory-structure">
 
-<p>From the Google Docs menu bar (not your browser&#39;s menu bar):</p>
+<p>Let&#39;s look at the <code>read_csv()</code> command. Note it specifies the <strong>directory path</strong>. If you don&#39;t specify this path, R will be default look for the file in the <strong>current working directory</strong>, which you can</p>
 
 <ul>
-<li><em>File</em> -&gt; <em>Download As</em> -&gt; <em>Comma-separated values</em> -&gt; Save the file to your computer.</li>
-<li>Repeat the steps from the last slide to load into R.</li>
+<li>Set/identify with <code>setwd()</code>/<code>getwd()</code></li>
+<li>Set/identify in the Files panel -&gt; <em>More</em> -&gt; Set As/Go To Working Directory</li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>Combining Data Sets via Join Operations</h2></hgroup><article  id="combining-data-sets-via-join-operations">
+<p>This often trips up people when sharing code.</p>
 
-<p>Imagine we have two data frames <strong><code>x** and **y</code></strong>:</p>
+</article></slide><slide class=''><hgroup><h2>Combining Data Sets via Joins</h2></hgroup><article  id="combining-data-sets-via-joins">
 
-<pre >##   x1 x2
-## 1  A  1
-## 2  B  2
-## 3  C  3</pre>
+<p>Imagine we have two data frames <code>x</code> and <code>y</code>:</p>
 
-<pre >##   x1    x3
-## 1  A  TRUE
-## 2  B FALSE
-## 3  D  TRUE</pre>
+<pre >## # A tibble: 3 × 2
+##      x1    x2
+##   &lt;chr&gt; &lt;dbl&gt;
+## 1     A     1
+## 2     B     2
+## 3     C     3</pre>
 
-<p>We want to <strong>join</strong> them along the categorical variable <code>x1</code>and end up with a new data frame that has all three variables:</p>
+<pre >## # A tibble: 3 × 2
+##      x1    x3
+##   &lt;chr&gt; &lt;lgl&gt;
+## 1     A  TRUE
+## 2     B FALSE
+## 3     D  TRUE</pre>
 
-</article></slide><slide class=''><hgroup><h2>Combining Data Sets via Join Operations</h2></hgroup><article  id="combining-data-sets-via-join-operations-1">
+</article></slide><slide class=''><hgroup><h2>Combining Data Sets via Joins</h2></hgroup><article  id="combining-data-sets-via-joins-1">
+
+<p>We want to <strong>join</strong> them along the categorical variable <code>x1</code> and end up with a new data frame that has all three variables.</p>
+
+</article></slide><slide class=''><hgroup><h2>Combining Data Sets via Joins</h2></hgroup><article  id="combining-data-sets-via-joins-2">
 
 <pre class = 'prettyprint lang-r'>inner_join(x, y, by = &quot;x1&quot;)</pre>
 
-<pre >## Warning in inner_join_impl(x, y, by$x, by$y, suffix$x, suffix$y): joining
-## factors with different levels, coercing to character vector</pre>
-
-<pre >##   x1 x2    x3
-## 1  A  1  TRUE
-## 2  B  2 FALSE</pre>
+<pre >## # A tibble: 2 × 3
+##      x1    x2    x3
+##   &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;
+## 1     A     1  TRUE
+## 2     B     2 FALSE</pre>
 
 <pre class = 'prettyprint lang-r'>full_join(x, y, by = &quot;x1&quot;)</pre>
 
-<pre >## Warning in full_join_impl(x, y, by$x, by$y, suffix$x, suffix$y): joining
-## factors with different levels, coercing to character vector</pre>
+<pre >## # A tibble: 4 × 3
+##      x1    x2    x3
+##   &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;
+## 1     A     1  TRUE
+## 2     B     2 FALSE
+## 3     C     3    NA
+## 4     D    NA  TRUE</pre>
 
-<pre >##   x1 x2    x3
-## 1  A  1  TRUE
-## 2  B  2 FALSE
-## 3  C  3    NA
-## 4  D NA  TRUE</pre>
-
-</article></slide><slide class=''><hgroup><h2>Combining Data Sets via Join Operations</h2></hgroup><article  id="combining-data-sets-via-join-operations-2">
+</article></slide><slide class=''><hgroup><h2>Combining Data Sets via Joins</h2></hgroup><article  id="combining-data-sets-via-joins-3">
 
 <ul>
-<li><code>dplyr</code>&#39;s operations to join data sets are inspired by SQL (Structured Query Language), which is used to query large databases.</li>
+<li><code>dplyr</code>&#39;s operations to join data sets are <a href='https://github.com/hadley/dplyr/blob/master/vignettes/two-table.Rmd#databases' title=''>inspired</a> by SQL (Structured Query Language), which is used to query large databases.</li>
 <li>If a value is missing during the join, <code>NA</code> (R code for missing value) is inserted.</li>
 </ul>
 
@@ -236,7 +240,7 @@ slides > slide.backdrop {
 
 </article></slide><slide class=''><hgroup><h2>The &quot;join by&quot; variable</h2></hgroup><article  id="the-join-by-variable">
 
-<p>If the &quot;join by&quot; variable has different names in the data frames. Ex:</p>
+<p>What if the &quot;join by&quot; variable has different names? Ex:</p>
 
 <ul>
 <li>name <code>a</code> in data frame <code>x</code></li>
@@ -259,13 +263,7 @@ slides > slide.backdrop {
 <ul>
 <li>See <code>?join</code> for a list of the different types of joins</li>
 <li>This <a href='https://twitter.com/yutannihilation/status/551572539697143808' title=''>illustration</a> succinctly summarizes all of them.</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Good Practice</h2></hgroup><article  id="good-practice">
-
-<p>At the beginning of <code>Lec03.R</code>, I load all necessary packages at the beginning.</p>
-
-<p>This is good practice people know which packages they need installed. For example, I didn&#39;t know I needed a particular package before I boarded a 4 hour flight because the package loading was buried in the file.</p></article></slide>
+</ul></article></slide>
 
 
   <slide class="backdrop"></slide>

@@ -15,13 +15,13 @@ states <- data.frame(
     rep("midwest", length(midwest)),
     rep("west", length(west))
   )
-) %>% 
+) %>%
   arrange(state) %>%
   mutate(fullname = state.name[match(state, state.abb)]) %>%
   mutate(fullname = tolower(fullname)) %>%
-  select(state, fullname, region) %>% 
+  select(state, fullname, region) %>%
   rename(state_abbrev = state)
 
-write_csv(states, path="./Lec03 Joining and The Grammar of Graphics/states.csv")
+write_csv(states, path="states.csv")
 
 

@@ -2,12 +2,16 @@
 #
 # GOOD PRACTICE:
 #
-# We try to do all the package loading at the beginning of any R script file or
+# Try to do all the package loading at the beginning of any R script file or
 # any .Rmd R Markdown file, so that anyone else who wants to run this analysis
 # can see in one shot which packages they will need to install.
+
+# This is good practice so people know which packages they need installed. For
+# example, I didn't know I needed a particular package before I boarded a 5 hour
+# flight because the package loading was buried deep in the file.
 library(dplyr)
 library(ggplot2)
-
+library(rvest)
 
 
 
@@ -46,7 +50,8 @@ wp_data <- wp_data %>%
   ) %>%
   mutate(
     comp_fee = currency_to_numeric(comp_fee),
-    ave_no_need_grant = currency_to_numeric(ave_no_need_grant)
+    ave_no_need_grant = currency_to_numeric(ave_no_need_grant),
+    p_need_grant = currency_to_numeric(p_need_grant)
   )
 
 
@@ -98,9 +103,9 @@ wp_data %>%
 # Let's test out join commands on these data sets.  Setting stringsAsFactors =
 # FALSE treats the letters A, B, C, D as character strings, and not factors
 # (i.e. categorical variables)
-x <- data.frame(x1=c("A","B","C"), x2=c(1,2,3), stringsAsFactors = FALSE)
-y <- data.frame(x1=c("A","B","D"), x3=c(TRUE,FALSE,TRUE), stringsAsFactors = FALSE)
-z <- data.frame(x1=c("B","C","D"), x2=c(2,3,4), stringsAsFactors = FALSE)
+x <- data_frame(x1=c("A","B","C"), x2=c(1,2,3))
+y <- data_frame(x1=c("A","B","D"), x3=c(TRUE,FALSE,TRUE))
+z <- data_frame(x1=c("B","C","D"), x2=c(2,3,4))
 
 # Look at the data frames
 x
@@ -123,7 +128,7 @@ setdiff(x, z)
 bind_rows(x, y)
 bind_rows(x, x) %>% dplyr::distinct()
 
-# Note that we prefaced the distinct() command with dplyr::, indicating that
+# Refresher: we prefaced the distinct() command with dplyr::, indicating that
 # this command is from the dplyr package. While not necessary in this case, it
 # can be useful when
 # -you might have two packages loaded that share function names and you need to

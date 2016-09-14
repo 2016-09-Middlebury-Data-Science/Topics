@@ -25,110 +25,106 @@ library(dplyr)
 
 
 
+## I Hate Excel
 
-## Preparation for Today
+* It's slow, especially on Macs
+* I hate Microsoft's business model
+* Using it for analysis can lead to some disastruous errors
+    + [The Economist](http://www.economist.com/blogs/graphicdetail/2016/09/daily-chart-3?fsrc=scn/fb/te/bl/ed/excelerrorsandsciencepapers) article
+    + [Reinhart/Rogoff](http://www.bloomberg.com/news/articles/2013-04-18/faq-reinhart-rogoff-and-the-excel-error-that-changed-history) and the Excel error that
+    changed history
 
-* Open `UCBAdmissions.xlsx` in Excel
-
-
-
-## Today's Data
-
-The University of California Berkeley was sued in 1973 for bias against women who had applied for admission to graduate schools. We consider the $n=4526$ people who applied to the 6 largest departments.
-
-```{r, echo=FALSE}
-data("UCBAdmissions")
-UCBAdmissions %>% as.data.frame() %>% head()
-```
+**Comma-separated values** files are a "liberated" format for spreadsheet data
 
 
 
+## What is a CSV file?
 
+* An Excel `.xlsx` file not only contains the data, but also lots of metadata (data about the data) that we don't need.
+* A [`.csv`](http://www.sqlshack.com/wp-content/uploads/2015/02/word-image35.png) file is just data and no fluff:
+    + Rows are separated by lines.
+    + Values for a given row (i.e. variables) are separated by commas. Each row has equal number of commas.
+    + The first row is typically a header row with the column/variable names
 
-## Loading Data
-
-We will explore two methods for loading data:
-
-* Via a Comma Separated Values (CSV) file, from 
-    + Excel files
-    + Google docs
-
-
-
-## CSV Files
-
-* An Excel `.xlsx` file not only contains data, but also lots of [metadata](https://www.google.com/search?q=metadata&oq=metadata&aqs=chrome..69i57j69i65j0l4.1567j0j9&sourceid=chrome&es_sm=119&ie=UTF-8), i.e. data about data, that we don't need.
-* A CSV file is just data, where values for a given row are separated by commas. It is the most flexible way to share a table of data.
-
-CSV = No fluff, just stuff.
+Note `.csv` files are in **tidy** data format (from Lec02).
 
 
 
+## Convert to CSV
 
-
-## Excel Files
-
-To load data in an Excel spreadsheet in RStudio, we need the values to be in **tidy**
-format:
-
-* Data are in a table: i.e. perfect rectangular shpe
-* Columns are variables
-* Rows are observations, with the exception of the first row which are the variable names AKA a *header* row.
+* Typically in the open source community, data is shared in `.csv` format.
+* But if someone sends you a `.xlsx` file, there are two ways to convert it to `.csv` format:
+    1. Using Excel (necessitates Microsoft Office)
+    1. Using Google Docs (free, but necessitates a Gmail address)
 
 
 
+## 1. Convert to CSV with Excel
 
-
-## Excel Files
-
-We convert the `UCBAdmissions.xlsx` file to CSV format to eliminate the metadata:
-
-1. From Excel's menu bar -> *File* -> *Save As...* -> *Format* -> *Windows Comma Separated (.csv)*
-1. Add `.csv` to the filename to *Save As*. i.e. your filename should be `UCBAdmissions.csv`
-1. Click *Continue*
+1. Open `states.xlsx` in Excel
+1. From Excel's menu bar -> *File* -> *Save As...* -> *File Format* -> *Windows Comma Separated (.csv)*
+1. Add `.csv` to the filename to *Save As*. Your filename should be `states.csv`
 
 
 
-## Excel Files
+## 2. Convert to CSV with Google Sheets
 
-We load the CSV file into R.
+1. While logged-in to your gmail, open your [Google Drive](https://drive.google.com/drive/my-drive)
+1. Drop the file `states.xlsx` into the browser and double-click it
+1. Click on open in Google Sheets
+1. From the Google Sheets menu bar go to *File* -> *Download As* -> *Comma-separated values* -> Save the file to your computer.
+1. Rename the file `states.csv`
 
-1. From RStudio -> *Environment* Panel -> *Import Dataset* -> *From Text File...* -> Click on `UCBAdmissions.csv`
-1. Make sure *Heading* is set to *Yes*. This indicates that the first row is a *header* row.
+
+
+## Load CSV into RStudio
+
+1. In the RStudio Files panel, navigate to the file and click it, and click "Import Dataset"
+1. Copy the commands in the Code Preview box in the bottom right. You can paste this an R Script so that you can automate this procedure in the future.
 1. Click *Import*
 
-Note in your console panel R spits out the command to do this automatically. You can copy this line into your R scripts.
+Note: `readr::read_csv()` is an improved version of `read.csv()` in base (default) R.
 
 
 
-## Google Docs
+## Directory Structure
 
-From the Google Docs menu bar (not your browser's menu bar):
+Let's look at the `read_csv()` command. Note it specifies the **directory
+path**. If you don't specify this path, R will be default look for the file in the
+**current working directory**, which you can
 
-* *File* -> *Download As* -> *Comma-separated values* -> Save the file to your computer.
-* Repeat the steps from the last slide to load into R.
+* Set/identify with `setwd()`/`getwd()`
+* Set/identify in the Files panel -> *More* -> Set As/Go To Working Directory
+
+This often trips up people when sharing code.
 
 
 
 
 
-## Combining Data Sets via Join Operations
 
-Imagine we have two data frames **`x** and **y`**:
+
+
+## Combining Data Sets via Joins
+
+Imagine we have two data frames `x` and `y`:
 
 ```{r, echo=FALSE}
-x <- data.frame(x1=c("A","B","C"), x2=c(1,2,3))
-y <- data.frame(x1=c("A","B","D"), x3=c(TRUE,FALSE,TRUE))
-x
+x <- data_frame(x1=c("A","B","C"), x2=c(1,2,3))
+y <- data_frame(x1=c("A","B","D"), x3=c(TRUE,FALSE,TRUE))
+x 
 y
 ```
 
-We want to **join** them along the categorical variable `x1`and end up with a
-new data frame that has all three variables:
+
+## Combining Data Sets via Joins
+
+We want to **join** them along the categorical variable `x1` and end up with a
+new data frame that has all three variables.
 
 
 
-## Combining Data Sets via Join Operations
+## Combining Data Sets via Joins
 
 
 ```{r, echo=TRUE}
@@ -138,10 +134,10 @@ full_join(x, y, by = "x1")
 
 
 
-## Combining Data Sets via Join Operations
+## Combining Data Sets via Joins
 
 
-* `dplyr`'s operations to join data sets are inspired by SQL (Structured Query
+* `dplyr`'s operations to join data sets are [inspired](https://github.com/hadley/dplyr/blob/master/vignettes/two-table.Rmd#databases) by SQL (Structured Query
 Language), which is used to query large databases.
 * If a value is missing during the join, `NA` (R code for missing value) is
 inserted.
@@ -158,7 +154,7 @@ inner_join(x, y, by = "x1")
 ## The "join by" variable
 
 
-If the "join by" variable has different names in the data frames.  Ex:
+What if the "join by" variable has different names?  Ex:
 
 * name `a` in data frame `x`
 * name `b` in data frame `y`
@@ -183,15 +179,6 @@ succinctly summarizes all of them.
 
 
 
-## Good Practice
-
-
-At the beginning of `Lec03.R`, I load all necessary packages at the beginning.
-
-This is good practice people know which packages they need 
-installed. For example, I didn't know I needed a particular package before I 
-boarded a 4 hour flight because the package loading was buried in
-the file.
 
 
 
