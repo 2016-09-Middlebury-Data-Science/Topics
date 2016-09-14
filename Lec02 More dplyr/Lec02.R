@@ -40,9 +40,9 @@ car_list <- mtcars %>%
   select(make_model, hp)
 car_list
 
-# -Compute the average miles per gallon (mpg) for automatic vs manual transmission
-# We need to inject a grouping structure to the mtcars data frame via group_by(am)
-# which R will treat as a categorical variable with 2 levels.
+# -Compute the average miles per gallon (mpg) for automatic vs manual
+# transmission We need to inject a grouping structure to the mtcars data frame
+# via group_by(am) which R will treat as a categorical variable with 2 levels.
 mtcars %>%
   group_by(am) %>%
   summarize(avg_mpg = mean(mpg))
@@ -59,14 +59,23 @@ wp_data <- webpage %>%
   html_nodes("table") %>%
   .[[1]] %>%
   html_table()
+
+# Play around with the arrows to sort columns, and the filter command to only
+# show a subset of the rows. Note, you can't change any values in the Viewer, you
+# can only look at them.
 View(wp_data)
 
 # Let's view the data in the console
 wp_data
 
-# This is unwieldy, so let's convert to tbl_df format so that the output isn't overwhelming
-wp_data <- wp_data %>% tbl_df()
+# This is unwieldy, so let's convert to tbl_df format so that the output isn't
+# overwhelming
+wp_data <- wp_data %>%
+  tbl_df()
 wp_data
+
+# Alternatively we can use the glimpse() function for a quick scan
+glimpse(wp_data)
 
 
 
@@ -76,9 +85,12 @@ wp_data
 # The column names are a little unwieldy. Let's rename them
 # using: rename(data_frame, NEW_NAME = OLD_NAME)
 #
-# Some of the variable names have spaces, and dealing with spaces in
-# programming is a pain in the ass (PITA). Note how we treat the variable names
-# that have spaces differently: we surround them with ` (top left of keyboard).
+# Some of the variable names have spaces, and dealing with spaces in programming
+# is a pain. Note how we
+# -treat the variable names that have spaces differently: we surround them with
+#  ` (top left of keyboard).
+# -combine several variables in a single rename call, which a separate line for
+#  each varible for legibility
 wp_data <- wp_data %>%
   rename(
     school = School,
@@ -94,9 +106,8 @@ wp_data
 # All money related values are not numerical variables but rather character
 # strings (note the chr under the variables comp_fee and ave_no_need_grant).
 # We need to convert these character strings to numerical using a function.
-# Don't worry about understanding this function for now, we'll talk about
-# manipulating text data later.
-
+# Don't worry about understanding this function for now, we'll talk about this
+# more when discussing text data later in the course.
 currency_to_numeric <- function(x){
   # Convert currencies to numeric i.e. strip dollar signs and commas
   x <- gsub('\\$','', as.character(x))
@@ -106,7 +117,8 @@ currency_to_numeric <- function(x){
 }
 currency_to_numeric("$19,999")
 
-# mutate the data set to change all currency values.
+# mutate the data set to change all currency values, again combining several
+# variables to mutate in a single mutate() call
 wp_data <- wp_data %>%
   mutate(
     comp_fee = currency_to_numeric(comp_fee),
@@ -128,13 +140,17 @@ NE_states <- c("CT", "DC", "DE", "MA", "MD", "ME", "NH", "NJ", "NY", "PA", "RI",
 # for it. Ex:
 ifelse(c(TRUE, TRUE, FALSE, TRUE, FALSE), "apple", "orange")
 
-# Also recall the %in% function
+# Also note the %in% function
 c("TX", "VT", "NY", "WA") %in% NE_states
 
 # We combine these two functions to mutate the desired variable
 wp_data <- wp_data %>%
   mutate(NE = ifelse(state %in% NE_states, 'NE', 'non-NE'))
+
+# We inspect
 wp_data
+wp_data$NE
+
 
 
 
@@ -173,7 +189,9 @@ wp_data %>%
 #------------------------------------------------------------------------------
 # Step 3: summarise() and filter()
 #------------------------------------------------------------------------------
-# Find the mean and standard deviation of each variable by region (NE)
+# Find the mean and standard deviation of each variable by region (NE). The
+# group_by() function assigns groups to the rows based on some cateogorical
+# variable, in this case if the school is in the NE or not!
 wp_data %>%
   group_by(NE) %>%
   summarise(mean_merit = mean(ave_no_need_grant))
