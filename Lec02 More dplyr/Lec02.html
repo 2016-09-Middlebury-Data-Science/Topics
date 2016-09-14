@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Lecture 02: Loading Data</title>
+  <title>Lecture 02: More dplyr</title>
 
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -26,7 +26,7 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: 'Lecture 02: Loading Data',
+                title: 'Lecture 02: More dplyr',
                         useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -104,126 +104,26 @@ slides > slide.backdrop {
 }
 </style>
 
-<slide class=''><hgroup><h2>Data Manipulation</h2></hgroup><article  id="data-manipulation">
+<slide class=''><hgroup><h2>Today&#39;s Data</h2></hgroup><article  id="todays-data">
 
-<p>We discuss a <strong>grammar for data manipulation</strong>. Other terms for &quot;data manipulation&quot; include:</p>
-
-<ul>
-<li><strong>data wrangling</strong></li>
-<li><strong>data munging</strong></li>
-<li>The <a href='http://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html' title=''>New York Times</a> takes a rather pessimistic view.</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Preparation for Today</h2></hgroup><article  id="preparation-for-today">
-
-<ul>
-<li>Download the relevant files for today&#39;s lecture at <a href='https://github.com/Middlebury-Data-Science/Topics' title=''>https://github.com/Middlebury-Data-Science/Topics</a></li>
-<li>Open <code>UCBAdmissions.xlsx</code> in Excel</li>
-<li>Open the HW schedule in Google Docs: <a href='http://bit.ly/1oJKpVS' title=''>http://bit.ly/1oJKpVS</a></li>
-<li>Install the <a href='http://blog.rstudio.org/2014/11/24/rvest-easy-web-scraping-with-r/' title=''><code>rvest</code></a> package in RStudio</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Statistics Pedagogy</h2></hgroup><article  id="statistics-pedagogy">
-
-<p>From the American Statistician (Cobb 2015): <a href='http://www.tandfonline.com/doi/full/10.1080/00031305.2015.1093029#abstract' title=''>Mere Renovation is Too Little Too Late: We Need to Rethink our Undergraduate Curriculum from the Ground Up</a></p>
-
-<p>Cobb advocates &quot;minimizing prerequisites to research&quot;:</p>
-
-<blockquote>
-<blockquote>
-<p>In the Humanities, students in a first course engage with original sources. You do not just prepare your students to read Austen; they read Austen. You do not just prepare students to hear Bach; they hear Bach.</p>
-</blockquote>
-</blockquote>
-
-</article></slide><slide class=''><hgroup><h2>Statistics Pedagogy</h2></hgroup><article  id="statistics-pedagogy-1">
-
-<p>In the context of this class: you need to be doing research QUICK!</p>
-
-<p>Research here doesn&#39;t not mean necessary publishing in journals, but more simply <strong>looking at real data that&#39;s relevant to the student</strong>.</p>
-
-</article></slide><slide class=''><hgroup><h2>Today&#39;s Data</h2></hgroup><article  id="todays-data">
-
-<p>The University of California Berkeley was sued in 1973 for bias against women who had applied for admission to graduate schools. We consider the \(n=4526\) people who applied to the 6 largest departments.</p>
-
-<pre >##      Admit Gender Dept Freq
-## 1 Admitted   Male    A  512
-## 2 Rejected   Male    A  313
-## 3 Admitted Female    A   89
-## 4 Rejected Female    A   19
-## 5 Admitted   Male    B  353
-## 6 Rejected   Male    B  207</pre>
-
-</article></slide><slide class=''><hgroup><h2>Today&#39;s Data</h2></hgroup><article  id="todays-data-1">
-
-<p>We also consider data on tuition and financial aid from various institutions across the United States from the <a href="http://apps.washingtonpost.com/g/page/local/college-grants-for-the-affluent/1526/" target="_blank">Washington Post</a>.</p>
-
-</article></slide><slide class=''><hgroup><h2>Loading Data</h2></hgroup><article  id="loading-data">
-
-<p>We will explore two methods for loading data:</p>
-
-<ul>
-<li>Via a Comma Separated Values (CSV) file, from
-
-<ul>
-<li>Excel files</li>
-<li>Google docs</li>
-</ul></li>
-<li>Via the web using the <a href='http://blog.rstudio.org/2014/11/24/rvest-easy-web-scraping-with-r/' title=''><code>rvest</code></a> package in RStudio package</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>CSV Files</h2></hgroup><article  id="csv-files">
-
-<ul>
-<li>An Excel <code>.xlsx</code> file not only contains data, but also lots of <a href='https://www.google.com/search?q=metadata&amp;oq=metadata&amp;aqs=chrome..69i57j69i65j0l4.1567j0j9&amp;sourceid=chrome&amp;es_sm=119&amp;ie=UTF-8' title=''>metadata</a>, i.e. data about data, that we don&#39;t need.</li>
-<li>A CSV file is just data, where values for a given row are separated by commas. It is the most flexible way to share a table of data.</li>
-</ul>
-
-<p>CSV = No fluff, just stuff.</p>
-
-</article></slide><slide class=''><hgroup><h2>Excel Files</h2></hgroup><article  id="excel-files">
-
-<p>To load data in an Excel spreadsheet in RStudio, we need the values to be in <strong>tidy</strong> format:</p>
-
-<ul>
-<li>Data are in a table: i.e. perfect rectangular shpe</li>
-<li>Columns are variables</li>
-<li>Rows are observations, with the exception of the first row which are the variable names AKA a <em>header</em> row.</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Excel Files</h2></hgroup><article  id="excel-files-1">
-
-<p>We convert the <code>UCBAdmissions.xlsx</code> file to CSV format to eliminate the metadata:</p>
-
-<ol>
-<li>From Excel&#39;s menu bar -&gt; <em>File</em> -&gt; <em>Save As&#8230;</em> -&gt; <em>Format</em> -&gt; <em>Windows Comma Separated (.csv)</em></li>
-<li>Add <code>.csv</code> to the filename to <em>Save As</em>. i.e. your filename should be <code>UCBAdmissions.csv</code></li>
-<li>Click <em>Continue</em></li>
-</ol>
-
-</article></slide><slide class=''><hgroup><h2>Excel Files</h2></hgroup><article  id="excel-files-2">
-
-<p>We load the CSV file into R.</p>
-
-<ol>
-<li>From RStudio -&gt; <em>Environment</em> Panel -&gt; <em>Import Dataset</em> -&gt; <em>From Text File&#8230;</em> -&gt; Click on <code>UCBAdmissions.csv</code></li>
-<li>Make sure <em>Heading</em> is set to <em>Yes</em>. This indicates that the first row is a <em>header</em> row.</li>
-<li>Click <em>Import</em></li>
-</ol>
-
-<p>Note in your console panel R spits out the command to do this automatically. You can copy this line into your R scripts.</p>
-
-</article></slide><slide class=''><hgroup><h2>Google Docs</h2></hgroup><article  id="google-docs">
-
-<p>From the Google Docs menu bar (not your browser&#39;s menu bar):</p>
-
-<ul>
-<li><em>File</em> -&gt; <em>Download As</em> -&gt; <em>Comma-separated values</em> -&gt; Save the file to your computer.</li>
-<li>Repeat the steps from the last slide to load into R.</li>
-</ul>
+<p>We consider data on tuition and financial aid from various institutions across the United States from the <a
+href="http://apps.washingtonpost.com/g/page/local/college-grants-for-the-affluent/1526/"
+target="_blank">Washington Post</a>.</p>
 
 </article></slide><slide class=''><hgroup><h2>Basic Webscraping</h2></hgroup><article  id="basic-webscraping">
 
-<p>The other way we&#39;ll load is by basic <strong>web-scraping</strong> via the <a href='http://blog.rstudio.org/2014/11/24/rvest-easy-web-scraping-with-r/' title=''><code>rvest</code></a> package in RStudio package. Run the following code in RStudio:</p>
+<p>There are many ways to load data into R, for example from a spreasheet in comma separated values (CSV) file, which we&#39;ll see next time.</p>
+
+<p>Today, we&#39;ll do basic <strong>web-scraping</strong> via the <a href='http://blog.rstudio.org/2014/11/24/rvest-easy-web-scraping-with-r/' title=''><code>rvest</code></a> package in RStudio package. Run the following code in RStudio:</p>
+
+<pre class = 'prettyprint lang-r'>library(rvest)
+webpage &lt;- &quot;http://apps.washingtonpost.com/g/page/local/college-grants-for-the-affluent/1526/&quot;
+wp_data &lt;- webpage %&gt;%
+  read_html() %&gt;% 
+  html_nodes(&quot;table&quot;) %&gt;% 
+  .[[1]] %&gt;% 
+  html_table()
+View(wp_data)</pre>
 
 </article></slide><slide class=''><hgroup><h2>Basic Webscraping</h2></hgroup><article  id="basic-webscraping-1">
 
@@ -234,7 +134,11 @@ slides > slide.backdrop {
 <li>In Firefox&#39;s menu bar -&gt; Tools -&gt; Web Developer -&gt; Page Source</li>
 </ul>
 
-<p>The <code>html_nodes()</code> function looks for HTML tags.</p></article></slide>
+<p>The <code>html_nodes()</code> function looks for HTML tags.</p>
+
+</article></slide><slide class=''><hgroup><h2>Basic Webscraping</h2></hgroup><article  id="basic-webscraping-2">
+
+<p>As long as your see the data from the table you want in the raw HTML code, you should be able to scrape it. However, this may take a little work&#8230;</p></article></slide>
 
 
   <slide class="backdrop"></slide>

@@ -1,0 +1,78 @@
+---
+title: "Lecture 02: More dplyr"
+author: "Albert Y. Kim"
+date: "September 14, 2016"
+output: ioslides_presentation
+---
+
+<style>
+h2 { 
+ color: #3399ff;		
+}
+h3 { 
+ color: #3399ff;		
+}
+slides > slide.backdrop {
+  background: white;
+}
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(dplyr)
+```
+
+
+
+## Today's Data
+
+We consider data on tuition and financial aid from various institutions across 
+the United States from the <a
+href="http://apps.washingtonpost.com/g/page/local/college-grants-for-the-affluent/1526/"
+target="_blank">Washington Post</a>.
+
+
+
+## Basic Webscraping
+
+There are many ways to load data into R, for example from a spreasheet in comma
+separated values (CSV) file, which we'll see next time. 
+
+Today, we'll do basic **web-scraping** via the
+[`rvest`](http://blog.rstudio.org/2014/11/24/rvest-easy-web-scraping-with-r/)
+package in RStudio package. Run the following code in RStudio:
+
+```{r, eval=FALSE, echo=TRUE}
+library(rvest)
+webpage <- "http://apps.washingtonpost.com/g/page/local/college-grants-for-the-affluent/1526/"
+wp_data <- webpage %>%
+  read_html() %>% 
+  html_nodes("table") %>% 
+  .[[1]] %>% 
+  html_table()
+View(wp_data)
+```
+
+
+
+## Basic Webscraping
+
+The rvest package works by scraping HTML code used to make webpages.  To view a webpage's raw HTML code:
+
+* In Google Chrome's menu bar -> View -> Developer -> View Source
+* In Firefox's menu bar -> Tools -> Web Developer -> Page Source
+
+The `html_nodes()` function looks for HTML tags.
+
+
+
+## Basic Webscraping
+
+As long as your see the data from the table you want in the raw HTML
+code, you should be able to scrape it. However, this may take a little work...
+
+
+
+
+
