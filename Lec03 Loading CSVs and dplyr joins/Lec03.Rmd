@@ -41,7 +41,7 @@ library(dplyr)
 ## What is a CSV file?
 
 * An Excel `.xlsx` file not only contains the data, but also lots of metadata (data about the data) that we don't need.
-* A [`.csv`](http://www.sqlshack.com/wp-content/uploads/2015/02/word-image35.png) file is just data and no fluff:
+* A `.csv` file [(example)](http://www.sqlshack.com/wp-content/uploads/2015/02/word-image35.png)  is just data and no fluff:
     + Rows are separated by lines.
     + Values for a given row (i.e. variables) are separated by commas. Each row has equal number of commas.
     + The first row is typically a header row with the column/variable names
