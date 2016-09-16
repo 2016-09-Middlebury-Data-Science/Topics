@@ -100,9 +100,7 @@ wp_data %>%
 #------------------------------------------------------------------------------
 # Learning the join command
 #------------------------------------------------------------------------------
-# Let's test out join commands on these data sets.  Setting stringsAsFactors =
-# FALSE treats the letters A, B, C, D as character strings, and not factors
-# (i.e. categorical variables)
+# Let's test out join commands on these data sets.
 x <- data_frame(x1=c("A","B","C"), x2=c(1,2,3))
 y <- data_frame(x1=c("A","B","D"), x3=c(TRUE,FALSE,TRUE))
 z <- data_frame(x1=c("B","C","D"), x2=c(2,3,4))
