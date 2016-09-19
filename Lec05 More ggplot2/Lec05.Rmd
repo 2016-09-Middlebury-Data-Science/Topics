@@ -1,0 +1,95 @@
+---
+title: "Lecture 05: More ggplot2"
+author: "Albert Y. Kim"
+date: "September 23, 2016"
+output: ioslides_presentation
+---
+
+<style>
+h2 { 
+ color: #3399ff;		
+}
+h3 { 
+ color: #3399ff;		
+}
+slides > slide.backdrop {
+  background: white;
+}
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+```
+
+
+
+
+## Examples for Today
+
+In `Lec05.R` we study new `geom_`'s:
+
+* `geom_histogram`
+* `geom_line()`. In particular the `group` aesthetic
+* `geom_bar()`. In particular:
+    + Understanding `stat=identity` vs `stat=bin`
+    + and `position` adjustments
+
+
+
+## Today's Exercise: UC Berkeley Admissions
+
+In 1973, the UC Berkeley was sued for bias against women who had applied for admission to graduate schools.  n=4526 applicants:
+
+```{r, echo=FALSE}
+data(UCBAdmissions)
+UCBAdmissions <- UCBAdmissions %>% 
+  as.data.frame() %>% 
+  group_by(Admit, Gender) %>% 
+  summarise(Freq = sum(Freq))
+UCBAdmissions
+```
+
+
+
+## Today's Exercise: UC Berkeley Admissions
+
+```{r, echo=FALSE}
+UCBPlot <- ggplot(data=UCBAdmissions, aes(x=Gender, y=Freq, fill=Admit)) +
+  ggtitle("Acceptance Rate Split by Gender") +
+  xlab("Gender")
+UCBPlot + geom_bar(stat = "identity") +
+  ylab("# of Applicants")
+```
+
+
+
+## Today's Exercise: UC Berkeley Admissions
+
+```{r, echo=FALSE}
+UCBPlot + geom_bar(stat = "identity", position="fill") +
+  ylab("Prop of Applicants")
+```
+
+
+
+## Today's Exercise: UC Berkeley Admissions
+
+However, there was another variable researchers could consider: `Dept` applied to.
+
+```{r, echo=FALSE}
+data(UCBAdmissions)
+UCBAdmissions <- as.data.frame(UCBAdmissions) %>% tbl_df()
+UCBAdmissions
+```
+
+
+
+## Today: UC Berkeley Admissions
+
+Investigate:
+
+1. How male vs female acceptance varied by department.
+2. The "competitiveness" of different departments as measured by acceptance rate.
