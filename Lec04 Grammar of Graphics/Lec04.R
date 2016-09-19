@@ -4,14 +4,12 @@ library(ggplot2)
 library(rvest)
 
 
-
 #------------------------------------------------------------------------------
 # Solutions to Exercises from Lec03.R
 #------------------------------------------------------------------------------
-# Before going over the solutions, do the following:
-#
-# -Re-run lines 20-51 from Lec03.R to load the wp_data
-# -Load the states.csv file from Lec03
+# Before going over the solutions, let's reload the wp_data:
+# -Re-run lines 23-55 from Lec03.R to load the wp_data
+# -Load the states.csv as instructed at the end of Lec03
 
 # Q1. Which region (south, NE, west, or midwest) has the highest proportion of
 # its colleges being private?  (This is a tricky one!)
@@ -21,16 +19,17 @@ library(rvest)
 # we only care about matching information that exists in wp_data.
 wp_data <- left_join(wp_data, states, by=c("state"="state_abbrev"))
 
-# First we get the # of schools per region. Note we use the tally() command to
-# count
+# First we get the # of schools per region i.e. the denominator
+# Note we use the tally() command to count. What do you think is causing the
+# missing values?
 num_per_region <- wp_data %>% 
   group_by(region) %>% 
   tally() %>% 
   rename(num_in_region = n)
 num_per_region
 
-# Next we get the # of schools per region AND per section. So here we group_by()
-# region AND sector
+# Next we get the # of schools per region AND per section i.e. the numerator.
+# So here we group_by() region AND sector
 num_per_region_sector <- wp_data %>% 
   group_by(region, sector) %>% 
   tally() %>% 
@@ -71,8 +70,7 @@ n <- nrow(diamonds)
 n
 
 # Since the diamonds data set is too big, let's only consider a randomly chosen
-# sample of 500 of these points:
-set.seed(76)
+# sample of 500 of these points
 diamonds <- dplyr::sample_n(diamonds, size = 500)
 
 
