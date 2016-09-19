@@ -27,13 +27,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## What is a statistical graphic?
 
-At its simplest: A statistical graphic is a mapping of variables in a
+At its simplest: A statistical graphic is a **mapping** of 
 
-* **`data`** set to 
-* **`aes()`**thetic attributies of 
+* variables in a **`data`** set to
+* **`aes()`**thetic attributes of 
 * **`geom_`**etric objects.
 
-These are, in my view, the most important components to think about.
 
 
 
