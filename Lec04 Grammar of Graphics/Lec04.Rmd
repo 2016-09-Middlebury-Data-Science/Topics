@@ -1,16 +1,32 @@
-The Grammar of Graphics
-========================================================
-author: Albert Y. Kim
-date: Monday 2016/2/22
+---
+title: "Lecture 04: The Grammar of Graphics"
+author: "Albert Y. Kim"
+date: "September 19, 2016"
+output: ioslides_presentation
+---
 
-```{r, echo=FALSE}
+<style>
+h2 { 
+ color: #3399ff;		
+}
+h3 { 
+ color: #3399ff;		
+}
+slides > slide.backdrop {
+  background: white;
+}
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
 library(dplyr)
-library(ggplot2)
 ```
 
 
-What is a statistical graphic?
-========================================================
+
+
+## What is a statistical graphic?
 
 At its simplest: A statistical graphic is a mapping of variables in a
 
@@ -22,15 +38,16 @@ These are, in my view, the most important components to think about.
 
 
 
-Example: Napolean's March on Moscow
-========================================================
+
+## Example: Napolean's March on Moscow
+
 Famous graphical illustration by Minard of Napolean's march to and retreat from Moscow in 1812
 ![alt text](Minard.png)
 
 
 
-Example: Napolean's March on Moscow
-========================================================
+
+## Example: Napolean's March on Moscow
 
 6 dimensions (variables) of information on a 2 dimensional page:
 
@@ -45,8 +62,7 @@ temperature | **`x, y`** | **`line`**
 
 
 
-Example from Paper
-========================================================
+## Example from Paper
 
 Load this in R:
 
@@ -62,8 +78,7 @@ simple <-
 
 
 
-Example from Paper
-========================================================
+## Example from Paper
 
 Run each of these individually:
 
@@ -81,8 +96,7 @@ ggplot(data=simple, aes(x=A, y=B, shape=D)) + geom_point()
 
 
 
-Benefits
-========================================================
+## Benefits
 
 Quotes from paper:
 
@@ -94,8 +108,8 @@ Note the key words: **iterative**, **framework**, and **customized**.
 
 
 
-Limitations
-========================================================
+
+## Limitations
 
 * Steep learning curve, just like learning a new grammar
 * It teaches you grammar, but not how to write poetry. i.e. it sets up
@@ -105,16 +119,13 @@ a framework for making graphics, but it doesn't teach you how to make **good gra
 
 
 
-Limitations
-========================================================
+## Limitations
 
 Packages for interactive graphics include
-  + `ggvis`: in development by Wickham
-  + `plotly`: from the creators of [http://www.plot.ly](http://www.plot.ly)
-  + `shiny`: later in the course. Install the `shiny` package -> File -> New
+
+* `ggvis`: in development by Wickham
+* `plotly`: from the creators of [http://www.plot.ly](http://www.plot.ly)
+* `shiny`: later in the course. Install the `shiny` package -> File -> New
   File -> Shiny Web App... -> Single File -> Click on "Rup App"
 
 and many, many more...
-
-
-
