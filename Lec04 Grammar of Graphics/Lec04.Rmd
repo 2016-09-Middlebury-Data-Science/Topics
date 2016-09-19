@@ -19,8 +19,7 @@ slides > slide.backdrop {
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-library(dplyr)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
@@ -39,17 +38,19 @@ These are, in my view, the most important components to think about.
 
 
 
-## Example: Napolean's March on Moscow
+## Napolean's March on Moscow
 
 Famous graphical illustration by Minard of Napolean's march to and retreat from Moscow in 1812
-![alt text](Minard.png)
+
+
+<img src="Minard.png" alt="Drawing" style="width: 800px;"/>
 
 
 
 
-## Example: Napolean's March on Moscow
+## Napolean's March on Moscow
 
-6 dimensions (variables) of information on a 2 dimensional page:
+6 dimensions (variables) of information on a 2D page:
 
 **`data`** | **`aes()`**  | **`geom_`**
 ------------- | ------------- | -------------
@@ -67,8 +68,9 @@ temperature | **`x, y`** | **`line`**
 Load this in R:
 
 ```{r, eval=FALSE}
+library(dplyr)
 simple <- 
-  data.frame(
+  data_frame(
     A = c(2,1,4,9),
     B = c(3,2,5,10),
     C = c(4,1,15,80),
@@ -83,6 +85,8 @@ simple <-
 Run each of these individually:
 
 ```{r, eval=FALSE}
+library(ggplot2)
+
 ggplot(data=simple, aes(x=A, y=B)) + geom_point()
 
 ggplot(data=simple, aes(x=A, y=B, color=D)) + geom_point()
@@ -94,15 +98,14 @@ ggplot(data=simple, aes(x=A, y=B, shape=D)) + geom_point()
 
 
 
-
-
 ## Benefits
 
 Quotes from paper:
 
 * "**Iteratively** update a plot." i.e. build it in a modular (piece-by-piece) fashion instead of in one immutable (unchangeable) piece
 * "Giving us a **framework** to think about graphics, and hopefully shortening the distance from mind to paper."
-* "Encourages the use of graphics **customized** to a particular problem rather than relying on generic named graphics." Ex: terms like "scatterplot", "histogram", "coxcomb" plot
+* "Encourages the use of graphics **customized** to a particular problem rather than relying on generic named graphics."  
+Ex: terms like "scatterplot", "histogram", etc
 
 Note the key words: **iterative**, **framework**, and **customized**.
 
