@@ -22,23 +22,23 @@ wp_data <- left_join(wp_data, states, by=c("state"="state_abbrev"))
 # First we get the # of schools per region i.e. the denominator
 # Note we use the tally() command to count. What do you think is causing the
 # missing values?
-num_per_region <- wp_data %>% 
-  group_by(region) %>% 
-  tally() %>% 
+num_per_region <- wp_data %>%
+  group_by(region) %>%
+  tally() %>%
   rename(num_in_region = n)
 num_per_region
 
 # Next we get the # of schools per region AND per section i.e. the numerator.
 # So here we group_by() region AND sector
-num_per_region_sector <- wp_data %>% 
-  group_by(region, sector) %>% 
-  tally() %>% 
+num_per_region_sector <- wp_data %>%
+  group_by(region, sector) %>%
+  tally() %>%
   rename(num_in_region_and_sector = n)
 num_per_region_sector
 
 # Lastly we join the two datasets and compute the proportion. It appears the NE
 # has the highest proportion of private schools.
-left_join(num_per_region_sector, num_per_region, by="region") %>% 
+left_join(num_per_region_sector, num_per_region, by="region") %>%
   mutate(prop = round(num_in_region_and_sector/num_in_region,3))
 
 
@@ -48,7 +48,7 @@ left_join(num_per_region_sector, num_per_region, by="region") %>%
 
 # The box portion of a boxplot consists of the 3 quartiles. We group_by region
 # only in this case, and summarise() using the quantile() and median() functions
-group_by(wp_data, region) %>% 
+group_by(wp_data, region) %>%
   summarise(
     first_quart = quantile(comp_fee, 0.25),
     median = median(comp_fee),
@@ -125,9 +125,9 @@ p
 #------------------------------------------------------------------------------
 # EXERCISE
 #------------------------------------------------------------------------------
-# Q1.  Create a plot that shows once again the relationship between carat,
-# but now let the size of the points reflect the table of the diamond and have
-# separate plots by clarity
+# Q1.  Create a plot that shows once again the relationship between
+# carat/price/cut, but now let the size of the points reflect the table of the
+# diamond and have separate plots by clarity
 
 # Q2. A friend wants to know if cars in 1973-1974 that have bigger
 # cylinders (the variable displacement in cu. in.) have better mileage (in mpg).

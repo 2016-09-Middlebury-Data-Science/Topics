@@ -27,69 +27,85 @@ library(dplyr)
 
 
 
-## Examples for Today
+## Today
 
-In `Lec05.R` we study new `geom_`'s:
+In `Lec05.R` we look at
 
-* `geom_histogram`
 * `geom_line()`. In particular the `group` aesthetic
-* `geom_bar()`. In particular:
-    + Understanding `stat=identity` vs `stat=bin`
-    + and `position` adjustments
+* `geom_smooth()`: a type of `geom_line()`
+* `geom_histogram()`
 
 
 
-## UC Berkeley Admissions
 
-In 1973, the UC Berkeley was sued for bias against women who had applied for admission to graduate schools.  n=4526 applicants:
+## What is a smoother?
+
+Say you have a sequence of points that appear "noisy":
 
 ```{r, echo=FALSE}
-data(UCBAdmissions)
-UCBAdmissions <- UCBAdmissions %>% 
-  as.data.frame() %>% 
-  group_by(Admit, Gender) %>% 
-  summarise(Freq = sum(Freq))
-UCBAdmissions
+simple <- data_frame(
+    x = seq(from=0, to=10, by=0.1),
+    y = sin(x) + rnorm(length(x), mean = 0, sd = 0.5)
+  )
+ggplot(data=simple, aes(x=x, y=y)) +
+  geom_point()
 ```
 
 
 
-## UC Berkeley Admissions
+
+
+
+## What is a smoother?
+
+A **smoother** attempts to smooth out the **noise** and pick out the **signal**:
 
 ```{r, echo=FALSE}
-UCBPlot <- ggplot(data=UCBAdmissions, aes(x=Gender, y=Freq, fill=Admit)) +
-  ggtitle("Acceptance Rate Split by Gender") +
-  xlab("Gender")
-UCBPlot + geom_bar(stat = "identity") +
-  ylab("# of Applicants")
+ggplot(data=simple, aes(x=x, y=y)) +
+  geom_point() +
+  geom_smooth(se=FALSE, col="red")
 ```
 
 
 
-## UC Berkeley Admissions
+## Linear Regression as a Smoother
+
+**Note**: linear regression is also a form of smoothing! Although in this case not so good:
 
 ```{r, echo=FALSE}
-UCBPlot + geom_bar(stat = "identity", position="fill") +
-  ylab("Prop of Applicants")
+ggplot(data=simple, aes(x=x, y=y)) +
+  geom_point() +
+  geom_smooth(method="lm",se=FALSE, col="red")
 ```
 
 
 
-## UC Berkeley Admissions
-
-However, there was another variable researchers could consider: `Dept` applied to.
-
-```{r, echo=FALSE}
-data(UCBAdmissions)
-UCBAdmissions <- as.data.frame(UCBAdmissions) %>% tbl_df()
-UCBAdmissions
-```
 
 
+## What is a smoother?
 
-## Today's Exercise
+Smoothers work by doing a "local regression" in a "sliding window":
+[GIF](http://simplystatistics.org/wp-content/uploads/2014/02/loess.gif)
 
-Investigate:
+This is called a [lowess](https://en.wikipedia.org/wiki/Local_regression)
+(Locally Weighted Scatterplot Smoothing) curve, also called loess curve.
 
-1. How male vs female acceptance varied by department.
-2. The "competitiveness" of different departments as measured by acceptance rate.
+
+
+## Today's Data: babynames Package
+
+The [`babynames`](https://github.com/hadley/babynames) package contains for each
+year from 1880 to 2013, the number of children born of each sex given each name
+in the United States (source: SSA).
+
+Note: only names with more than 5 occurrences in a given year for a given sex are included.
+
+
+
+
+
+
+
+
+
+
