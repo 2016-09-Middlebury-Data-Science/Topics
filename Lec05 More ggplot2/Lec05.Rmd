@@ -39,7 +39,7 @@ In `Lec05.R` we study new `geom_`'s:
 
 
 
-## Today's Exercise: UC Berkeley Admissions
+## UC Berkeley Admissions
 
 In 1973, the UC Berkeley was sued for bias against women who had applied for admission to graduate schools.  n=4526 applicants:
 
@@ -54,7 +54,7 @@ UCBAdmissions
 
 
 
-## Today's Exercise: UC Berkeley Admissions
+## UC Berkeley Admissions
 
 ```{r, echo=FALSE}
 UCBPlot <- ggplot(data=UCBAdmissions, aes(x=Gender, y=Freq, fill=Admit)) +
@@ -66,7 +66,7 @@ UCBPlot + geom_bar(stat = "identity") +
 
 
 
-## Today's Exercise: UC Berkeley Admissions
+## UC Berkeley Admissions
 
 ```{r, echo=FALSE}
 UCBPlot + geom_bar(stat = "identity", position="fill") +
@@ -75,7 +75,7 @@ UCBPlot + geom_bar(stat = "identity", position="fill") +
 
 
 
-## Today's Exercise: UC Berkeley Admissions
+## UC Berkeley Admissions
 
 However, there was another variable researchers could consider: `Dept` applied to.
 
@@ -87,7 +87,7 @@ UCBAdmissions
 
 
 
-## Today: UC Berkeley Admissions
+## Today's Exercise
 
 Investigate:
 

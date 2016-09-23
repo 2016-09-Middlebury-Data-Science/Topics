@@ -1,8 +1,6 @@
 # Load packages
 library(dplyr)
 library(ggplot2)
-
-# Install this package for Oxboys dataset.
 library(nlme)
 
 
@@ -225,7 +223,7 @@ p + geom_bar(stat="identity", position="fill") + coord_flip()
 
 # We now load the UC Berkeley Admissions Data
 data(UCBAdmissions)
-UCB <- as.data.frame(UCBAdmissions)
+UCB <- UCBAdmissions %>% as.data.frame()
 UCB
 
 
