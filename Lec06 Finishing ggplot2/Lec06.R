@@ -1,17 +1,12 @@
 # Load packages
 library(dplyr)
 library(ggplot2)
-library(nlme)
-
-
-
-# GEOM BOXPLOT!!!!!
 
 
 
 
 #------------------------------------------------------------------------------
-# geom_histogram() and the group aesthetic
+# geom_histogram()
 #------------------------------------------------------------------------------
 # For the diamond dataset, let's look at a histogram of carat.
 data(diamonds)
@@ -43,52 +38,33 @@ ggplot(data=diamonds, aes(x=carat, y = ..density..)) +
 
 
 
-
 #------------------------------------------------------------------------------
-# geom_line() and the "group" aesthetic
+# geom_boxplot()
 #------------------------------------------------------------------------------
-data(Oxboys)
+# Let's compare mileage (miles per gallon) for a set of automatic vs manual
+# cars
+data(mtcars)
 
-# We consider the height of Oxford boys data set. We have 9 observations from 26
-# boys at different ages. Say we are interested in studying the growth of these
-# 26 boys over time.
-?Oxboys
-Oxboys <- Oxboys %>% tbl_df()
-Oxboys
+# A boxplot has as x-aesthetic a categorical variable. What's wrong with the
+# code below?
+ggplot(data=mtcars, aes(x=am, y=mpg)) + 
+  geom_boxplot()
 
-# For simplicity, let's consider Subject 17 only for now:
-subject_17 <- Oxboys %>%
-  filter(Subject == 1)
-subject_17
+# We should convert am, which is coded as numerical 0 and 1's, to a categorical
+# variable, i.e. a factor in R
+ggplot(data=mtcars, aes(x=as.factor(am), y=mpg)) + 
+  geom_boxplot()
 
-# We plot a geom_line(). Easy enough!
-p <- ggplot(data=subject_17, aes(x=age, y=height)) +
-  geom_line()
-p
-
-
-p + stat_smooth(se=FALSE)
-
-# We can also add a regression line. lm stands for linear model:
-p + stat_smooth(method="lm")
-p + stat_smooth(method="lm", se=FALSE, col="red") # without standard error bars
-
-# Now let's consider ALL boys, and not just Subject 1:
-ggplot(data=Oxboys, aes(x=age, y=height)) +
-  geom_line()
-
-# This plot does not make much sense, as there is a single line for all 26 boys.
-# We resolve this by having separate lines for each by setting the group
-# aesthetic of the geom_line(). Much better:
-ggplot(data=Oxboys, aes(x=age, y=height, group = Subject)) +
-  geom_line()
-
-# We could've equally done this using the color aesthetic, but there the large
-# number of subjects makes the legend a bit unwieldy.
-ggplot(data=Oxboys, aes(x=age, y=height, col = Subject)) +
-  geom_line()
-
-
+# Better yet, let's transform the variable, and pipe the data fram directly
+# into the ggplot() call and add labels
+mtcars %>% 
+  mutate(am=ifelse(am==0, "automatic", "manual")) %>% 
+  ggplot(data=., aes(x=as.factor(am), y=mpg)) + 
+  geom_boxplot() +
+  labs(x="Transmission", y="Mileage (in mpg)", title="")
+  
+# If you don't know, look on the internet or ask your neighbor how to interpret
+# boxplots!
 
 
 
@@ -124,22 +100,29 @@ survival_by_class
 p <- ggplot(data=survival_by_class, aes(x=Class, y=Freq, fill = Survived))
 
 # Assign geom_bar to it:
-p + geom_bar()
+p + 
+  geom_bar()
 
-# KEY POINT: This doesn't work b/c the default stat for geom_bar is "bin". i.e.
-# it takes multiple observatinons and assigns bins to them, like a histogram.
-# In our case, the data is already binned! So we need to override the default
-# stat to "stat=identity". i.e. f(x)=x i.e. take the data as they are!
-p + geom_bar(stat="identity")
+# KEY POINT: This doesn't work b/c the default stat for geom_bar is "bin". i.e. 
+# it takes multiple observatinons and assigns bins to them and returns a count
+# for each bin, like a histogram. In our case, the data is already binned! So we
+# need to override the default stat to "stat=identity". 
+p + 
+  geom_bar(stat="identity")
 
 # We can also make position adjustments to the geom_bar. The default position
 # is "stack". Let's also look at two others:
-p + geom_bar(stat="identity", position="stack")
-p + geom_bar(stat="identity", position="dodge")
-p + geom_bar(stat="identity", position="fill")
+p + 
+  geom_bar(stat="identity", position="stack")
+p + 
+  geom_bar(stat="identity", position="dodge")
+p + 
+  geom_bar(stat="identity", position="fill")
 
 # For fun, let's flip the coordinate-axes
-p + geom_bar(stat="identity", position="fill") + coord_flip()
+p + 
+  geom_bar(stat="identity", position="fill") + 
+  coord_flip()
 
 
 
@@ -152,23 +135,26 @@ p + geom_bar(stat="identity", position="fill") + coord_flip()
 # question of if the "Women and children first" policy of who got on the
 # lifeboats held true. Hint: the answer is yes.
 
-
 # We now load the UC Berkeley Admissions Data
 data(UCBAdmissions)
-UCB <- UCBAdmissions %>% as.data.frame()
+UCB <- UCBAdmissions %>% 
+  as.data.frame()
 UCB
 
 
-# Q2: Investigate how male vs female acceptance varied by department.
+# Q2: When creating the boxplot comparing mileage for automatic vs manual cars, 
+# we could've had facetted histograms as below. What could be one reason for
+# favoring the boxplot over the histograms?
+ggplot(data=mtcars, aes(x=mpg)) +
+  geom_histogram(bins=10) +
+  facet_wrap(~am)
 
 
-# Q3. Investigate the "competitiveness" of different departments as measured by
+# Q3: Investigate how male vs female acceptance varied by department.
+
+
+# Q4. Investigate the "competitiveness" of different departments as measured by
 # acceptance rate.
-
-
-
-
-
 
 
 

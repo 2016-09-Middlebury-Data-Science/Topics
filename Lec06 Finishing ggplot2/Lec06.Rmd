@@ -29,19 +29,20 @@ library(dplyr)
 
 ## Examples for Today
 
-In `Lec05.R` we study new `geom_`'s:
+In `Lec06.R` we study new `geom_`'s:
 
 * `geom_histogram`
-* `geom_line()`. In particular the `group` aesthetic
+* `geom_boxplot()`
 * `geom_bar()`. In particular:
     + Understanding `stat=identity` vs `stat=bin`
     + and `position` adjustments
 
 
 
-## UC Berkeley Admissions
+## Data: UC Berkeley Admissions
 
-In 1973, the UC Berkeley was sued for bias against women who had applied for admission to graduate schools.  n=4526 applicants:
+In 1973, the UC Berkeley was sued for bias against women who had applied for
+admission to graduate schools.  n=4526 applicants:
 
 ```{r, echo=FALSE}
 data(UCBAdmissions)
@@ -54,7 +55,7 @@ UCBAdmissions
 
 
 
-## UC Berkeley Admissions
+## Data: UC Berkeley Admissions
 
 ```{r, echo=FALSE}
 UCBPlot <- ggplot(data=UCBAdmissions, aes(x=Gender, y=Freq, fill=Admit)) +
@@ -66,7 +67,7 @@ UCBPlot + geom_bar(stat = "identity") +
 
 
 
-## UC Berkeley Admissions
+## Data: UC Berkeley Admissions
 
 ```{r, echo=FALSE}
 UCBPlot + geom_bar(stat = "identity", position="fill") +
@@ -75,7 +76,7 @@ UCBPlot + geom_bar(stat = "identity", position="fill") +
 
 
 
-## UC Berkeley Admissions
+## Data: UC Berkeley Admissions
 
 However, there was another variable researchers could consider: `Dept` applied to.
 
@@ -87,7 +88,7 @@ UCBAdmissions
 
 
 
-## Today's Exercise
+## Data: Today's Exercise
 
 Investigate:
 
