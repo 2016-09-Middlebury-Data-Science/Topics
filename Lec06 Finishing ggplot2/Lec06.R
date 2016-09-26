@@ -5,38 +5,6 @@ library(ggplot2)
 
 
 
-#------------------------------------------------------------------------------
-# geom_histogram()
-#------------------------------------------------------------------------------
-# For the diamond dataset, let's look at a histogram of carat.
-data(diamonds)
-ggplot(data=diamonds, aes(x=carat)) +
-  geom_histogram()
-
-# We can change the # of bins or change the bin width
-ggplot(data=diamonds, aes(x=carat)) +
-  geom_histogram(bins=50)
-ggplot(data=diamonds, aes(x=carat)) +
-  geom_histogram(binwidth = 0.1)
-
-
-# The default behavior of geom_histogram() is to map "count" to the y aesthetic.
-# So the two following plots are identical, because of the way the defaults are
-# set:
-ggplot(data=diamonds, aes(x=carat)) +
-  geom_histogram()
-ggplot(data=diamonds, aes(x=carat, y=..count..)) +
-  geom_histogram()
-
-# Note, "count" is not a variable in our dataset, but rather something ggplot
-# creates internally, hence we need to put ".." around it. Why does this matter?
-# When we want to create a density/probability histogram, where the areas of the
-# boxes sum to 1. i.e. it is a probability distribution.
-ggplot(data=diamonds, aes(x=carat, y = ..density..)) +
-  geom_histogram()
-
-
-
 
 #------------------------------------------------------------------------------
 # geom_boxplot()

@@ -31,7 +31,6 @@ library(dplyr)
 
 In `Lec06.R` we study new `geom_`'s:
 
-* `geom_histogram`
 * `geom_boxplot()`
 * `geom_bar()`. In particular:
     + Understanding `stat=identity` vs `stat=bin`
