@@ -104,19 +104,97 @@ slides > slide.backdrop {
 }
 </style>
 
-<slide class=''><hgroup><h2>Examples for Today</h2></hgroup><article  id="examples-for-today">
+<slide class=''><hgroup><h2>Tidy AKA Long Data</h2></hgroup><article  id="tidy-aka-long-data">
 
-<p>In <code>Lec06.R</code> we study new <code>geom_</code>&#39;s:</p>
+<p>Tidy data AKA <strong>long format</strong> data</p>
 
-<ul>
-<li><code>geom_boxplot()</code></li>
-<li><code>geom_bar()</code>. In particular:
+<p><img src="http://garrettgman.github.io/images/tidy-1.png" alt="Drawing" style="width: 800px;"/></p>
 
-<ul>
-<li>Understanding <code>stat=identity</code> vs <code>stat=bin</code></li>
-<li>and <code>position</code> adjustments</li>
-</ul></li>
-</ul></article></slide>
+<ol>
+<li>Each variable forms a column</li>
+<li>Each observation forms a row</li>
+<li>Each type of observational unit forms a table</li>
+</ol>
+
+</article></slide><slide class=''><hgroup><h2>Tidy AKA Long Data</h2></hgroup><article  id="tidy-aka-long-data-1">
+
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">country</th>
+<th align="left">year</th>
+<th align="right">n</th>
+</tr>
+<tr class="odd">
+<td align="left">FR</td>
+<td align="left">2011</td>
+<td align="right">7000</td>
+</tr>
+<tr class="even">
+<td align="left">DE</td>
+<td align="left">2011</td>
+<td align="right">5800</td>
+</tr>
+<tr class="odd">
+<td align="left">FR</td>
+<td align="left">2012</td>
+<td align="right">6900</td>
+</tr>
+<tr class="even">
+<td align="left">DE</td>
+<td align="left">2012</td>
+<td align="right">6000</td>
+</tr>
+</table>
+
+</article></slide><slide class=''><hgroup><h2>Wide Data</h2></hgroup><article  id="wide-data">
+
+<p>We present the same data in <strong>wide format</strong></p>
+
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">country</th>
+<th align="right">2011</th>
+<th align="right">2012</th>
+</tr>
+<tr class="odd">
+<td align="left">FR</td>
+<td align="right">7000</td>
+<td align="right">6900</td>
+</tr>
+<tr class="even">
+<td align="left">DE</td>
+<td align="right">5800</td>
+<td align="right">6000</td>
+</tr>
+</table>
+
+<p>
+
+</p>
+
+<ul class = 'build'>
+<li>i.e. the variable <code>year</code> is now <code>spread()</code> across columns.<br/>This is the <strong>key</strong> variable.</li>
+<li>The <strong>value</strong> variable are the observations that were in a column, that are now in a matrix i.e. <code>n</code></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>tidyr Package</h2></hgroup><article  id="tidyr-package">
+
+<p>The <code>tidyr</code> package has 4 main functions:</p>
+
+<ul class = 'build'>
+<li><code>spread()</code> data from tidy (i.e. tall) to wide format</li>
+<li><code>gather()</code> data from wide to tidy format</li>
+<li><code>separate()</code> one column into several<br/></li>
+<li><code>unite()</code> several columns into one</li>
+<li>Ex: going from <code>date=2008-09-01</code></li>
+<li>to <code>year=2008</code> and <code>month=09</code> and <code>day=01</code></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Why tidy data?</h2></hgroup><article  id="why-tidy-data">
+
+<p>Part of a larger movement called the <a href='https://twitter.com/search?q=%23tidyverse&amp;src=typd' title=''><code>#tidyverse</code></a> that aims to unify/standardize the open-source the R world by encouraging all inputs and all outputs of all functions in all packages to follow the &quot;tidy&quot; data format.</p>
+
+<p>See <a href='https://cran.r-project.org/web/packages/tidyverse/vignettes/manifesto.html' title=''>Reuse existing data structures</a> of &quot;The tidy tools manifesto&quot;.</p></article></slide>
 
 
   <slide class="backdrop"></slide>

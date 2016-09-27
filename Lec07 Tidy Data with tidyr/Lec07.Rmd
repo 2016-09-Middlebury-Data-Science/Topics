@@ -27,14 +27,86 @@ library(tidyr)
 
 
 
+## Tidy AKA Long Data
 
-## Examples for Today
+Tidy data AKA **long format** data
 
-In `Lec06.R` we study new `geom_`'s:
+<img src="http://garrettgman.github.io/images/tidy-1.png" alt="Drawing" style="width: 800px;"/>
 
-* `geom_boxplot()`
-* `geom_bar()`. In particular:
-    + Understanding `stat=identity` vs `stat=bin`
-    + and `position` adjustments
+1. Each variable forms a column
+2. Each observation forms a row
+3. Each type of observational unit forms a table
+
+
+
+## Tidy AKA Long Data
+
+```{r, echo=FALSE}
+cases_wide <- data_frame(
+  country = c("FR", "DE"),
+  "2011" = c(7000, 5800),
+  "2012" = c(6900, 6000)
+  )
+cases_tall <- cases_wide %>% 
+  gather(year, n, -country)
+
+cases_tall %>% 
+  knitr::kable()
+```
+
+
+
+## Wide Data
+
+We present the same data in **wide format**
+
+```{r, echo=FALSE}
+cases_wide %>% 
+  knitr::kable()
+```
+
+<p>
+</p>
+
+> * i.e. the variable `year` is now `spread()` across columns.  
+This is the **key** variable.
+> * The **value** variable are the observations that were in a column, that are now in a
+matrix i.e. `n`
+
+
+
+## tidyr Package
+
+The `tidyr` package has 4 main functions:
+
+> * `spread()` data from tidy (i.e. tall) to wide format
+> * `gather()` data from wide to tidy format
+> * `separate()` one column into several  
+> * `unite()` several columns into one
+> * Ex: going from `date=2008-09-01`
+> * to `year=2008` and `month=09` and `day=01`
+
+
+
+## Why tidy data?
+
+Part of a larger movement called the
+[`#tidyverse`](https://twitter.com/search?q=%23tidyverse&src=typd) that aims to 
+unify/standardize the open-source the R world by encouraging all inputs and
+all outputs of all functions in all packages to follow the "tidy" data format.
+
+See [Reuse existing data structures](https://cran.r-project.org/web/packages/tidyverse/vignettes/manifesto.html) of
+"The tidy tools manifesto".
+
+
+
+
+
+
+
+
+
+
+
 
 
