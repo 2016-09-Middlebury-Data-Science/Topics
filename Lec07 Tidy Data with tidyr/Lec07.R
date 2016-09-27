@@ -6,7 +6,6 @@ library(babynames)
 
 
 
-
 #------------------------------------------------------------------------------
 # tidy Data
 #------------------------------------------------------------------------------
@@ -40,30 +39,34 @@ storms
 
 
 
-
 #---------------------------------------------------------------
 # Going from tidy (AKA narrow AKA tall) format to wide format and vice versa
 # using gather() and separate()
 #---------------------------------------------------------------
-# Convert to tidy format. All three of the following do the same:
-# -year is the key variable
-# -n is the "value" variable to gather
-# -
+# Convert to tidy format i.e. gather them to tidy.
+# All three of the following do the same:
+# 1. set the new "key" variable that distinguishes the rows to be called year
+# 2. set the new "value" variable in each of the rows to be called n
+# 3. set the values to be from the 2nd thru 4th columns. This is done in three ways
 cases
-gather(data=cases, key="year", value=n, 2:4)
-gather(data=cases, key="year", value=n, `2011`, `2012`, `2013`)
-gather(data=cases, key="year", value=n, -country)
+gather(data=cases, key=year, value=n, 2:4)
+gather(data=cases, key=year, value=n, `2011`, `2012`, `2013`)
+gather(data=cases, key=year, value=n, -country)
 
-
-# Convert to wide format. The "key" variable is size and the "value" variable is
-# amount
+# Convert to wide format i.e. spread them out to wide format.
+# 1. The "key" variable from tidy format to be spread across the rows is size
+# 2. The "value" variable are the values in each row to spread out wide
+# 3. In this case the city variable gets collapsed
 pollution
 spread(data=pollution, key=size, value=amount)
-
 
 # Note: gather() and spread() are opposites of each other
 cases
 gather(cases, "year", n, -country) %>% spread(year, n)
+
+# Note: I really have a hard time memorizing this. I usually refer to the cheatsheet
+# but more often the help file examples on at the bottom of:
+?gather
 
 
 
@@ -80,19 +83,18 @@ unite(storms2, "date", year, month, day, sep = "-")
 
 
 
-
-
 #-------------------------------------------------------------------------------
 # EXERCISES
 #-------------------------------------------------------------------------------
-# From a previous version of this class: Census data from 1990 with total
-# population, land area, and population density in wide format.
+# From a previous version of this class: popdensity1990_00_10.csv
+# Census data from 1990 with total population, land area, and population density
+# in wide format.
 
 # There are many ways to read in a CSV in RStudio
 # 1. Using base R's read.csv()
-# 1. Using readr::read_csv(). Much more intuitive default settings and much quicker
+# 1. Using readr::read_csv(). More intuitive default settings and much quicker
 # 1. Using RStudio's Graphical User Interface (GUI):
-#   -In the File panel, navigate to the file popdensity1990_00_10.csv
+#   -In the File panel, navigate to the file: popdensity1990_00_10.csv
 #   -Click it and select "Import Dataset..."
 #   -Under "Import Options" in the bottom left, name the data frame "census" and Import
 #   -The data will load AND you'll get the command that loads it in your console for
