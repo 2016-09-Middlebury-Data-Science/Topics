@@ -1,0 +1,40 @@
+---
+title: "Lecture 07: Tidy Data with tidyr"
+author: "Albert Y. Kim"
+date: "September 28, 2016"
+output: ioslides_presentation
+---
+
+<style>
+h2 { 
+ color: #3399ff;		
+}
+h3 { 
+ color: #3399ff;		
+}
+slides > slide.backdrop {
+  background: white;
+}
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+```
+
+
+
+
+## Examples for Today
+
+In `Lec06.R` we study new `geom_`'s:
+
+* `geom_boxplot()`
+* `geom_bar()`. In particular:
+    + Understanding `stat=identity` vs `stat=bin`
+    + and `position` adjustments
+
+
