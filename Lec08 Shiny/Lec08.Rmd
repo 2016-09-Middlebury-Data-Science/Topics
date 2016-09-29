@@ -1,16 +1,33 @@
-Shiny for Interactive Apps
-========================================================
-author: Albert Y. Kim
-date: Friday 2016/3/25
+---
+title: "Lecture 08: Shiny Appls"
+author: "Albert Y. Kim"
+date: "September 30, 2016"
+output: ioslides_presentation
+---
+
+<style>
+h2 { 
+ color: #3399ff;		
+}
+h3 { 
+ color: #3399ff;		
+}
+slides > slide.backdrop {
+  background: white;
+}
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+```
 
 
 
-
-
-
-
-Intro to Shiny
-========================================================
+## Intro to Shiny
 
 Today we will create **interactive** web applications via Shiny.  Shiny allows
 you to do so without knowing HTML, JavaScript, CSS, etc...
@@ -22,8 +39,7 @@ Middlebury login.
 
 
 
-Shiny Approaches
-========================================================
+## Shiny Approaches
 
 There are many ways to create a Shiny App
 
@@ -38,8 +54,7 @@ App -> Multiple File `ui.R`/`server.R`
 
 
 
-Shared Components
-========================================================
+## Shared Components
 
 1. `UI` user interface component: what the user sees
     + `Panel`: organize the layout
@@ -53,8 +68,7 @@ Then run it!
 
 
 
-New Shiny App
-========================================================
+## New Shiny App
 
 Let's create a new single file Shiny app `app.R`:
 
@@ -66,8 +80,7 @@ Let's create a new single file Shiny app `app.R`:
 
 
 
-UI Component: Set Panels
-========================================================
+## UI Component: Set Panels
 
 * Use to say layout and organization of inputs and outputs section
 * Section 5 of cheat sheet, on back
@@ -77,8 +90,7 @@ UI Component: Set Panels
 
 
 
-UI Component: Get Inputs
-========================================================
+## UI Component: Get Inputs
 
 * `sliderInput()` assign a value to `bins` based on a slider
 * All possible input options are listed in "Widgets" on the cheatsheet.
@@ -88,8 +100,7 @@ UI Component: Get Inputs
 
 
 
-UI Component: Render Outputs
-========================================================
+## UI Component: Render Outputs
 
 * `plotOutput("distPlot")` renders the output defined in the `server` section. The `server` section does the 
 * All possible rendering options are listed in "render functions" on the cheatsheet
@@ -98,8 +109,7 @@ UI Component: Render Outputs
 
 
 
-Server Component: R Code
-========================================================
+## Server Component: R Code
 
 * Whatever you are going to output needs to be assigned to an object `output`
 * Described on front of cheat sheet
@@ -107,8 +117,7 @@ Server Component: R Code
 
 
 
-Publishing Apps
-========================================================
+## Publishing Apps
 
 To publish your apps: 
 
@@ -121,8 +130,7 @@ resources dedicated to each user.
 
 
 
-Uploading Files to Midd Shiny Server
-========================================================
+## Uploading Files to Midd Shiny Server
 
 Mac:
 * Open Finder
@@ -137,8 +145,7 @@ Windows:
 
 
 
-Uploading Files to Midd Shiny Server
-========================================================
+## Uploading Files to Midd Shiny Server
 
 Once logged in:
 
@@ -153,8 +160,7 @@ The URL any Shiny App `APPNAME` is
 
 
 
-Installing Packages
-========================================================
+## Installing Packages
 
 For now, this is only way I know; I'm investigating if this can be easier.
 
@@ -170,8 +176,7 @@ For now, this is only way I know; I'm investigating if this can be easier.
 
 
 
-Today's Exercise: Publish Shiny App
-========================================================
+## Today's Exercise: Publish Shiny App
 
 First 
 
@@ -182,8 +187,7 @@ First
 
 
 
-Today's Exercise: Publish Shiny App
-========================================================
+## Today's Exercise: Publish Shiny App
 
 Second
 
@@ -198,10 +202,9 @@ so that it sets the `bins` argument in `geom_histogram()`.
 
 
 
-Other Resources 
-========================================================
+## Other Resources 
 
-* RStudio tutorial slides `shiny_slides.pdf` in `Lec16 Shiny` folder.
+* RStudio tutorial slides `shiny_slides.pdf` in `Lec08 Shiny` folder.
 * Online tutorial on the RStudio webpage
 [http://shiny.rstudio.com/tutorial/](http://shiny.rstudio.com/tutorial/).
 
