@@ -129,9 +129,7 @@ slides > slide.backdrop {
 </article></slide><slide class=''><hgroup><h2>Test Drive</h2></hgroup><article  id="test-drive">
 
 <ul>
-<li>File -&gt; New File -&gt; R Markdown&#8230;</li>
-<li>Shiny -&gt; Set Title as &quot;Testing&quot;</li>
-<li>Click &quot;Run Document&quot;</li>
+<li>File -&gt; New File -&gt; R Markdown&#8230; -&gt; Shiny -&gt; Set Title as &quot;Testing&quot; -&gt; Click &quot;Run Document&quot;</li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>Components</h2></hgroup><article  id="components">
@@ -142,13 +140,15 @@ slides > slide.backdrop {
 <ul>
 <li><code>selectInput()</code>: Drop down menu</li>
 <li><code>sliderInput()</code>: Slider</li>
-<li><code>textInput()</code> and more.</li>
+<li><code>textInput()</code></li>
+<li>and more&#8230;</li>
 </ul></li>
 <li><strong>Outputs</strong>: <code>renderSomething()</code>s that display outputs. Ex:
 
 <ul>
 <li><code>renderPlot()</code>: plots</li>
 <li><code>renderTable()</code>: tables</li>
+<li>and more&#8230;</li>
 </ul></li>
 </ol>
 
@@ -175,7 +175,7 @@ slides > slide.backdrop {
 <li>From RStudio -&gt; Help -&gt; Cheatsheets -&gt; Shiny Web Applications
 
 <ul>
-<li><strong>Inputs</strong>: Column on right of 1st page</li>
+<li><strong>Inputs</strong>: All the <code>somethingInput()</code>&#39;s in column on right of 1st page</li>
 <li><strong>Outputs</strong>: All the <code>renderSomething()</code>&#39;s in bottom of middle section on 1st page</li>
 </ul></li>
 <li>See Help files. Ex: Type <code>?shiny::passwordInput</code></li>
@@ -190,15 +190,16 @@ slides > slide.backdrop {
 <li>specify a range of years</li>
 </ul>
 
-<p>And get a <code>ggplot</code> plot of the proportions of babies with the specified name for the specified range of years.</p>
+<p>And get a <code>ggplot</code> plot of the proportions of babies with the specified name for both sexes for the specified range of years.</p>
 
 </article></slide><slide class=''><hgroup><h2>Today&#39;s Exercise</h2></hgroup><article  id="todays-exercise-1">
 
 <p>This is a <strong>software engineering</strong> project. There are best practices for such things:</p>
 
-<ul>
-<li>Start simple: get the simplest possible version of your project working</li>
-<li>Iterate: then slowly start adding components, testing often.</li>
+<ul class = 'build'>
+<li><strong>Start simple</strong>: get the simplest possible version of your project working</li>
+<li><strong>Then Iterate</strong>: then slowly start adding components, testing often, until you can what you want.</li>
+<li>Don&#39;t try to get it perfect from the beginning!</li>
 </ul></article></slide>
 
 

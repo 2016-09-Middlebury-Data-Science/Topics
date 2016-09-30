@@ -54,9 +54,7 @@ App -> Multiple File `ui.R`/`server.R`
 
 ## Test Drive
 
-* File -> New File -> R Markdown...
-* Shiny -> Set Title as "Testing"
-* Click "Run Document"
+* File -> New File -> R Markdown... -> Shiny -> Set Title as "Testing" -> Click "Run Document"
 
 
 
@@ -65,10 +63,12 @@ App -> Multiple File `ui.R`/`server.R`
 1. **Inputs**: `inputPanel()`s that involve `somethingInput`. Ex: 
     + `selectInput()`: Drop down menu
     + `sliderInput()`: Slider
-    + `textInput()` and more.
+    + `textInput()`
+    + and more...
 2. **Outputs**: `renderSomething()`s that display outputs. Ex:
     + `renderPlot()`: plots
     + `renderTable()`: tables
+    + and more...
 
 
 
@@ -88,7 +88,7 @@ App -> Multiple File `ui.R`/`server.R`
 ## Input/Output Options 
 
 * From RStudio -> Help -> Cheatsheets -> Shiny Web Applications
-    + **Inputs**: Column on right of 1st page
+    + **Inputs**: All the `somethingInput()`'s in column on right of 1st page
     + **Outputs**: All the `renderSomething()`'s in bottom of middle section on 1st page
 * See Help files. Ex: Type `?shiny::passwordInput`
 
@@ -102,7 +102,7 @@ Using the `babynames` dataset in the `babynames` package, modify `Testing.Rmd` s
 * type in a name
 * specify a range of years
 
-And get a `ggplot` plot of the proportions of babies with the specified name for the specified range of years.
+And get a `ggplot` plot of the proportions of babies with the specified name for both sexes for the specified range of years.
 
 
 
@@ -111,10 +111,9 @@ And get a `ggplot` plot of the proportions of babies with the specified name for
 
 This is a **software engineering** project. There are best practices for such things:
 
-* **Start simple**: get the simplest possible version of your project working
-* **Then Iterate**: then slowly start adding components, testing often
-
-Don't try to get it perfect from the beginning!
+> * **Start simple**: get the simplest possible version of your project working
+> * **Then Iterate**: then slowly start adding components, testing often, until you can what you want.
+> * Don't try to get it perfect from the beginning!
 
 
 
