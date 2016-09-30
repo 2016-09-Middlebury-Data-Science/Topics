@@ -107,98 +107,147 @@ slides > slide.backdrop {
 
 <slide class=''><hgroup><h2>Intro to Shiny</h2></hgroup><article  id="intro-to-shiny">
 
-<p>Today we will create <strong>interactive</strong> web applications via Shiny. Shiny allows you to do so without knowing HTML, JavaScript, CSS, etc. Only a little R.</p>
+<p>Today we will create <strong>interactive</strong> web applications via Shiny. Shiny allows you to do so without knowing HTML, JavaScript, CSS, etc&#8230;</p>
+
+<p>For the rest of this talk, if you see <strong><code>USERNAME</code></strong>, replace this with your Middlebury login.</p>
 
 </article></slide><slide class=''><hgroup><h2>Shiny Approaches</h2></hgroup><article  id="shiny-approaches">
 
-<p>There are many approaches to create a Shiny App:</p>
-
-<ol class = 'build'>
-<li><strong>R Markdown</strong>: New File -&gt; R Markdown&#8230; -&gt; Shiny -&gt; either a document or slides. Today&#39;s focus!</li>
-<li><strong>Single File App</strong>: New File -&gt; Shiny Web App -&gt; Single File <code>app.R</code></li>
-<li><strong>Multiple File App</strong>: Allows a more split organization. New File -&gt; Shiny Web App -&gt; Multiple File <code>ui.R</code>/<code>server.R</code></li>
-</ol>
-
-</article></slide><slide class=''><hgroup><h2>Shiny Approaches</h2></hgroup><article  id="shiny-approaches-1">
-
-<ul class = 'build'>
-<li>The 2nd and 3rd approach are more powerful, but more complicated.</li>
-<li>We focus on the 1st, which is simplest.</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Test Drive</h2></hgroup><article  id="test-drive">
-
-<ul>
-<li>File -&gt; New File -&gt; R Markdown&#8230;</li>
-<li>Shiny -&gt; Set Title as &quot;Testing&quot;</li>
-<li>Click &quot;Run Document&quot;</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Components</h2></hgroup><article  id="components">
+<p>There are many ways to create a Shiny App</p>
 
 <ol>
-<li><strong>Inputs</strong>: <code>inputPanel()</code>s that involve <code>somethingInput</code>. Ex:
-
-<ul>
-<li><code>selectInput()</code>: Drop down menu</li>
-<li><code>sliderInput()</code>: Slider</li>
-<li><code>textInput()</code> and more.</li>
-</ul></li>
-<li><strong>Outputs</strong>: <code>renderSomething()</code>s that display outputs. Ex:
-
-<ul>
-<li><code>renderPlot()</code>: plots</li>
-<li><code>renderTable()</code>: tables</li>
-</ul></li>
+<li>R Markdown: New File -&gt; R Markdown&#8230; -&gt; Shiny -&gt; either a document or slides</li>
+<li>Single File App: New File -&gt; Shiny Web App -&gt; Single File <code>app.R</code></li>
+<li>Multiple File App (allows a more split organization): New File -&gt; Shiny Web App -&gt; Multiple File <code>ui.R</code>/<code>server.R</code></li>
 </ol>
 
-</article></slide><slide class=''><hgroup><h2>Back to Code</h2></hgroup><article  id="back-to-code">
+<p>&#8230;but they all share certain components. We focus on the 2nd.</p>
+
+</article></slide><slide class=''><hgroup><h2>Shared Components</h2></hgroup><article  id="shared-components">
+
+<ol>
+<li><code>UI</code> user interface component: what the user sees
 
 <ul>
-<li>On lines 22-28, we gather the <strong>inputs</strong>
-
-<ul>
-<li>The <code>selectInput()</code> drop down menu value gets assigned to <code>n_breaks</code></li>
-<li>The <code>sliderInput()</code> slider value gets assigned to <code>bw_adjust</code></li>
+<li><code>Panel</code>: organize the layout</li>
+<li><code>SOMETHINGInput</code>: App takes inputs and saves them in <code>input</code>. Ex: text, numerical values, sliders, radio buttons, etc.</li>
+<li><code>renderSOMETHING</code>: Shiny renders an output. Ex: plots, table, text, etc.</li>
 </ul></li>
-<li>On lines 30-36, we render the <strong>outputs</strong>
+<li><code>server</code>: the R code that does the work behind the scenes</li>
+</ol>
+
+<p>Then run it!</p>
+
+</article></slide><slide class=''><hgroup><h2>New Shiny App</h2></hgroup><article  id="new-shiny-app">
+
+<p>Let&#39;s create a new single file Shiny app <code>app.R</code>:</p>
 
 <ul>
-<li>Specifically a <code>renderPlot</code> using a base R <code>hist()</code>ogram</li>
-<li>Note how we access the inputed values as <code>input$n_breaks</code> and <code>input$bw_adjust</code></li>
-</ul></li>
+<li>New File -&gt; Shiny Web App&#8230;</li>
+<li>Call it <code>testing</code> and &quot;single file&quot; application type.</li>
+<li>Click on &quot;Run App&quot;</li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>Input/Output Options</h2></hgroup><article  id="inputoutput-options">
+</article></slide><slide class=''><hgroup><h2>UI Component: Set Panels</h2></hgroup><article  id="ui-component-set-panels">
 
 <ul>
-<li>From RStudio -&gt; Help -&gt; Cheatsheets -&gt; Shiny Web Applications
-
-<ul>
-<li><strong>Inputs</strong>: Column on right of 1st page</li>
-<li><strong>Outputs</strong>: All the <code>renderSomething()</code>&#39;s in bottom of middle section on 1st page</li>
-</ul></li>
-<li>See Help files. Ex: Type <code>?shiny::passwordInput</code></li>
+<li>Use to say layout and organization of inputs and outputs section</li>
+<li>Section 5 of cheat sheet, on back</li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>Today&#39;s Exercise</h2></hgroup><article  id="todays-exercise">
-
-<p>Using the <code>babynames</code> dataset in the <code>babynames</code> package, modify <code>Testing.Rmd</code> so that we can</p>
+</article></slide><slide class=''><hgroup><h2>UI Component: Get Inputs</h2></hgroup><article  id="ui-component-get-inputs">
 
 <ul>
-<li>type in a name</li>
-<li>specify a range of years</li>
+<li><code>sliderInput()</code> assign a value to <code>bins</code> based on a slider</li>
+<li>All possible input options are listed in &quot;Widgets&quot; on the cheatsheet.</li>
+<li>Type <code>?selectInput</code>, for example, to get a sense for the arguments.</li>
 </ul>
 
-<p>And get a <code>ggplot</code> plot of the proportions of babies with the specified name for the specified range of years.</p>
-
-</article></slide><slide class=''><hgroup><h2>Today&#39;s Exercise</h2></hgroup><article  id="todays-exercise-1">
-
-<p>This is a <strong>software engineering</strong> project. There are best practices for such things:</p>
+</article></slide><slide class=''><hgroup><h2>UI Component: Render Outputs</h2></hgroup><article  id="ui-component-render-outputs">
 
 <ul>
-<li>Start simple: get the simplest possible version of your project working</li>
-<li>Iterate: then slowly start adding components, testing often.</li>
+<li><code>plotOutput(&quot;distPlot&quot;)</code> renders the output defined in the <code>server</code> section. The <code>server</code> section does the</li>
+<li>All possible rendering options are listed in &quot;render functions&quot; on the cheatsheet</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Server Component: R Code</h2></hgroup><article  id="server-component-r-code">
+
+<ul>
+<li>Whatever you are going to output needs to be assigned to an object <code>output</code></li>
+<li>Described on front of cheat sheet</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Publishing Apps</h2></hgroup><article  id="publishing-apps">
+
+<p>To publish your apps:</p>
+
+<ul>
+<li>Go to <a href='https://www.shinyapps.io/' title=''>https://www.shinyapps.io/</a> and create a free account. You can host up to 5 shiny apps. However, you only get limited server resources dedicated to each user.</li>
+<li>Even better: Use the recently installed Middlebury Shiny Server Pro.</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Uploading Files to Midd Shiny Server</h2></hgroup><article  id="uploading-files-to-midd-shiny-server">
+
+<p>Mac: * Open Finder * Menu Bar -&gt; Go &gt; Connect to Server: <code>cifs://shiny.middlebury.edu/USERNAME</code></p>
+
+<p>Windows:</p>
+
+<ul>
+<li>Open File Explorer</li>
+<li>In address bar, <code>\\shiny.middlebury.edu\USERNAME</code></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Uploading Files to Midd Shiny Server</h2></hgroup><article  id="uploading-files-to-midd-shiny-server-1">
+
+<p>Once logged in:</p>
+
+<ul>
+<li>Go into the folder <code>ShinyApps</code></li>
+<li>Create a folder with the name of your Shiny App</li>
+</ul>
+
+<p>The URL any Shiny App <code>APPNAME</code> is * <a href='http://shiny.middlebury.edu/USERNAME/APPNAME/' title=''>http://shiny.middlebury.edu/USERNAME/APPNAME/</a> * which auto-redirects to <a href='https://shiny.middlebury.edu:3838/USERNAME/APPNAME' title=''>https://shiny.middlebury.edu:3838/USERNAME/APPNAME</a></p>
+
+</article></slide><slide class=''><hgroup><h2>Installing Packages</h2></hgroup><article  id="installing-packages">
+
+<p>For now, this is only way I know; I&#39;m investigating if this can be easier.</p>
+
+<ul>
+<li>RStudio menu bar -&gt; Tools -&gt; Shell&#8230;</li>
+<li>Type <code>ssh USERNAME@shiny.middlebury.edu</code></li>
+<li>Type <code>R</code>.</li>
+<li>Type <code>install.packages(&quot;ggplot2&quot;)</code> for example</li>
+<li>Select a CRAN mirror in the United States.</li>
+<li>Say yes to prompts about installing in a new library.</li>
+<li>After you&#39;ve installed all the necessary packages, close the window.</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Today&#39;s Exercise: Publish Shiny App</h2></hgroup><article  id="todays-exercise-publish-shiny-app">
+
+<p>First</p>
+
+<ul>
+<li>Publish your app to the Middlebury server under the URL <a href='http://shiny.middlebury.edu/USERNAME/testing/' title=''>http://shiny.middlebury.edu/USERNAME/testing/</a> by copying the <code>testing</code> folder into the <code>ShinyApps</code> folder on the server</li>
+<li>Test that you can access it from a browser.</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Today&#39;s Exercise: Publish Shiny App</h2></hgroup><article  id="todays-exercise-publish-shiny-app-1">
+
+<p>Second</p>
+
+<ul>
+<li>Change the histogram in the <code>app.R</code> file to be a ggplot, but keep the slider so that it sets the <code>bins</code> argument in <code>geom_histogram()</code>.</li>
+<li>Test it locally on your computer.</li>
+<li>Once it works, install <code>ggplot2</code> and <code>dplyr</code> on Shiny Server.</li>
+<li>Update <code>app.R</code> to be the new app.</li>
+<li>Test that you can access it from a browser.</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Other Resources</h2></hgroup><article  id="other-resources">
+
+<ul>
+<li>RStudio tutorial slides <code>shiny_slides.pdf</code> in <code>Lec08 Shiny</code> folder.</li>
+<li>Online tutorial on the RStudio webpage <a href='http://shiny.rstudio.com/tutorial/' title=''>http://shiny.rstudio.com/tutorial/</a>.</li>
 </ul></article></slide>
 
 
