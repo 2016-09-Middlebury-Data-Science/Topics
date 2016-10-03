@@ -1,0 +1,51 @@
+---
+title: "Babynames"
+author: "Albert Y. Kim"
+date: "October 3, 2016"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(babynames)
+library(ggplot2)
+library(dplyr)
+```
+
+
+## Creating App
+
+While there is no "right" way to create such an app, you **definitely** want to
+break down the task into bite-sized pieces. For example I
+
+1. Got the ggplot working using "pretend" inputs, **then tested**
+1. Made the `name`, `start_year`, and `end_year` input working one-by-one (but didn't connect to plot yet), **then tested**
+1. Then synced `input$name`, `input$start_year`, and `input$end_year` into ggplot one-by-one, **then tested**
+
+
+```{r eruptions, echo=FALSE}
+inputPanel(
+  # Input name
+  textInput("name", label = "Enter Name:", value="Jane"),
+  # Input start year
+  numericInput("start_year", label = "Start Year:", value = 1880, min = 1880, max = 2014, step = 1),
+  # Input end year
+  numericInput("end_year", label = "End Year:", value = 2014, min = 1880, max = 2014, step = 1)
+)
+
+renderPlot({
+  # Pretend Inputs
+  input_name <- "Albert"
+  input_start_year <- 1880
+  input_end_year <- 2014
+  
+  # Generate Plots
+  names <- babynames %>%
+    filter(name == input$name & year >= input$start_year & year <= input$end_year )
+  ggplot(data=names, aes(x=year, y=prop, col=sex)) + 
+    geom_line()
+})
+```
+
+

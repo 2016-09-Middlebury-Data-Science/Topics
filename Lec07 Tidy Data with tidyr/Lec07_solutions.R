@@ -31,7 +31,7 @@ library(stringr)
 # Q1: Add varibles "county_name" and "state_name" to the census data
 # frame, which are derived from the variable "QName".  Do this in a manner that
 # keeps the variable "QName" in the data frame.
-census <- read.csv("./Lec07 Tidy Data with tidyr/popdensity1990_00_10.csv")
+census <- read_csv("./Lec07 Tidy Data with tidyr/popdensity1990_00_10.csv")
 
 # Note there needs to be a space
 census <-

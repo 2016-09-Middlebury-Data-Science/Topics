@@ -1,0 +1,77 @@
+---
+title: "Lecture 09: More Shiny Apps"
+author: "Albert Y. Kim"
+date: "October 3, 2016"
+output: ioslides_presentation
+---
+
+<style>
+h2 { 
+ color: #3399ff;		
+}
+h3 { 
+ color: #3399ff;		
+}
+slides > slide.backdrop {
+  background: white;
+}
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+```
+
+
+
+## Embarking on Large Projects
+
+When your project has lots of moving parts (like a Shiny App), I suggest you
+
+* Start with a **braindead** version and go end-to-end immediately
+* Go back and iterate and improve
+
+Why? Because you need **feedback** ASAP
+
+
+
+## Embarking on Large Projects
+
+This is also known as a [**Minimum Viable
+Product**](https://www.google.com/search?q=minimum+viable+product).
+
+(Also the name of the Season 1 Ep 1 of HBO's Silicon Valley)
+
+
+
+## In Our Case
+
+Do not try to do everything at once, instead break down the task. For example:
+
+1. Got the ggplot working using "pretend" inputs, **then tested**
+1. Got the `name`, `start_year`, and `end_year` input panels working one-by-one (but didn't connect to plot yet), **then tested**
+1. Then synced `input$name`, `input$start_year`, and `input$end_year` into output ggplot one-by-one, **then tested**
+
+
+
+## In-Class Demo
+
+Open <a target="_blank" class="page-link" href="https://rstudio.middlebury.edu/s/a74eb91e75a57102701c6/">RStudio Server</a>
+
+
+
+
+
+## Today's Exercise
+
+Load the `movies` data set of IMDB ratings in the `ggplot2movies` package and create a Shiny app that
+
+* Plots budget on the x-axis and rating on the y-axis
+* Has a radio button option for the following genre of movies: Action, Animation, Comedy, Drama, Documentary, Romance, and Short.
+
+to see if there is a relationship between spending more on a movie and obtaining higher IMDB ratings, for different genres of movie.
+
+
