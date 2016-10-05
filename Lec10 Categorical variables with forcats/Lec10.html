@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Lecture 10: Logistic Regression for Prediction</title>
+  <title>Lecture 10: Categorical Variables with forcats</title>
 
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -25,7 +25,7 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: 'Lecture 10: Logistic Regression for Prediction',
+                title: 'Lecture 10: Categorical Variables with forcats',
                         useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -87,7 +87,7 @@
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">October 7, 2016</p>
+            <p style="margin-top: 6px; margin-left: -2px;">October 5, 2016</p>
           </hgroup>
   </slide>
 
@@ -103,90 +103,57 @@ slides > slide.backdrop {
 }
 </style>
 
-<slide class=''><hgroup><h2>Regression to Two Ends:</h2></hgroup><article  id="regression-to-two-ends">
+<slide class=''><hgroup><h2>Categorical variables in R</h2></hgroup><article  id="categorical-variables-in-r">
+
+<p>Categorical variables coded as <code>factor</code>s in R. They consists of:</p>
 
 <ul>
-<li>For explanation:</li>
-<li>For prediction:</li>
+<li><strong>data</strong>: a vector of values</li>
+<li><strong>metadata</strong>: <code>levels</code> that determine an ordering of the categories</li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>Binary Outcome Variables</h2></hgroup><article  id="binary-outcome-variables">
+<p>In particular, the <code>levels</code> determine the order that categorical variables are shown in plots.</p>
 
-<p>Let out outcomes be <strong>binary</strong>.</p>
+</article></slide><slide class=''><hgroup><h2>Categorical variables in R</h2></hgroup><article  id="categorical-variables-in-r-1">
 
-<p>i.e. for \(i=1, \ldots, n\) observations</p>
+<p>For the longest time, the fact that the <code>levels</code> were metadata i.e. data about the data that isn&#39;t visible in &quot;tidy data&quot;, made working with <code>factor</code>s a real pain in R.</p>
+
+<p>Until August 31, 2016 upon the release of the <code>forcats</code> package.</p>
+
+</article></slide><slide class=''><hgroup><h2>Example</h2></hgroup><article  id="example">
+
+<p>Let&#39;s look at today&#39;s data, a sample of categorical variables from the General Social survey. Run the following in R</p>
+
+<pre class = 'prettyprint lang-r'>library(dplyr)
+library(forcats)
+data(&quot;gss_cat&quot;)
+glimpse(gss_cat)</pre>
+
+</article></slide><slide class=''><hgroup><h2>Example</h2></hgroup><article  id="example-1">
+
+<p>In particular, let&#39;s look at <code>relig</code> i.e. religion of respondent. Run:</p>
+
+<pre class = 'prettyprint lang-r'>summary(gss_cat$relig)
+levels(gss_cat$relig)</pre>
+
+<p>The <code>levels()</code> function shows the default ordering.</p>
+
+</article></slide><slide class=''><hgroup><h2>Working with Factors</h2></hgroup><article  id="working-with-factors">
+
+<p>There are two chief modifications people want to do to factors:</p>
+
+<ol>
+<li>Change the order of the levels for visualizations via <code>fct_reorder()</code></li>
+<li>Change the values of a factor via <code>fct_recode()</code></li>
+</ol>
+
+</article></slide><slide class=''><hgroup><h2>Resources</h2></hgroup><article  id="resources">
 
 <ul>
-<li>\(y_i = 1\) if some condition holds</li>
-<li>\(y_i = 0\) if some condition does not hold</li>
-</ul>
-
-<p>We&#39;re interested in \(p_i = \mbox{Pr}(y_i = 1)\).</p>
-
-</article></slide><slide class=''><hgroup><h2>Logistic Regression</h2></hgroup><article  id="logistic-regression">
-
-<p>Logistic regression is preferred over linear regression here because you might end up with fitted probabilities \(\widehat{p}_i = \widehat{\mbox{Pr}}(y_i = 1)\) that are either</p>
-
-<ul>
-<li>less than 0</li>
-<li>greater than 1</li>
-</ul>
-
-<p>So we use the not the first model, but the second:</p>
-
-<p>\[
-\begin{eqnarray}
-p_i &amp;=&amp; \beta_1 X_{i1} + \ldots  + \beta_k X_{ik}\\
-\mbox{logit}(p_i)=\log\left(\frac{p_i}{1-p_i}\right) &amp;=&amp; \beta_1 X_{i1} + \ldots  + \beta_k X_{ik}
-\end{eqnarray}
-\]</p>
-
-</article></slide><slide class=''><hgroup><h2>OkCupid Data</h2></hgroup><article  id="okcupid-data">
-
-<p>Result of a Python script that scraped the OkCupid website. We consider 59K users who were</p>
-
-<ul>
-<li>members on 2012/06/26</li>
-<li>within 25 miles of SF</li>
-<li>online in the last year</li>
-<li>have at least one photo</li>
-</ul>
-
-<p>Their public profiles were pulled on 2012/06/30. i.e. only data that’s visible to the public</p>
-
-</article></slide><slide class=''><hgroup><h2>OkCupid Data</h2></hgroup><article  id="okcupid-data-1">
-
-<ul>
-<li>essay0- My self summary</li>
-<li>essay1- What I’m doing with my life</li>
-<li>essay2- I’m really good at</li>
-<li>essay3- The first thing people usually notice about me</li>
-<li>essay4- Favorite books, movies, show, music, and food</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>OkCupid Data</h2></hgroup><article  id="okcupid-data-2">
-
-<ul>
-<li>essay5- The six things I could never do without</li>
-<li>essay6- I spend a lot of time thinking about</li>
-<li>essay7- On a typical Friday night I am</li>
-<li>essay8- The most private thing I am willing to admit</li>
-<li>essay9- You should message me if&#8230;</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Questions</h2></hgroup><article  id="questions">
-
-<ul>
-<li>Knowing nothing about a user, what is your best guess of the probability that the user is female?</li>
-<li>Is height predictive of a user&#39;s sex?</li>
-<li>Is the use of the word &quot;wine&quot; in a user&#39;s essay questions predictive of &#8230;</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Acknowledgements</h2></hgroup><article  id="acknowledgements">
-
-<p>Thanks to Christian Rudder from OkCupid and OkTrends for agreeing to the data&#39;s use.</p>
-
-<p>Journal of Statistics Education paper can be found <a href='https://github.com/rudeboybert/JSE_OkCupid' title=''>here</a>.</p></article></slide>
+<li>In R, type <code>fct_</code> and scroll the auto-complete to see all functions</li>
+<li>Intro to <code>forcats</code> on <a href='https://blog.rstudio.org/2016/08/31/forcats-0-1-0/' title=''>RStudio blog</a></li>
+<li>More in depth treatment in Wickham&#39;s <a href='http://r4ds.had.co.nz/factors.html#modifying-factor-levels' title=''>R for Data Science</a></li>
+</ul></article></slide>
 
 
   <slide class="backdrop"></slide>

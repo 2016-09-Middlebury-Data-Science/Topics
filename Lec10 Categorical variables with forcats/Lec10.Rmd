@@ -1,0 +1,106 @@
+---
+title: "Lecture 10: Categorical Variables with forcats"
+author: "Albert Y. Kim"
+date: "October 5, 2016"
+output: ioslides_presentation
+---
+
+<style>
+h2 { 
+ color: #3399ff;		
+}
+h3 { 
+ color: #3399ff;		
+}
+slides > slide.backdrop {
+  background: white;
+}
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(forcats)
+```
+
+
+
+
+## Categorical variables in R
+
+Categorical variables coded as `factor`s in R. They consists of:
+
+* **data**: a vector of values
+* **metadata**: `levels` that determine an ordering of the categories
+
+In particular, the `levels` determine the order that categorical variables
+are shown in plots.
+
+
+
+
+## Categorical variables in R
+
+For the longest time, the fact that the `levels` were metadata i.e. data about the data
+that isn't visible in "tidy data", made working with `factor`s a real pain in R.
+
+Until August 31, 2016 upon the release of the `forcats` package.
+
+
+
+
+## Example
+
+Let's look at today's data, a sample of categorical variables from the General Social survey.
+Run the following in R
+
+```{r, eval=FALSE}
+library(dplyr)
+library(forcats)
+data("gss_cat")
+glimpse(gss_cat)
+```
+
+
+
+
+## Example
+
+In particular, let's look at `relig` i.e. religion of respondent. Run:
+
+```{r, eval=FALSE}
+summary(gss_cat$relig)
+levels(gss_cat$relig)
+```
+
+The `levels()` function shows the default ordering.
+
+
+
+
+## Working with Factors
+
+There are two chief modifications people want to do to factors:
+
+1. Change the order of the levels for visualizations via `fct_reorder()`
+1. Change the values of a factor via `fct_recode()`
+
+
+
+
+## Resources
+
+* In R, type `fct_` and scroll the auto-complete to see all functions
+* Intro to `forcats` on [RStudio blog](https://blog.rstudio.org/2016/08/31/forcats-0-1-0/)
+* More in depth treatment in Wickham's [R for Data Science](http://r4ds.had.co.nz/factors.html#modifying-factor-levels)
+
+
+
+
+
+
+
+
