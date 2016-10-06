@@ -1,5 +1,6 @@
 library(ggplot2)
 library(dplyr)
+library(readr)
 # Used for string manipulation:
 library(stringr)
 # Set random number generator seed value
@@ -11,18 +12,14 @@ set.seed(76)
 # Load Data & Preprocess It
 #-------------------------------------------------------------------------------
 # Set the working directory of R to wherever the profiles.csv file is
-profiles <- read.csv("profiles.csv", header=TRUE) %>% tbl_df()
+profiles <- read_csv("profiles.csv")
 nrow(profiles)
 
-# 60K rows is a bit unwieldy to work with, so let's take a random sample of 10%
-# of the rows. This is a common trick used in the early stage of analysis:
-# -take a random subsample to that things load quicker
-# -once we're happy with our work, run the analysis on all the observations
-profiles <- profiles %>% sample_frac(0.1)
-
 # Split off the essays into a separate data.frame
-essays <- select(profiles, contains("essay"))
-profiles <- select(profiles, -contains("essay"))
+essays <- profiles %>% 
+  select(contains("essay"))
+profiles <- profiles %>% 
+  select(-contains("essay"))
 
 # Look at our data
 names(profiles)
