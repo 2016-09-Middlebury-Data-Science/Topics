@@ -48,7 +48,7 @@ profiles <- profiles %>%
 profiles$last_online[1:10]
 profiles <- profiles %>% 
   mutate(
-    last_online = str_sub(last_online, 1, 10),
+    last_online = stringr::str_sub(last_online, 1, 10),
     last_online = lubridate::ymd(last_online)
   )
 profiles$last_online[1:10]
