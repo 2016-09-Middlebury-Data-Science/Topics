@@ -1,5 +1,5 @@
 ---
-title: "Lecture 10: Logistic Regression for Prediction"
+title: "Lecture 11: Logistic Regression for Prediction"
 author: "Albert Y. Kim"
 date: "October 7, 2016"
 output: ioslides_presentation
@@ -75,7 +75,6 @@ $$
 
 * Knowing nothing about a user, what is your best guess of the probability that the user is female?
 * Is height predictive of a user's sex?
-* Is the use of the word "wine" in a user's essay questions predictive of ...
 
 
 
