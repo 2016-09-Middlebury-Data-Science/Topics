@@ -36,15 +36,14 @@ library(tidyr)
 ## Machine Learning
 
 > * Can you train a **model** to **learn** from data?
-> * Examples: Netflix movie recommendations, Amazon products
+> * Examples: Netflix movie and Amazon product recommendations
 > * <img src="self_driving.jpg" alt="Drawing" style="width: 550px;"/>
 
 
 
 ## Machine Learning
 
-A big part of machine learning is **prediction**. Can you take predictor information
-and make accurate predictions.
+A big part of machine learning is **prediction**. Can you take past observations make predictions about future observations?
 
 
 
@@ -58,7 +57,7 @@ $$
 
 where the $\beta$'s regulate the relationship between
 
-* the independent variables $x_1, x_2, ...$
+* the independent variables $x_1, ..., x_k$
 * the outcome variable $y$
 
 
@@ -69,7 +68,7 @@ where the $\beta$'s regulate the relationship between
 > * You care about causal relationships
 > * i.e. you care about interpreting the $\beta$'s
 > * Most common use of regression
-> * Econometrics, biology, many social sciences are concerned with: *if I change x, how does this impact y*?
+> * Econometrics, biology, many social sciences: *if I change x, how does this impact y?*
 
 
 
@@ -79,7 +78,7 @@ where the $\beta$'s regulate the relationship between
 > * You don't care about causality per se, you only care that you can make reliable predictions.
 > * i.e. you don't care about interpreting the $\beta$'s
 > * Used mostly in machine learning
-> * Treats regression as a **black box**
+> * Treats regression as a **black box**: *if I feed in information x, can I accurately predict y?*
 
 
 
