@@ -24,13 +24,6 @@ profiles <-
   read_csv("profiles.csv") %>%
   tibble::rownames_to_column(var="id")
 
-# Let's focus only on the non-essay data: split off the essays into a separate
-# data frame
-essays <- profiles %>%
-  select(id, contains("essay"))
-profiles <- profiles %>%
-  select(-contains("essay"))
-
 # Look at our data
 View(profiles)
 glimpse(profiles)
