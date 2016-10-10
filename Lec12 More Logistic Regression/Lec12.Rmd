@@ -114,7 +114,7 @@ In R all $n$ fitted values can be obtained via: `fitted(MODEL_NAME)`
 > * Here we know the true gender of each user, and thus we can evaluate if we were right or wrong. i.e. error rates.
 > * But if we know each user's true sex, then why are we predicting it?
 > * This is called **model training**: we need to train the model using data that includes the true sex
-> * After we've trained the model, we **test** the model on observations where we **don't know the sex**.
+> * After we've trained the model, we perform **model testing** on observations where we don't know the sex.
 
 
 
