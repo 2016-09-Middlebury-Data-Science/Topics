@@ -1,0 +1,48 @@
+---
+title: "Lecture 13: Dates/Times with Lubridate"
+author: "Albert Y. Kim"
+date: "October 14, 2016"
+output: ioslides_presentation
+---
+
+<style>
+h2 { 
+ color: #3399ff;		
+}
+h3 { 
+ color: #3399ff;		
+}
+slides > slide.backdrop {
+  background: white;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+```
+
+
+
+## Time Variable 
+
+> * Time is technically a continuous/numerical variable
+> * But we think in terms of discrete and categorical variables: 2016, February, Tuesday, 9:05am
+> * How does a computer store time?
+
+
+
+## POSIX
+
+The Unix epoch (or Unix time or POSIX time or Unix timestamp) is the number of 
+seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds.
+
+Check out a converter here: <http://www.epochconverter.com/>
+
+
+
+## POSIX
+
+
