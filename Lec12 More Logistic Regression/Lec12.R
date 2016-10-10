@@ -26,13 +26,6 @@ profiles <-
   read_csv("profiles.csv") %>%
   tibble::rownames_to_column(var="id")
 
-# Let's focus only on the non-essay data: split off the essays into a separate
-# data frame
-essays <- profiles %>%
-  select(id, contains("essay"))
-profiles <- profiles %>%
-  select(-contains("essay"))
-
 # Look at our data
 glimpse(profiles)
 
@@ -191,7 +184,7 @@ predictions <- profiles_clean %>%
     p_hat3 = fitted(model_3)
   )
 
-predictions_tidy <- predictions_wide_format %>%
+predictions_tidy <- predictions %>%
   gather(type, fitted_prob, -c(is_female, orientation, height))
 
 
