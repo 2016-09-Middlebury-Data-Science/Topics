@@ -27,103 +27,18 @@ library(tidyr)
 
 
 
-## Recall: Machine Learning
-
-![](data_science_2.png)
 
 
-
-## Machine Learning
-
-> * Can you train a **model** to **learn** from data?
-> * Examples: Netflix movie and Amazon product recommendations
-> * <img src="self_driving.jpg" alt="Drawing" style="width: 550px;"/>
-
-
-
-## Machine Learning
-
-A big part of machine learning is **prediction**. Can you take past observations make predictions about future observations?
-
-
-
-## Regression
-
-Regression models often look like this:
-
-$$
-y = \beta_0 + \beta_1 x_1 + ... \beta_k x_k
-$$
-
-where the $\beta$'s regulate the relationship between
-
-* the independent variables $x_1, ..., x_k$
-* the outcome variable $y$
-
-
-
-## Two Paradigms for Regression
-
-> * The first: **Regression for explanation**
-> * You care about causal relationships
-> * i.e. you care about interpreting the $\beta$'s
-> * Most common use of regression
-> * Econometrics, biology, many social sciences: *if I change x, how does this impact y?*
-
-
-
-## Two Paradigms for Regression
-
-> * The second: **Regression for prediction**
-> * You don't care about causality per se, you only care that you can make reliable predictions.
-> * i.e. you don't care about interpreting the $\beta$'s
-> * Used mostly in machine learning
-> * Treats regression as a **black box**: *if I feed in information x, can I accurately predict y?*
-
-
-
-## Logistic Regression
-
-> * Regular linear regression is used when the outcome variable $y$ is numerical
-> * What about if the outcome is binary? i.e. two categories?
-> * Ex: male vs female, domestic vs international, true vs false?
-> * One tool: **logistic regression**
-
-
-## Binary Outcome Variables
-
-The observed outcomes are **binary**:
-
-* $y = 1$ if some condition holds
-* $y = 0$ if condition does not hold
-
-We're interested in $p = \mbox{Pr}(y = 1)$.
-
-
-
-## Logistic Regression
-
-<!--
-Logistic regression is preferred over linear regression here because you might end up with fitted probabilities $\widehat{p}_i = \widehat{\mbox{Pr}}(y_i = 1)$ that are either
-
-* less than 0
-* greater than 1
-
-So we use the not the first model, but the second:
-
-$$
-\begin{eqnarray}
-p_i &=& \beta_1 X_{i1} + \ldots  + \beta_k X_{ik}\\
-\mbox{logit}(p_i)=\log\left(\frac{p_i}{1-p_i}\right) &=& \beta_1 X_{i1} + \ldots  + \beta_k X_{ik}
-\end{eqnarray}
-$$
--->
+## Recall: Binary Outcome Variables
 
 We model the relationship between the
 
-> * predictor variables $x_1, \ldots, x_k$
-> * outcome variable, in this case $p = \mbox{Pr}(y = 1)$
-> * as $$
+* observed binary outcome variable $y$
+* predictor variables $x_1, \ldots, x_k$
+
+as the following where $p = \mbox{Pr}(y = 1)$:
+
+$$
 \begin{eqnarray}
 \mbox{logit}(p)=\log\left(\frac{p}{1-p}\right) &=& \beta_0 + \beta_1 x_{1} + \ldots  + \beta_k x_{k}
 \end{eqnarray}
@@ -131,9 +46,11 @@ $$
 
 
 
-## Solving for $p$
 
-Note if
+
+## Recall: Solving for $p$
+
+If the **linear regression equation** is this:
 
 $$
 \begin{eqnarray}
@@ -148,6 +65,59 @@ $$
 p &=& \frac{1}{1+\exp\left(-(\beta_0 + \beta_1 x_{1} + \ldots  + \beta_k x_{k})\right)} 
 \end{eqnarray}
 $$
+
+
+
+
+## Logistic Regression in R
+
+> * Use `MODEL_NAME <- glm(OUTCOME_VAR ~ PREDICTOR_1 + PREDICTOR2, data=DATASET, family="binomial")`
+> * For an intercept only model i.e. no predictors, use `glm(OUTCOME_VAR ~ 1, data=DATASET, family="binomial")`
+> * Categorical variable: First level of factor is baseline (exercise)
+
+
+
+## Fitted Values
+
+After we fit a regression and obtain the fitted $\widehat{\beta}_0, \ldots, \widehat{\beta}_k$, we can compute the fitted probabilities $\widehat{p}$:
+
+$$
+\begin{eqnarray}
+\widehat{p} &=& \frac{1}{1+\exp\left(-(\widehat{\beta}_0 + \widehat{\beta}_1 x_{1} + \ldots  + \widehat{\beta}_k x_{k})\right)} 
+\end{eqnarray}
+$$
+
+In R all $n$ fitted values can be obtained via: `fitted(MODEL_NAME)`
+
+
+
+
+
+## Two Branches of Machine Learning
+
+> * **Unsupervised learning**: no outcome variable of interest. Examples include clustering, where you group observations based on similar traits.
+> * **Supervised learning**: there is an outcome varible of interest. Examples include regression and decision trees
+> * In our case: sex is the outcome variable which we use as the **ground truth** to compare our predictions to.
+
+
+
+## Exercise for Today
+
+> 1. We fit a logistic regression model using the outcome and predictor variables $y$ and $x_1, \ldots, x_k$
+> 1. We obtain a prediction $\widehat{{\tt{is.female}}}$ for each user using $\widehat{p}$
+> 1. We compare our prediction $\widehat{{\tt{is.female}}}$ to the truth ${\tt{is.female}}$ and compute **error** rates
+
+
+
+## Conceptual Leap: Model Training vs Testing
+
+> * Here we know the true gender of each user, and thus we can evaluate if we were right or wrong. i.e. error rates.
+> * But if we know each user's true sex, then why are we predicting it?
+> * This is called **model training**: we need to train the model using data that includes the true sex
+> * After we've trained the model, we **test** the model on observations where we **don't know the sex**.
+
+
+
 
 
 

@@ -76,7 +76,6 @@
   </style>
 
 
-
 </head>
 
 <body style="opacity: 0">
@@ -105,110 +104,26 @@ slides > slide.backdrop {
 }
 </style>
 
-<slide class=''><hgroup><h2>Recall: Machine Learning</h2></hgroup><article  id="recall-machine-learning">
-
-<img src='data_science_2.png' title='fig:'/>
-
-</article></slide><slide class=''><hgroup><h2>Machine Learning</h2></hgroup><article  id="machine-learning">
-
-<ul class = 'build'>
-<li>Can you train a <strong>model</strong> to <strong>learn</strong> from data?</li>
-<li>Examples: Netflix movie and Amazon product recommendations</li>
-<li><img src="self_driving.jpg" alt="Drawing" style="width: 550px;"/></li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Machine Learning</h2></hgroup><article  id="machine-learning-1">
-
-<p>A big part of machine learning is <strong>prediction</strong>. Can you take past observations make predictions about future observations?</p>
-
-</article></slide><slide class=''><hgroup><h2>Regression</h2></hgroup><article  id="regression">
-
-<p>Regression models often look like this:</p>
-
-<p>\[
-y = \beta_0 + \beta_1 x_1 + ... \beta_k x_k
-\]</p>
-
-<p>where the \(\beta\)&#39;s regulate the relationship between</p>
-
-<ul>
-<li>the independent variables \(x_1, ..., x_k\)</li>
-<li>the outcome variable \(y\)</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Two Paradigms for Regression</h2></hgroup><article  id="two-paradigms-for-regression">
-
-<ul class = 'build'>
-<li>The first: <strong>Regression for explanation</strong></li>
-<li>You care about causal relationships</li>
-<li>i.e. you care about interpreting the \(\beta\)&#39;s</li>
-<li>Most common use of regression</li>
-<li>Econometrics, biology, many social sciences: <em>if I change x, how does this impact y?</em></li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Two Paradigms for Regression</h2></hgroup><article  id="two-paradigms-for-regression-1">
-
-<ul class = 'build'>
-<li>The second: <strong>Regression for prediction</strong></li>
-<li>You don&#39;t care about causality per se, you only care that you can make reliable predictions.</li>
-<li>i.e. you don&#39;t care about interpreting the \(\beta\)&#39;s</li>
-<li>Used mostly in machine learning</li>
-<li>Treats regression as a <strong>black box</strong>: <em>if I feed in information x, can I accurately predict y?</em></li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Logistic Regression</h2></hgroup><article  id="logistic-regression">
-
-<ul class = 'build'>
-<li>Regular linear regression is used when the outcome variable \(y\) is numerical</li>
-<li>What about if the outcome is binary? i.e. two categories?</li>
-<li>Ex: male vs female, domestic vs international, true vs false?</li>
-<li>One tool: <strong>logistic regression</strong></li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Binary Outcome Variables</h2></hgroup><article  id="binary-outcome-variables">
-
-<p>The observed outcomes are <strong>binary</strong>:</p>
-
-<ul>
-<li>\(y = 1\) if some condition holds</li>
-<li>\(y = 0\) if condition does not hold</li>
-</ul>
-
-<p>We&#39;re interested in \(p = \mbox{Pr}(y = 1)\).</p>
-
-</article></slide><slide class=''><hgroup><h2>Logistic Regression</h2></hgroup><article  id="logistic-regression-1">
-
-<!--
-Logistic regression is preferred over linear regression here because you might end up with fitted probabilities $\widehat{p}_i = \widehat{\mbox{Pr}}(y_i = 1)$ that are either
-
-* less than 0
-* greater than 1
-
-So we use the not the first model, but the second:
-
-$$
-\begin{eqnarray}
-p_i &=& \beta_1 X_{i1} + \ldots  + \beta_k X_{ik}\\
-\mbox{logit}(p_i)=\log\left(\frac{p_i}{1-p_i}\right) &=& \beta_1 X_{i1} + \ldots  + \beta_k X_{ik}
-\end{eqnarray}
-$$
--->
+<slide class=''><hgroup><h2>Recall: Binary Outcome Variables</h2></hgroup><article  id="recall-binary-outcome-variables">
 
 <p>We model the relationship between the</p>
 
-<ul class = 'build'>
+<ul>
+<li>observed binary outcome variable \(y\)</li>
 <li>predictor variables \(x_1, \ldots, x_k\)</li>
-<li>outcome variable, in this case \(p = \mbox{Pr}(y = 1)\)</li>
-<li>as \[
+</ul>
+
+<p>as the following where \(p = \mbox{Pr}(y = 1)\):</p>
+
+<p>\[
 \begin{eqnarray}
 \mbox{logit}(p)=\log\left(\frac{p}{1-p}\right) &amp;=&amp; \beta_0 + \beta_1 x_{1} + \ldots  + \beta_k x_{k}
 \end{eqnarray}
-\]</li>
-</ul>
+\]</p>
 
-</article></slide><slide class=''><hgroup><h2>Solving for \(p\)</h2></hgroup><article  id="solving-for-p">
+</article></slide><slide class=''><hgroup><h2>Recall: Solving for \(p\)</h2></hgroup><article  id="recall-solving-for-p">
 
-<p>Note if</p>
+<p>If the <strong>linear regression equation</strong> is this:</p>
 
 <p>\[
 \begin{eqnarray}
@@ -222,7 +137,52 @@ $$
 \begin{eqnarray}
 p &amp;=&amp; \frac{1}{1+\exp\left(-(\beta_0 + \beta_1 x_{1} + \ldots  + \beta_k x_{k})\right)} 
 \end{eqnarray}
-\]</p></article></slide>
+\]</p>
+
+</article></slide><slide class=''><hgroup><h2>Logistic Regression in R</h2></hgroup><article  id="logistic-regression-in-r">
+
+<ul class = 'build'>
+<li>Use <code>MODEL_NAME &lt;- glm(OUTCOME_VAR ~ PREDICTOR_1 + PREDICTOR2, data=DATASET, family=&quot;binomial&quot;)</code></li>
+<li>For an intercept only model i.e. no predictors, use <code>glm(OUTCOME_VAR ~ 1, data=DATASET, family=&quot;binomial&quot;)</code></li>
+<li>Categorical variable: First level of factor is baseline (exercise)</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Fitted Values</h2></hgroup><article  id="fitted-values">
+
+<p>After we fit a regression and obtain the fitted \(\widehat{\beta}_0, \ldots, \widehat{\beta}_k\), we can compute the fitted probabilities \(\widehat{p}\):</p>
+
+<p>\[
+\begin{eqnarray}
+\widehat{p} &amp;=&amp; \frac{1}{1+\exp\left(-(\widehat{\beta}_0 + \widehat{\beta}_1 x_{1} + \ldots  + \widehat{\beta}_k x_{k})\right)} 
+\end{eqnarray}
+\]</p>
+
+<p>In R all \(n\) fitted values can be obtained via: <code>fitted(MODEL_NAME)</code></p>
+
+</article></slide><slide class=''><hgroup><h2>Two Branches of Machine Learning</h2></hgroup><article  id="two-branches-of-machine-learning">
+
+<ul class = 'build'>
+<li><strong>Unsupervised learning</strong>: no outcome variable of interest. Examples include clustering, where you group observations based on similar traits.</li>
+<li><strong>Supervised learning</strong>: there is an outcome varible of interest. Examples include regression and decision trees</li>
+<li>In our case: sex is the outcome variable which we use as the <strong>ground truth</strong> to compare our predictions to.</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Exercise for Today</h2></hgroup><article  id="exercise-for-today">
+
+<ol class = 'build'>
+<li>We fit a logistic regression model using the outcome and predictor variables \(y\) and \(x_1, \ldots, x_k\)</li>
+<li>We obtain a prediction \(\widehat{{\tt{is.female}}}\) for each user using \(\widehat{p}\)</li>
+<li>We compare our prediction \(\widehat{{\tt{is.female}}}\) to the truth \({\tt{is.female}}\) and compute <strong>error</strong> rates</li>
+</ol>
+
+</article></slide><slide class=''><hgroup><h2>Conceptual Leap: Model Training vs Testing</h2></hgroup><article  id="conceptual-leap-model-training-vs-testing">
+
+<ul class = 'build'>
+<li>Here we know the true gender of each user, and thus we can evaluate if we were right or wrong. i.e. error rates.</li>
+<li>But if we know each user&#39;s true sex, then why are we predicting it?</li>
+<li>This is called <strong>model training</strong>: we need to train the model using data that includes the true sex</li>
+<li>After we&#39;ve trained the model, we <strong>test</strong> the model on observations where we <strong>don&#39;t know the sex</strong>.</li>
+</ul></article></slide>
 
 
   <slide class="backdrop"></slide>
