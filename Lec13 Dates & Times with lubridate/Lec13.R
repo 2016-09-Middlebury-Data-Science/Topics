@@ -1,5 +1,4 @@
-library(dplyr)
-library(ggplot2)
+library(tidyverse)
 
 # Install these packages if you haven't already.
 library(Quandl)
