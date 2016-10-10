@@ -1,0 +1,153 @@
+---
+title: "Lecture 12: More Logistic Regression"
+author: "Albert Y. Kim"
+date: "October 10, 2016"
+output: ioslides_presentation
+---
+
+<style>
+h2 { 
+ color: #3399ff;		
+}
+h3 { 
+ color: #3399ff;		
+}
+slides > slide.backdrop {
+  background: white;
+}
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+```
+
+
+
+## Recall: Machine Learning
+
+![](data_science_2.png)
+
+
+
+## Machine Learning
+
+> * Can you train a **model** to **learn** from data?
+> * Examples: Netflix movie and Amazon product recommendations
+> * <img src="self_driving.jpg" alt="Drawing" style="width: 550px;"/>
+
+
+
+## Machine Learning
+
+A big part of machine learning is **prediction**. Can you take past observations make predictions about future observations?
+
+
+
+## Regression
+
+Regression models often look like this:
+
+$$
+y = \beta_0 + \beta_1 x_1 + ... \beta_k x_k
+$$
+
+where the $\beta$'s regulate the relationship between
+
+* the independent variables $x_1, ..., x_k$
+* the outcome variable $y$
+
+
+
+## Two Paradigms for Regression
+
+> * The first: **Regression for explanation**
+> * You care about causal relationships
+> * i.e. you care about interpreting the $\beta$'s
+> * Most common use of regression
+> * Econometrics, biology, many social sciences: *if I change x, how does this impact y?*
+
+
+
+## Two Paradigms for Regression
+
+> * The second: **Regression for prediction**
+> * You don't care about causality per se, you only care that you can make reliable predictions.
+> * i.e. you don't care about interpreting the $\beta$'s
+> * Used mostly in machine learning
+> * Treats regression as a **black box**: *if I feed in information x, can I accurately predict y?*
+
+
+
+## Logistic Regression
+
+> * Regular linear regression is used when the outcome variable $y$ is numerical
+> * What about if the outcome is binary? i.e. two categories?
+> * Ex: male vs female, domestic vs international, true vs false?
+> * One tool: **logistic regression**
+
+
+## Binary Outcome Variables
+
+The observed outcomes are **binary**:
+
+* $y = 1$ if some condition holds
+* $y = 0$ if condition does not hold
+
+We're interested in $p = \mbox{Pr}(y = 1)$.
+
+
+
+## Logistic Regression
+
+<!--
+Logistic regression is preferred over linear regression here because you might end up with fitted probabilities $\widehat{p}_i = \widehat{\mbox{Pr}}(y_i = 1)$ that are either
+
+* less than 0
+* greater than 1
+
+So we use the not the first model, but the second:
+
+$$
+\begin{eqnarray}
+p_i &=& \beta_1 X_{i1} + \ldots  + \beta_k X_{ik}\\
+\mbox{logit}(p_i)=\log\left(\frac{p_i}{1-p_i}\right) &=& \beta_1 X_{i1} + \ldots  + \beta_k X_{ik}
+\end{eqnarray}
+$$
+-->
+
+We model the relationship between the
+
+> * predictor variables $x_1, \ldots, x_k$
+> * outcome variable, in this case $p = \mbox{Pr}(y = 1)$
+> * as $$
+\begin{eqnarray}
+\mbox{logit}(p)=\log\left(\frac{p}{1-p}\right) &=& \beta_0 + \beta_1 x_{1} + \ldots  + \beta_k x_{k}
+\end{eqnarray}
+$$
+
+
+
+## Solving for $p$
+
+Note if
+
+$$
+\begin{eqnarray}
+\mbox{logit}(p)=\log\left(\frac{p}{1-p}\right) &=& \beta_0 + \beta_1 x_{1} + \ldots  + \beta_k x_{k}
+\end{eqnarray}
+$$
+
+then to solve for $p$, we use:
+
+$$
+\begin{eqnarray}
+p &=& \frac{1}{1+\exp\left(-(\beta_0 + \beta_1 x_{1} + \ldots  + \beta_k x_{k})\right)} 
+\end{eqnarray}
+$$
+
+
+
