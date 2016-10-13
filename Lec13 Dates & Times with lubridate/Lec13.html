@@ -76,6 +76,7 @@
   </style>
 
 
+
 </head>
 
 <body style="opacity: 0">
@@ -104,7 +105,7 @@ slides > slide.backdrop {
 }
 </style>
 
-<slide class=''><hgroup><h2>Variable of Time</h2></hgroup><article  id="variable-of-time">
+<slide class=''><hgroup><h2>Time Variable</h2></hgroup><article  id="time-variable">
 
 <ul class = 'build'>
 <li>Time is technically a continuous/numerical variable</li>
@@ -116,7 +117,27 @@ slides > slide.backdrop {
 
 <p>The Unix epoch (or Unix time or POSIX time or Unix timestamp) is the number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds.</p>
 
-<p>Check out a converter here: <a href='http://www.epochconverter.com/' title=''>http://www.epochconverter.com/</a></p></article></slide>
+<p>Check out a converter here: <a href='http://www.epochconverter.com/' title=''>http://www.epochconverter.com/</a></p>
+
+<p>Then whatever software you are using converts these seconds to a date format we are familiar with.</p>
+
+</article></slide><slide class=''><hgroup><h2>Date Format</h2></hgroup><article  id="date-format">
+
+<p>At Google, they were really insistent about using the following format for dates: <strong>YYYY-MM-DD</strong>.</p>
+
+<p>For example, US vs rest of the world will interpret &quot;06/05/12&quot; all very differently.</p>
+
+<ul>
+<li>US: June 5th, 2012</li>
+<li>World: May 6th, 2012</li>
+<li>Me: May 12th, 2006</li>
+</ul>
+
+<p><code>lubridate</code> uses <strong>YYYY-MM-DD</strong>.</p>
+
+</article></slide><slide class=''><hgroup><h2>Quandl</h2></hgroup><article  id="quandl">
+
+<p>Check out the Quandl <a href='https://www.quandl.com/data/BAVERAGE/USD-USD-BITCOIN-Weighted-Price' title=''>USD per Bitcoin</a> page.</p></article></slide>
 
 
   <slide class="backdrop"></slide>

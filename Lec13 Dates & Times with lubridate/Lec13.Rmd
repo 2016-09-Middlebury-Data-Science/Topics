@@ -41,8 +41,28 @@ seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting
 
 Check out a converter here: <http://www.epochconverter.com/>
 
+Then whatever software you are using converts these seconds to a date format we are familiar with.
 
 
-## POSIX
+
+
+## Date Format
+
+At Google, they were really insistent about using the following format for dates: **YYYY-MM-DD**.
+
+For example, US vs rest of the world will interpret "06/05/12" all very differently.
+
+* US: June 5th, 2012
+* World: May 6th, 2012
+* Me: May 12th, 2006
+
+`lubridate` uses **YYYY-MM-DD**.
+
+## Quandl
+
+Check out the Quandl [USD per Bitcoin](https://www.quandl.com/data/BAVERAGE/USD-USD-BITCOIN-Weighted-Price) page.
+
+
+
 
 
