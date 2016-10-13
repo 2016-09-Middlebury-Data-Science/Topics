@@ -1,0 +1,60 @@
+---
+title: "Lecture 14: More lubridate"
+author: "Albert Y. Kim"
+date: "October 19, 2016"
+output: ioslides_presentation
+---
+
+<style>
+h2 { 
+ color: #3399ff;		
+}
+h3 { 
+ color: #3399ff;		
+}
+slides > slide.backdrop {
+  background: white;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+```
+
+
+
+## UTC
+
+**Coordinated Universal Time** (UTC) is the primary time standard by which the
+world regulates clocks and time.
+
+* It is within about 1 second of mean solar time at 0° longitude
+* It does not observe daylight saving time. 
+* It is one of several closely related successors to Greenwich Mean Time (GMT).
+
+Click [here](http://www.worldtimeserver.com/current_time_in_UTC.aspx)
+
+
+
+## Royal Observatory in London
+
+All hail Greenwich Mean Time at Longitude 0&deg;!
+
+<img src="GMT.jpg" alt="Drawing" style="width: 350px;"/>
+
+
+
+## Royal Observatory in London
+
+Part of my series "Tourists taking clichéd tourist photos"
+
+<img src="cliche.jpg" alt="Drawing" style="width: 350px;"/>
+
+
+
+## Tourists Taking Clichéd Tourist Photos
+
+<img src="pisa.jpg" alt="Drawing" style="width: 600px;"/>
