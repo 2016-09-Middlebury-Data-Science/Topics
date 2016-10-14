@@ -34,7 +34,7 @@ library(tidyr)
 
 
 
-## POSIX
+## Time Variable 
 
 The Unix epoch (or Unix time or POSIX time or Unix timestamp) is the number of 
 seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds.
@@ -45,10 +45,21 @@ Then whatever software you are using converts these seconds to a date format we 
 
 
 
+## Time Variable 
+
+So a date/time object in R (and in many languages) is:
+
+* An integer (# of seconds since 1970-01-01 00:00:00)
+* Plus formatting to convert to:
+    * seconds to years, months, days, hours, minutes and seconds
+    * also weekday sometimes
+
+
+
 
 ## Date Format
 
-At Google, they were really insistent about using the following format for dates: **YYYY-MM-DD**.
+At Google, they were really insistent about using the following format for dates (at least in all code documents): **YYYY-MM-DD**.
 
 For example, US vs rest of the world will interpret "06/05/12" all very differently.
 
