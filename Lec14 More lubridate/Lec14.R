@@ -6,6 +6,71 @@ library(Quandl)
 
 
 #-------------------------------------------------------------------------------
+# Solutions to Lec13.R Exercises
+#-------------------------------------------------------------------------------
+# Reload bitcoin
+bitcoin <- Quandl("BAVERAGE/USD") %>%
+  tbl_df() %>%
+  rename(
+    Avg = `24h Average`,
+    Total_Volume = `Total Volume`
+  )
+
+# EXERCISE Q1: As it is, the dates in the bitcoin data are already dates. How
+# do we know? The variable type is listed.
+glimpse(bitcoin)
+# Plot a time series of the avg price of bitcoins relative to USD vs date.  What
+# is the overall trend?
+
+# SOLUTION Q1:
+# Roller coaster!
+ggplot(data=bitcoin, aes(x=Date, y=Avg)) +
+  geom_line()
+
+
+
+# EXERCISE Q2: Create a new variable day_of_week in the bitcoin data which
+# specifies the day of week and compute the mean trading value split by day of
+# week.  Which day of the week is there on average the most trading of bitcoins?
+
+# SOLUTION Q2:
+bitcoin %>%
+  mutate(day_of_week = wday(Date, label = TRUE, abbr=FALSE)) %>%
+  group_by(day_of_week) %>%
+  summarise(`Avg Volume` = mean(Total_Volume))
+
+# Better yet, a boxplot!
+p <- bitcoin %>%
+  mutate(day_of_week = wday(Date, label = TRUE, abbr=FALSE)) %>%
+  ggplot(aes(x=day_of_week, y=Total_Volume)) +
+  geom_boxplot()
+p
+
+# CRUCIAL:
+# Note the difference, as indicated on the back of your ggplot cheatsheat, bottom
+# right, Zooming:
+
+# With point clipping. i.e. ylim IGNORES all points greater than 10^5
+p + ylim(c(0,10^5))
+
+# Without point clipping i.e. it only zooms in, so the boxplot is different!
+p + coord_cartesian(ylim=c(0,10^5))
+
+
+
+# EXERCISE Q3: Convert the following to POSIX format. Tricky!
+x <- "Sunday 06-05-2016 2:15:04 PM" # June 5th, 2016
+
+# SOLUTION Q3:
+parse_date_time(x, "A m d Y IMS p")
+
+
+
+
+
+
+
+#-------------------------------------------------------------------------------
 # Time Zones
 #-------------------------------------------------------------------------------
 # This list all time zones:
@@ -28,7 +93,10 @@ meeting
 #-------------------------------------------------------------------------------
 # Time Intervals
 #-------------------------------------------------------------------------------
-auckland <- interval(arrive, leave) # Same as arrive %--% leave
+arrive <- ymd_hms("2011-06-04 12:00:00")
+leave <- ymd_hms("2011-08-10 14:00:00")
+
+auckland <- interval(arrive, leave)
 jsm <- interval(ymd(20110720, tz = "Pacific/Auckland"), ymd(20110831, tz = "Pacific/Auckland"))
 
 # Compare these two time intervals.  A bit hard to read unfortunately
@@ -50,6 +118,7 @@ x <- c(ymd(20110725, tz = "Pacific/Auckland"), ymd(20110901, tz = "Pacific/Auckl
 x
 x %within% jsm
 
+
 # EXERCISE Q3: Using the interval and %within% commands, plot the times series
 # for the price of bitcoin to dates in 2013 and on.
 
@@ -58,7 +127,7 @@ x %within% jsm
 # colors.  For simplicity assume Winter = (Jan, Feb, Mar), etc.  Don't forget
 # the overall smoother.
 #
-# Hint: nested ifelse statements and the following %in%  function which is
+# Hint: nested ifelse statements and the following %in% function which is
 # similar to %within% but for individual elements, not intervals.
 c(3,5) %in% c(1,2,3)
 
@@ -87,7 +156,7 @@ mistake <- force_tz(meeting, "America/Chicago")
 with_tz(mistake, "Pacific/Auckland")
 
 ## ------------------------------------------------------------------------
-auckland <- interval(arrive, leave) 
+auckland <- interval(arrive, leave)
 auckland
 auckland <- arrive %--% leave
 auckland
