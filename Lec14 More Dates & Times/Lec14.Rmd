@@ -1,7 +1,7 @@
 ---
-title: "Lecture 13: Dates/Times with lubridate"
+title: "Lecture 14: More Dates and Times"
 author: "Albert Y. Kim"
-date: "October 14, 2016"
+date: "October 21, 2016"
 output: ioslides_presentation
 ---
 
@@ -34,41 +34,46 @@ library(tidyr)
 
 
 
+## Time Variable 
+
+The Unix epoch (or Unix time or POSIX time or Unix timestamp) is the number of 
+seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds.
+
+Check out a converter here: <http://www.epochconverter.com/>
+
+Then whatever software you are using converts these seconds to a date format we are familiar with.
 
 
 
-<!--
+## Time Variable 
 
-## UTC
+So a date/time object in R (and in many languages) is:
 
-**Coordinated Universal Time** (UTC) is the primary time standard by which the
-world regulates clocks and time.
-
-* It is within about 1 second of mean solar time at 0° longitude
-* It does not observe daylight saving time. 
-* It is one of several closely related successors to Greenwich Mean Time (GMT).
-
-Click [here](http://www.worldtimeserver.com/current_time_in_UTC.aspx)
+* An integer (# of seconds since 1970-01-01 00:00:00)
+* Plus formatting to convert to:
+    * seconds to years, months, days, hours, minutes and seconds
+    * also weekday sometimes
 
 
 
-## Royal Observatory in London
 
-All hail Greenwich Mean Time at Longitude 0&deg;!
+## Date Format
 
-<img src="GMT.jpg" alt="Drawing" style="width: 350px;"/>
+At Google, they were really insistent about using the following format for dates (at least in all code documents): **YYYY-MM-DD**.
+
+For example, US vs rest of the world will interpret "06/05/12" all very differently.
+
+* US: June 5th, 2012
+* World: May 6th, 2012
+* Me: May 12th, 2006
+
+`lubridate` uses **YYYY-MM-DD**.
+
+## Quandl
+
+Check out the Quandl [USD per Bitcoin](https://www.quandl.com/data/BAVERAGE/USD-USD-BITCOIN-Weighted-Price) page.
 
 
 
-## Royal Observatory in London
-
-Part of my series "Tourists taking clichéd tourist photos"
-
-<img src="cliche.jpg" alt="Drawing" style="width: 350px;"/>
 
 
-
-## Tourists Taking Clichéd Tourist Photos
-
-<img src="pisa.jpg" alt="Drawing" style="width: 600px;"/>
--->
