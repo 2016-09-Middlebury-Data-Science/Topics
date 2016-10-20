@@ -76,16 +76,20 @@ parse_date_time(x, "A m d Y IMS p")
 # This list all time zones:
 OlsonNames()
 
-# Hadley Wickham is from New Zealand, so he sets a Skype meeting for NZ time
+# Hadley Wickham is from New Zealand, so he sets a Skype/FaceTime/Google Hangout
+# meeting on NZ time, but doesn't tell you what time that is here!
 meeting <- ymd_hms("2011-07-01 09:00:00", tz = "Pacific/Auckland")
-meeting
 
-# What time is this in Portland?
-with_tz(meeting, "America/Los_Angeles")
+# What time is this here?
+with_tz(meeting, "America/New_York")
 
 # Let's change the time zone to ours permanently
-meeting <- force_tz(meeting, "America/Los_Angeles")
+meeting <- force_tz(meeting, "America/New_York")
 meeting
+
+# Notice POSIX dates/times auto-adjusts for Daylight savings
+ymd_hms("2016-11-06 00:59:59", tz = "America/New_York")
+ymd_hms("2016-11-06 02:00:00", tz = "America/New_York")
 
 
 
@@ -93,15 +97,21 @@ meeting
 #-------------------------------------------------------------------------------
 # Time Intervals
 #-------------------------------------------------------------------------------
-arrive <- ymd_hms("2011-06-04 12:00:00")
-leave <- ymd_hms("2011-08-10 14:00:00")
+# You're going to Auckland NZ to see your friends Brett and Jermaine
+arrive <- ymd_hms("2011-06-04 12:00:00", tz = "Pacific/Auckland")
+leave <- ymd_hms("2011-08-10 14:00:00", tz = "Pacific/Auckland")
 
+# Define a time interval
 auckland <- interval(arrive, leave)
-jsm <- interval(ymd(20110720, tz = "Pacific/Auckland"), ymd(20110831, tz = "Pacific/Auckland"))
-
-# Compare these two time intervals.  A bit hard to read unfortunately
 auckland
-jsm
+
+# Same as above
+auckland <- arrive %--% leave
+auckland
+
+# But Brett and Jermaine are goign to the Joint Statisical Meetings in Miami FL
+# in late July!
+jsm <- interval(ymd("2011-07-20", tz = "Pacific/Auckland"), ymd("2011-08-31", tz = "Pacific/Auckland"))
 
 
 
@@ -109,107 +119,97 @@ jsm
 #-------------------------------------------------------------------------------
 # Interval functions
 #-------------------------------------------------------------------------------
+# Oh no, your trip to Auckland overlaps with their trip to Miami!
 int_overlaps(jsm, auckland)
-int_start(jsm)
-int_flip(jsm)
-int_shift(jsm, duration(week=12))
 
-x <- c(ymd(20110725, tz = "Pacific/Auckland"), ymd(20110901, tz = "Pacific/Auckland"))
-x
-x %within% jsm
-
-
-# EXERCISE Q3: Using the interval and %within% commands, plot the times series
-# for the price of bitcoin to dates in 2013 and on.
-
-
-# EXERCISE Q4: Replot the above curve so that the 4 seasons are in different
-# colors.  For simplicity assume Winter = (Jan, Feb, Mar), etc.  Don't forget
-# the overall smoother.
-#
-# Hint: nested ifelse statements and the following %in% function which is
-# similar to %within% but for individual elements, not intervals.
-c(3,5) %in% c(1,2,3)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## ------------------------------------------------------------------------
-meeting <- ymd_hms("2011-07-01 09:00:00", tz = "Pacific/Auckland")
-with_tz(meeting, "America/Chicago")
-
-## ------------------------------------------------------------------------
-mistake <- force_tz(meeting, "America/Chicago")
-with_tz(mistake, "Pacific/Auckland")
-
-## ------------------------------------------------------------------------
-auckland <- interval(arrive, leave)
+# But there is a set difference! i.e. There are times that you will be in Auckland
+# that Brett & Jermaine won't be in Miami
 auckland
-auckland <- arrive %--% leave
-auckland
-
-## ------------------------------------------------------------------------
-jsm <- interval(ymd(20110720, tz = "Pacific/Auckland"), ymd(20110831, tz = "Pacific/Auckland"))
 jsm
-
-## ------------------------------------------------------------------------
-int_overlaps(jsm, auckland)
-
-## ------------------------------------------------------------------------
 setdiff(auckland, jsm)
 
-## ------------------------------------------------------------------------
+jsm %within% auckland
+
+
+# Other weird interval and functions
+int_start(jsm)
+int_shift(jsm, duration(week=12))
+
+
+
+
+#-------------------------------------------------------------------------------
+# Durations. Frankly, I don't recall ever having to use them, but I know they
+# exist. So if ever I need to use them, I'll learn it better then.
+#-------------------------------------------------------------------------------
 minutes(2) ## period
 dminutes(2) ## duration
 
-## ------------------------------------------------------------------------
-leap_year(2011) ## regular year
-ymd(20110101) + dyears(1)
-ymd(20110101) + years(1)
+# Why does this matter?
+# 2011 is not a leap year, but 2012 is!
+leap_year(2011)
+leap_year(2012)
 
-leap_year(2012) ## leap year
-ymd(20120101) + dyears(1)
-ymd(20120101) + years(1)
+dyears(1)
+years(1)
 
-## ------------------------------------------------------------------------
-meetings <- meeting + weeks(0:5)
+ymd("2012-01-01") + dyears(1)
+ymd("2012-01-01") + years(1)
 
-## ------------------------------------------------------------------------
-meetings %within% jsm
-
-## ------------------------------------------------------------------------
+# How many days will I be in Auckland?
 auckland / ddays(1)
-auckland / ddays(2)
+# How many minutes?
 auckland / dminutes(1)
 
-## ------------------------------------------------------------------------
-auckland %/% months(1)
-auckland %% months(1)
 
-## ------------------------------------------------------------------------
-as.period(auckland %% months(1))
-as.period(auckland)
 
-## ------------------------------------------------------------------------
-jan31 <- ymd("2013-01-31")
-jan31 + months(0:11)
-floor_date(jan31, "month") + months(0:11) + days(31)
-jan31 %m+% months(0:11)
 
-## ------------------------------------------------------------------------
-last_day <- function(date) {
-  ceiling_date(date, "month") - days(1)
-}
+#-------------------------------------------------------------------------------
+# floor_date() and ceiling_date()
+# These are very useful!
+#-------------------------------------------------------------------------------
+bitcoin <- bitcoin %>%
+  mutate(
+    first_of_tha_month = floor_date(Date, "month")
+  )
+
+# Daily summary
+bitcoin %>%
+  ggplot(data=., aes(x=Date, y=Avg)) +
+  geom_line()
+
+# Monthly summary
+bitcoin %>%
+  group_by(first_of_tha_month) %>%
+  summarise(Avg=mean(Avg)) %>%
+  ggplot(data=., aes(x=first_of_tha_month, y=Avg)) +
+  geom_line()
+
+
+
+
+
+# EXERCISE Q3: Using the interval() and %within% commands, plot the times series
+# of the weekly average for the price of bitcoin to dates in 2013 and on.
+
+
+
+
+
+# EXERCISE Q4: Recreate the plot from Exercise 1 above, but with
+# -Dates pre 2015-01-01 in one color, and post in another
+# -A SINGLE black smoother line. A tough one!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
