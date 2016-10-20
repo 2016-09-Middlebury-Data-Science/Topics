@@ -38,7 +38,7 @@ world regulates clocks and time.
 Click [here](http://www.worldtimeserver.com/current_time_in_UTC.aspx)
 
 
-
+<!--
 ## Royal Observatory in London
 
 All hail Greenwich Mean Time at Longitude 0&deg;!
@@ -58,3 +58,4 @@ Part of my series "Tourists taking clichéd tourist photos"
 ## Tourists Taking Clichéd Tourist Photos
 
 <img src="pisa.jpg" alt="Drawing" style="width: 600px;"/>
+-->
