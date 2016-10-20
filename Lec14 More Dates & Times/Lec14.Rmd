@@ -1,7 +1,7 @@
 ---
-title: "Lecture 14: More lubridate"
+title: "Lecture 13: Dates/Times with lubridate"
 author: "Albert Y. Kim"
-date: "October 19, 2016"
+date: "October 14, 2016"
 output: ioslides_presentation
 ---
 
@@ -26,6 +26,19 @@ library(tidyr)
 
 
 
+## Time Variable 
+
+> * Time is technically a continuous/numerical variable
+> * But we think in terms of discrete and categorical variables: 2016, February, Tuesday, 9:05am
+> * How does a computer store time?
+
+
+
+
+
+
+<!--
+
 ## UTC
 
 **Coordinated Universal Time** (UTC) is the primary time standard by which the
@@ -38,7 +51,7 @@ world regulates clocks and time.
 Click [here](http://www.worldtimeserver.com/current_time_in_UTC.aspx)
 
 
-<!--
+
 ## Royal Observatory in London
 
 All hail Greenwich Mean Time at Longitude 0&deg;!
