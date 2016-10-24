@@ -1,0 +1,48 @@
+---
+title: "Lecture 15: Spatial Data in R"
+author: "Albert Y. Kim"
+date: "October 24, 2016"
+output: ioslides_presentation
+---
+
+<style>
+h2 { 
+ color: #3399ff;		
+}
+h3 { 
+ color: #3399ff;		
+}
+slides > slide.backdrop {
+  background: white;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+```
+
+
+
+## Side Note
+
+You quickly compute proportions without creating two separate tables (one 
+for numerator and one for denominator) by `group_by()`, but then instead of 
+`summarise()`, use a `mutate()`.
+
+```{r, eval=FALSE}
+library(dplyr)
+library(ggplot2)
+
+mtcars %>% 
+  group_by(cyl, am) %>% 
+  summarise(n=n()) %>% 
+  group_by(cyl) %>% 
+  mutate(
+    prop = n/sum(n),
+    prop = round(prop, 2)
+  )
+```
+

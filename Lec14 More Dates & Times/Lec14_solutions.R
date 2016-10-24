@@ -34,13 +34,15 @@ bitcoin %>%
 # -Dates pre 2015-01-01 in one color, and post in another
 # -A SINGLE black smoother line. A tough one!
 bitcoin %>%
-  mutate(blah = Date %within% interval(ymd("2015-01-01"), ymd("2016-12-31"))) %>%
+  mutate(`Pre 2015` = Date %within% interval(ymd("2015-01-01"), ymd("2016-12-31"))) %>%
   ggplot(data=., aes(x=Date, y=Avg)) +
-  geom_line(aes(col=blah)) +
+  geom_line(aes(col=`Pre 2015`)) +
   geom_smooth(se=FALSE, size=0.5, col="black")
 
 
-
+# Whoa, what's this...
+library(plotly)
+ggplotly()
 
 
 
