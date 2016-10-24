@@ -20,13 +20,13 @@ plot(states_shp, axes=TRUE)
 # This object is of class SpatialPolygonsDataFrame
 states_shp %>% class()
 
-# We look at the polygons stored: 
+# We look at the polygons stored:
 # Note for SpatialPolygonsDataFrame we access this via @polygons, and not
 # $polygons (Don't ask me why, I don't know).
 states_shp@polygons
 states_shp@polygons %>% length()
 
-# Let's look the contents. Lots of lat/long points
+# Let's look the contents of the first polygon. Lots of lat/long points
 states_shp@polygons[1]
 
 
@@ -42,20 +42,20 @@ states_data <- states_shp@data
 # variable for each polygon, i.e. state
 View(states_data)
 
-# 2. The broom::tidy() function automagically converts many different data 
-# formats to tidy data format, including SpatialPolygonsDataFrame. We used 
-# broom::tidy() earlier to convert logistic regression output to tidy format. 
+# 2. The broom::tidy() function automagically converts many different data
+# formats to tidy data format, including SpatialPolygonsDataFrame. We used
+# broom::tidy() earlier to convert logistic regression output to tidy format.
 # For SpatialPolygonsDataFrame objects, we specify the region argument to be
 # used to ID each of the polygons
 states_polygon <- tidy(states_shp, region="geoid")
 
-# Let's take a closer look. We see that the points defining the polygons are 
+# Let's take a closer look. We see that the points defining the polygons are
 # stored in tidy format. We see
 # -The "group" associates points to the same polygon
 # -The "id" variable is the "geoid" variable in states_data
 View(states_polygon)
 
-# 3. So now let's join the polygon data with the state data 
+# 3. So now let's join the polygon data with the state data
 states <- left_join(states_polygon, states_data, by=c("id"="geoid"))
 
 # Let's take a closer look. Same as View(states_polygon), but with the state
@@ -73,18 +73,18 @@ states <- states %>%
 #-------------------------------------------------------------------------------
 # Let's make this map!
 ggplot(states, aes(x=long, y=lat)) +
-  geom_line() 
+  geom_line()
 
 # For maps, we aren't plotting a line per se, but tracing out a polygon in order
 # that the polygons' points are listed. Say hello to geom_path()
 ggplot(states, aes(x=long, y=lat)) +
-  geom_path() 
+  geom_path()
 
-# Close, but why the extra lines? Because this isn't a single polygon, but 
+# Close, but why the extra lines? Because this isn't a single polygon, but
 # several. So we need to define the group aesthetic to keep points in the same
 # polygon together
 ggplot(states, aes(x=long, y=lat, group=group)) +
-  geom_path() 
+  geom_path()
 
 # Tada! Now let's get fancy. Let's make the aspect ratio between the x and y
 # axes match that of maps by changing the coordinate system to map()
@@ -100,7 +100,7 @@ ggplot(states, aes(x=long, y=lat, group=group)) +
 
 # Now let's make a choropleth map
 # https://en.wikipedia.org/wiki/Choropleth_map
-# i.e. fill in the polygons using land area using the variable aland and a 
+# i.e. fill in the polygons using land area using the variable aland and a
 # geom_polygon
 ggplot(states, aes(x=long, y=lat, group=group, fill=aland)) +
   geom_path() +
@@ -110,14 +110,14 @@ ggplot(states, aes(x=long, y=lat, group=group, fill=aland)) +
 # Whoops, aland was not numeric:
 ggplot(states, aes(x=long, y=lat, group=group, fill=as.numeric(aland))) +
   geom_path() +
-  geom_polygon() + 
+  geom_polygon() +
   coord_map()
 
 # But why can't we see the state boundaries? i.e. the geom_path()? Because the
 # geom_polygons are overwriting the geom_paths. So we reverse the order of what
 # we plot first
 ggplot(states, aes(x=long, y=lat, group=group, fill=as.numeric(aland))) +
-  geom_polygon() + 
+  geom_polygon() +
   geom_path() +
   coord_map()
 
