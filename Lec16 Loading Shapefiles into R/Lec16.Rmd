@@ -36,4 +36,12 @@ The `sp` package has tools for loading/storing **vector** data in R. `sp` stands
 
 
 
+## Road Map
+
+> * Last time: We are given a `SpatialPolygonsDataFrame` object, which we convert to tidy data format using `broom::tidy()` so we can `ggplot()`
+> * Today: We are given **shapefiles**, which we import into R to a `SpatialPolygonsDataFrame` object, which we can convert ...
+
+
+
+
 ## What is a shapefile?
