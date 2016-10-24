@@ -1,203 +1,135 @@
-library(rgeos)
-library(rgdal)
-library(maptools)
-
-
-
-
-
 library(dplyr)
 library(ggplot2)
 library(broom)
+library(maptools)
 
 library(USAboundaries)
 library(sp)
 
-states_1840 <- us_states("1840-03-12")
-plot(states_1840, axes=TRUE)
-title("U.S. state boundaries on March 3, 1840")
-
-# Go to data.gov and download the 2015 State Geodatabase for Vermont ZIP file
-# for the census tracts in Vermont then unzip:
-# https://catalog.data.gov/dataset/tiger-line-shapefile-2015-state-vermont-current-census-tract-state-based-shapefile
-# https://catalog.data.gov/dataset/2015-state-geodatabase-for-vermont
 
 
-
+#-------------------------------------------------------------------------------
+# Load SpatialPolygons data
+#-------------------------------------------------------------------------------
+# Let's get the map of US states as is (i.e. no need to specify a date)
 states_shp <- us_states()
-states_map <- tidy(states_shp)
-states_data <- states_shp@data %>% tibble::rownames_to_column(var="id")
-states <- left_join(states_map, states_data, by="id")
+
+# Let's plot this using base R plotting
+plot(states_shp, axes=TRUE)
+
+# This object is of class SpatialPolygonsDataFrame
+states_shp %>% class()
 
 
-# states$name %>% unique() %>% sort() %>% dput()
-lower_48 <- c("Alabama", "Arizona", "Arkansas", "California", "Colorado",
-  "Connecticut", "Delaware", "District of Columbia", "Florida",
-  "Georgia",  "Idaho", "Illinois", "Indiana", "Iowa",
-  "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
-  "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana",
-  "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico",
-  "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma",
-  "Oregon", "Pennsylvania", "Rhode Island", "South Carolina",
-  "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia",
-  "Washington", "West Virginia", "Wisconsin", "Wyoming")
 
+#-------------------------------------------------------------------------------
+# Convert to Tidy Data Format
+#-------------------------------------------------------------------------------
+# 1. We pull the state data associated with each polygon, in this case state.
+# Note for SpatialPolygonsDataFrame we access this via @data, and not $data
+# (Don't ask) me why.
+states_data <- states_shp@data
+
+# Let's take a closer look. We see that the variable "geoid" is a unique ID'ing
+# variable for each polygon, i.e. state
+View(states_data)
+
+# 2. The broom::tidy() function automagically converts many different data 
+# formats to tidy data format, including SpatialPolygonsDataFrame. We used 
+# broom::tidy() earlier to convert logistic regression output to tidy format. 
+# For SpatialPolygonsDataFrame objects, we specify the region argument to be
+# used to ID each of the polygons
+states_polygon <- tidy(states_shp, region="geoid")
+
+# Let's take a closer look. We see that the points defining the polygons are 
+# stored in tidy format. We see
+# -The "group" associates points to the same polygon
+# -The "id" variable is the "geoid" variable in states_data
+View(states_polygon)
+
+# 3. So now let's join the polygon data with the state data 
+states <- left_join(states_polygon, states_data, by=c("id"="geoid"))
+
+# Let's take a closer look. Same as View(states_polygon), but with the state
+# data appended
+View(states)
+
+# Let's only consider the lower 48 and DC
 states <- states %>%
-  filter(name %in% lower_48)
+  filter( !name %in% c("Alaska", "Hawaii", "Puerto Rico"))
 
+
+
+#-------------------------------------------------------------------------------
+# Plot Tidy Map Data using ggplot
+#-------------------------------------------------------------------------------
+# Let's make this map!
+ggplot(states, aes(x=long, y=lat)) +
+  geom_line() 
+
+# For maps, we aren't plotting a line per se, but tracing out a polygon in order
+# that the polygons' points are listed. Say hello to geom_path()
+ggplot(states, aes(x=long, y=lat)) +
+  geom_path() 
+
+# Close, but why the extra lines? Because this isn't a single polygon, but 
+# several. So we need to define the group aesthetic to keep points in the same
+# polygon together
+ggplot(states, aes(x=long, y=lat, group=group)) +
+  geom_path() 
+
+# Tada! Now let's get fancy. Let's make the aspect ratio between the x and y
+# axes match that of maps by changing the coordinate system to map()
 ggplot(states, aes(x=long, y=lat, group=group)) +
   geom_path() +
   coord_map()
 
+# What if we like a spherical projection of the map. (10, -90) define the center
+# and the 0 is the rotation angle.
+ggplot(states, aes(x=long, y=lat, group=group)) +
+  geom_path() +
+  coord_map(projection="ortho", orientation = c(10, -90, 0))
 
+# Now let's make a choropleth i.e. fill in the polygons using land area using
+# the variable aland and a geom_polygon
+ggplot(states, aes(x=long, y=lat, group=group, fill=aland)) +
+  geom_path() +
+  geom_polygon() +
+  coord_map()
 
-counties_shp <- us_counties()
+# Whoops, aland was not numeric:
+ggplot(states, aes(x=long, y=lat, group=group, fill=as.numeric(aland))) +
+  geom_path() +
+  geom_polygon() + 
+  coord_map()
 
-
-
-counties_map <- tidy(counties_shp, region="geoid")
-counties_data <- counties_shp@data
-
-counties <- left_join(counties_map, counties_data, by=c("id"="geoid"))
-
-
-counties <- counties %>%
-  filter(state_name %in% lower_48)
-
-ggplot(counties, aes(x=long, y=lat, group=group)) +
+# But why can't we see the state boundaries? i.e. the geom_path()? Because the
+# geom_polygons are overwriting the geom_paths. So we reverse the order of what
+# we plot first
+ggplot(states, aes(x=long, y=lat, group=group, fill=as.numeric(aland))) +
+  geom_polygon() + 
   geom_path() +
   coord_map()
 
-ggplot() +
-  geom_path(data=counties, aes(x=long, y=lat, group=group), size=0.1) +
-  geom_path(data=states, aes(x=long, y=lat, group=group), size=0.4) +
-  coord_map()
 
 
 
-ggplot(counties, aes(x=long, y=lat, group=group)) +
-  geom_path(size=0.1) +
-  coord_map(projection="ortho", orientation = c(10,-80,0))
-
-ggplot() +
-  geom_path(data=counties, aes(x=long, y=lat, group=group), size=0.1, col="red") +
-  geom_path(data=states, aes(x=long, y=lat, group=group), size=0.4) +
-  coord_map(projection="ortho", orientation = c(0,-90,0))
+#-------------------------------------------------------------------------------
+# Exercise 1: Plot a map of the county outlines (no fill for now) for all
+# ~3000 counties in the US
+#-------------------------------------------------------------------------------
 
 
 
 
-
+#-------------------------------------------------------------------------------
+# Exercise 2: Plot a map of both county (red) and state (black) outlines (no
+# fill) but with the state outlines clearly visible. Hint: define geom_ specific
+# data and aes()
+#-------------------------------------------------------------------------------
 
 
 
 
 
 
-counties <- us_counties()
-plot(counties, axes=TRUE)
-
-
-counties_map <- tidy(counties)
-counties_data <- counties@data %>% tbl_df()
-
-counties_map <- left_join(counties_map, counties_data,)
-
-
-
-# Loading Shapefiles ------------------------------------------------------
-
-# There are two ways
-
-# 1. Set shapefile_path precisely, including last backslash, then use readOGR
-# from rgdal package. Note the layer name is the prefix for all the files
-shapefile_path <- "/Users/rudeboybert/Downloads/tl_2015_50_tract/"
-map_obj <- readOGR(dsn = shapefile_path, layer = "tl_2015_50_tract")
-
-# 2. Or by setting your current working directory:
-# In Files panel, navigate to folder with all the files.
-# Click More -> Set As Working Directory.
-# Note the "." below is UNIX speak for "current directory"
-map_obj <- readOGR(dsn = ".", layer = "tl_2015_50_tract")
-
-
-
-# Convert Shapefile to ggplot Data Frame ----------------------------------
-
-# The following bit of code
-# -Assigns a unique id to each census tract
-# -fortify() and inner_join() to create a ggplot'able data frame. You don't need
-#  to understand these functions.
-map_obj$id <- rownames(map_obj@data)
-map_points <- fortify(map_obj, region="id")
-map_df <- inner_join(map_points, map_obj@data, by="id")
-
-# Let's view it
-View(map_df)
-
-
-
-
-# Plot --------------------------------------------------------------------
-
-# Each row in the data frame consists of a (longitude, latitude) point in a
-# particular polygon, where each polygon corresponds to a census tract. Let's
-# trace out the geom_path of the polygons. Recall, geom_path traces out a line.
-ggplot(map_df, aes(x=long, y=lat)) +
-  labs(x="longitude", y="latitude", title="Vermont Census Tracts") +
-  geom_path()
-
-# What a mess! The different polygons are ID'ed by the group variable, so we
-# set the group_aesthetic
-ggplot(map_df, aes(x=long, y=lat, group=group)) +
-  labs(x="longitude", y="latitude", title="Vermont Census Tracts") +
-  geom_path()
-
-# Why does Vermont look so fat? b/c the aspect ratio (wikipedia this if you
-# don't know what this means) is not reflective of standard maps. So let's set
-# the coordinate system to be coord_map:
-ggplot(map_df, aes(x=long, y=lat, group=group)) +
-  labs(x="longitude", y="latitude", title="Vermont Census Tracts") +
-  geom_path() +
-  coord_map()
-
-# We can also fill in the polygons
-ggplot(map_df, aes(x=long, y=lat, group=group)) +
-  labs(x="longitude", y="latitude", title="Vermont Census Tracts") +
-  geom_path() +
-  coord_map() +
-  geom_polygon(fill="dark green")
-
-# What happened to the contour lines? Unfortunately, here the plot order matters.
-# Let's plot the geom_polygon first then the geom_path
-ggplot(map_df, aes(x=long, y=lat, group=group)) +
-  labs(x="longitude", y="latitude", title="Vermont Census Tracts") +
-  coord_map() +
-  geom_polygon(fill="dark green") +
-  geom_path()
-
-# Now let's make a https://en.wikipedia.org/wiki/Choropleth_map using
-# one of the variables. We don't seem to have very exciting ones. Let's plot
-# AWATER which I'm guessing is Water Area.
-# Note: we now set fill to be an aes() based on the variable AWATER, and not the
-# constant "dark green"
-ggplot(map_df, aes(x=long, y=lat, group=group)) +
-  labs(x="longitude", y="latitude", title="Vermont Census Tracts", fill="Water Area") +
-  coord_map() +
-  geom_polygon(aes(fill=AWATER)) +
-  geom_path()
-
-# Not bad. Maybe plotting log10 Area Water is more informative? Your call
-ggplot(map_df, aes(x=long, y=lat, group=group)) +
-  labs(x="longitude", y="latitude", title="Vermont Census Tracts", fill="Water Area") +
-  coord_map() +
-  geom_polygon(aes(fill=log10(AWATER))) +
-  geom_path()
-
-
-
-
-# Exercise ----------------------------------------------------------------
-
-# Create an account on socialexplorer.com and start figuring out how to download
-# census data.

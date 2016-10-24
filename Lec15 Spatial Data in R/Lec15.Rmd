@@ -46,3 +46,23 @@ mtcars %>%
   )
 ```
 
+
+
+## USA Boundaries
+
+Run the following:
+
+```{r, eval=FALSE}
+library(USAboundaries)
+library(sp)
+states_1840 <- us_states("1840-03-12")
+plot(states_1840, axes=TRUE)
+title("U.S. state boundaries on March 3, 1840")
+```
+
+
+
+
+# Choropleth Map
+
+https://en.wikipedia.org/wiki/Choropleth_map

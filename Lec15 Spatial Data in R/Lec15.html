@@ -119,7 +119,21 @@ mtcars %&gt;%
   mutate(
     prop = n/sum(n),
     prop = round(prop, 2)
-  )</pre></article></slide>
+  )</pre>
+
+</article></slide><slide class=''><hgroup><h2>USA Boundaries</h2></hgroup><article  id="usa-boundaries">
+
+<p>Run the following:</p>
+
+<pre class = 'prettyprint lang-r'>library(USAboundaries)
+library(sp)
+states_1840 &lt;- us_states(&quot;1840-03-12&quot;)
+plot(states_1840, axes=TRUE)
+title(&quot;U.S. state boundaries on March 3, 1840&quot;)</pre>
+
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Choropleth Map</h2></hgroup><article  id="choropleth-map">
+
+<p><a href='https://en.wikipedia.org/wiki/Choropleth_map' title=''>https://en.wikipedia.org/wiki/Choropleth_map</a></p></article></slide>
 
 
   <slide class="backdrop"></slide>
