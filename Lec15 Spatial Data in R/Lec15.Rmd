@@ -26,6 +26,7 @@ library(tidyr)
 
 
 
+
 ## Side Note
 
 You quickly compute proportions without creating two separate tables (one 
@@ -62,7 +63,19 @@ title("U.S. state boundaries on March 3, 1840")
 
 
 
+## USA Boundaries
 
-# Choropleth Map
+* USA Boundaries package on [GitHub](https://github.com/ropensci/USAboundaries)
+* Part of the [ROpenSci](http://ropensci.org/) Project
 
-https://en.wikipedia.org/wiki/Choropleth_map
+
+
+
+## sp Package
+
+The `sp` package has tools for loading/storing **vector** data in R. `sp` stands for `SpatialPolygons`
+
+<img src="sp.jpg" alt="Drawing" style="width: 250px;"/>
+
+
+

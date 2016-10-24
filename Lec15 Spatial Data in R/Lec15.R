@@ -20,14 +20,22 @@ plot(states_shp, axes=TRUE)
 # This object is of class SpatialPolygonsDataFrame
 states_shp %>% class()
 
+# We look at the polygons stored: 
+# Note for SpatialPolygonsDataFrame we access this via @polygons, and not
+# $polygons (Don't ask me why, I don't know).
+states_shp@polygons
+states_shp@polygons %>% length()
+
+# Let's look the contents. Lots of lat/long points
+states_shp@polygons[1]
+
 
 
 #-------------------------------------------------------------------------------
 # Convert to Tidy Data Format
 #-------------------------------------------------------------------------------
 # 1. We pull the state data associated with each polygon, in this case state.
-# Note for SpatialPolygonsDataFrame we access this via @data, and not $data
-# (Don't ask) me why.
+# Again, note the @data and not $data
 states_data <- states_shp@data
 
 # Let's take a closer look. We see that the variable "geoid" is a unique ID'ing
@@ -90,8 +98,10 @@ ggplot(states, aes(x=long, y=lat, group=group)) +
   geom_path() +
   coord_map(projection="ortho", orientation = c(10, -90, 0))
 
-# Now let's make a choropleth i.e. fill in the polygons using land area using
-# the variable aland and a geom_polygon
+# Now let's make a choropleth map
+# https://en.wikipedia.org/wiki/Choropleth_map
+# i.e. fill in the polygons using land area using the variable aland and a 
+# geom_polygon
 ggplot(states, aes(x=long, y=lat, group=group, fill=aland)) +
   geom_path() +
   geom_polygon() +
