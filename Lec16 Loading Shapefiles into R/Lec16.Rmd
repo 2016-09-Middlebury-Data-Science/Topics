@@ -45,3 +45,28 @@ The `sp` package has tools for loading/storing **vector** data in R. `sp` stands
 
 
 ## What is a shapefile?
+
+
+
+
+
+
+## Social Explorer Instructions
+
+1. Create a new project (do not take tour)
+1. Select geographical aggregation level
+    + In top middle of page, select "Show data by State" and turn Automatic to OFF
+    + Select "County"
+1. Select survey: Decennial census, American Community Survey, etc.
+    + On top right of page, click the Settings button (3 horizontal bars)
+    + Select create report. Let's go with Census 2010
+    + On right hand panel select survey and topic (comprehensive is a good choice)
+1. Select all Vermont counties
+    + Zoom into VT
+    + On the top right of map select Circle
+    + Cast a wide net so that all counties in VT are captured
+1. Output results to CSV
+    + Click "Create Report" 
+    + Select "Data Download" tab
+    + Download the CSV **and** Data dictionary (variable codebook)
+
