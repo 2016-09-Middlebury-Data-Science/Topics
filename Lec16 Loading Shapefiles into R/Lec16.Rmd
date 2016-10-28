@@ -49,7 +49,7 @@ The `sp` package has tools for loading/storing **vector** data in R. `sp` stands
 
 ## Today's Goal
 
-A [Choropleth Map](https://en.wikipedia.org/wiki/Choropleth_map) of Vermont county populations based on 2010 Decennial Census counts. We'll need
+A [Choropleth Map](https://en.wikipedia.org/wiki/Choropleth_map) of Vermont census tract populations based on 2010 Decennial Census counts. We'll need
 
 1. The `rgdal` package: To import shapefiles into R as a `SpatialPolygonsDataFrame` object. See `Lec16.R`
 1. Social Explorer: To download census data. See instructions on lecture page.
