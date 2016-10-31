@@ -106,57 +106,71 @@ slides > slide.backdrop {
 
 <slide class=''><hgroup><h2>Publishing Apps</h2></hgroup><article  id="publishing-apps">
 
-<p>To publish your apps:</p>
+<p>To publish your apps online you have two options:</p>
 
-<ul>
+<ul class = 'build'>
 <li>Go to <a href='https://www.shinyapps.io/' title=''>https://www.shinyapps.io/</a> and create a free account. You can host up to 5 shiny apps. However, you only get limited server resources dedicated to each user.</li>
 <li>Even better: Use the recently installed Middlebury Shiny Server Pro.</li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>Uploading Files to Midd Shiny Server</h2></hgroup><article  id="uploading-files-to-midd-shiny-server">
+</article></slide><slide class=''><hgroup><h2>Publishing Apps</h2></hgroup><article  id="publishing-apps-1">
 
-<p>Mac: * Open Finder * Menu Bar -&gt; Go &gt; Connect to Server: <code>cifs://shiny.middlebury.edu/USERNAME</code></p>
+<p>Example (note the URL path): <a href = "https://shiny.middlebury.edu:3838/aykim/babynames/" target = "_blank">https://shiny.middlebury.edu:3838/aykim/babynames/</a></p>
 
-<p>Windows:</p>
+</article></slide><slide class=''><hgroup><h2>Publishing Apps</h2></hgroup><article  id="publishing-apps-2">
+
+<p>Today we will publish the Shiny App from HW-2 <code>HW-2_Shiny_App.Rmd</code> onto <code>shiny.middlebury.edu</code></p>
+
+</article></slide><slide class=''><hgroup><h2>Uploading to Middlebury Shiny Server</h2></hgroup><article  id="uploading-to-middlebury-shiny-server">
+
+<p>You need to be on campus or on VPN:</p>
+
+<ul>
+<li>Mac:
+
+<ul>
+<li>Open Finder</li>
+<li>Menu Bar -&gt; Go &gt; Connect to Server: <code>cifs://shiny.middlebury.edu/YOUR_USERNAME</code></li>
+</ul></li>
+<li>Windows:
 
 <ul>
 <li>Open File Explorer</li>
-<li>In address bar, <code>\\shiny.middlebury.edu\USERNAME</code></li>
+<li>In address bar, <code>\\shiny.middlebury.edu\YOUR_USERNAME</code></li>
+</ul></li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>Uploading Files to Midd Shiny Server</h2></hgroup><article  id="uploading-files-to-midd-shiny-server-1">
+</article></slide><slide class=''><hgroup><h2>Uploading to Midd Shiny Server</h2></hgroup><article  id="uploading-to-midd-shiny-server">
 
 <p>Once logged in:</p>
 
 <ul>
 <li>Go into the folder <code>ShinyApps</code></li>
-<li>Create a folder with the name of your Shiny App</li>
+<li>Create a folder and call it <code>testing</code></li>
+<li>Upload your <code>HW-2_Shiny_App.Rmd</code> Shiny app and rename it <code>index.Rmd</code></li>
+<li>Your Shiny App is now available at <a href='https://shiny.middlebury.edu:3838/aykim/testing/' title=''>https://shiny.middlebury.edu:3838/USERNAME/testing/</a></li>
 </ul>
-
-<p>The URL any Shiny App <code>APPNAME</code> is * <a href='http://shiny.middlebury.edu/USERNAME/APPNAME/' title=''>http://shiny.middlebury.edu/USERNAME/APPNAME/</a> * which auto-redirects to <a href='https://shiny.middlebury.edu:3838/USERNAME/APPNAME' title=''>https://shiny.middlebury.edu:3838/USERNAME/APPNAME</a></p>
 
 </article></slide><slide class=''><hgroup><h2>Installing Packages</h2></hgroup><article  id="installing-packages">
 
-<p>For now, this is only way I know; I&#39;m investigating if this can be easier.</p>
+<p>I&#39;ve had a large number of commonly used R packages installed on Shiny Server (<code>tidyverse</code>, many dataset packages), but if you ever need to install one yourself.</p>
+
+<ol>
+<li>Login to R on Shiny Server via command line
 
 <ul>
 <li>RStudio menu bar -&gt; Tools -&gt; Shell&#8230;</li>
-<li>Type <code>ssh USERNAME@shiny.middlebury.edu</code></li>
+<li>Type <code>ssh YOUR_USERNAME@shiny.middlebury.edu</code></li>
 <li>Type <code>R</code>.</li>
+</ul></li>
+<li>Install package in R via command line
+
+<ul>
 <li>Type <code>install.packages(&quot;ggplot2&quot;)</code> for example</li>
 <li>Select a CRAN mirror in the United States.</li>
 <li>Say yes to prompts about installing in a new library.</li>
-<li>After you&#39;ve installed all the necessary packages, close the window.</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Today&#39;s Exercise: Publish Shiny App</h2></hgroup><article  id="todays-exercise-publish-shiny-app">
-
-<p>First</p>
-
-<ul>
-<li>Publish your app to the Middlebury server under the URL <a href='http://shiny.middlebury.edu/USERNAME/testing/' title=''>http://shiny.middlebury.edu/USERNAME/testing/</a> by copying the <code>testing</code> folder into the <code>ShinyApps</code> folder on the server</li>
-<li>Test that you can access it from a browser.</li>
-</ul></article></slide>
+</ul></li>
+</ol></article></slide>
 
 
   <slide class="backdrop"></slide>

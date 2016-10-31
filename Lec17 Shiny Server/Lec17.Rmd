@@ -30,67 +30,64 @@ library(tidyr)
 
 ## Publishing Apps
 
-To publish your apps: 
+To publish your apps online you have two options: 
 
-* Go to [https://www.shinyapps.io/](https://www.shinyapps.io/) and create a free
+> * Go to [https://www.shinyapps.io/](https://www.shinyapps.io/) and create a free
 account. You can host up to 5 shiny apps. However, you only get limited server
 resources dedicated to each user.
-* Even better: Use the recently installed Middlebury Shiny Server Pro.
+> * Even better: Use the recently installed Middlebury Shiny Server Pro.
 
 
 
 
 
-## Uploading Files to Midd Shiny Server
+## Publishing Apps
 
-Mac:
-* Open Finder
-* Menu Bar -> Go > Connect to Server: `cifs://shiny.middlebury.edu/USERNAME`
+Example (note the URL path): <a href = "https://shiny.middlebury.edu:3838/aykim/babynames/" target = "_blank">https://shiny.middlebury.edu:3838/aykim/babynames/</a>
 
-Windows:
 
-* Open File Explorer
-* In address bar, `\\shiny.middlebury.edu\USERNAME`
 
+## Publishing Apps
+
+Today we will publish the Shiny App from HW-2 `HW-2_Shiny_App.Rmd` onto `shiny.middlebury.edu`
 
 
 
 
-## Uploading Files to Midd Shiny Server
+## Uploading to Middlebury Shiny Server
+
+You need to be on campus or on VPN:
+
+* Mac:
+    + Open Finder
+    + Menu Bar -> Go > Connect to Server: `cifs://shiny.middlebury.edu/YOUR_USERNAME`
+* Windows:
+    + Open File Explorer
+    + In address bar, `\\shiny.middlebury.edu\YOUR_USERNAME`
+
+
+
+## Uploading to Midd Shiny Server
 
 Once logged in:
 
 * Go into the folder `ShinyApps`
-* Create a folder with the name of your Shiny App
-
-
-The URL any Shiny App `APPNAME` is
-* [http://shiny.middlebury.edu/USERNAME/APPNAME/](http://shiny.middlebury.edu/USERNAME/APPNAME/)
-* which auto-redirects to [https://shiny.middlebury.edu:3838/USERNAME/APPNAME](https://shiny.middlebury.edu:3838/USERNAME/APPNAME)
+* Create a folder and call it `testing`
+* Upload your `HW-2_Shiny_App.Rmd` Shiny app and rename it `index.Rmd`
+* Your Shiny App is now available at  [https://shiny.middlebury.edu:3838/USERNAME/testing/](https://shiny.middlebury.edu:3838/aykim/testing/)
 
 
 
 
 ## Installing Packages
 
-For now, this is only way I know; I'm investigating if this can be easier.
+I've had a large number of commonly used R packages installed on Shiny Server (`tidyverse`, many dataset packages), but if you ever need to install one yourself.
 
-* RStudio menu bar -> Tools -> Shell...
-* Type `ssh USERNAME@shiny.middlebury.edu`
-* Type `R`.
-* Type `install.packages("ggplot2")` for example
-* Select a CRAN mirror in the United States.
-* Say yes to prompts about installing in a new library.
-* After you've installed all the necessary packages, close the window.
-
-
-
-
-
-## Today's Exercise: Publish Shiny App
-
-
-First 
-
-* Publish your app to the Middlebury server under the URL [http://shiny.middlebury.edu/USERNAME/testing/](http://shiny.middlebury.edu/USERNAME/testing/) by copying the `testing` folder into the `ShinyApps` folder on the server
-* Test that you can access it from a browser.
+1. Login to R on Shiny Server via command line
+    + RStudio menu bar -> Tools -> Shell...
+    + Type `ssh YOUR_USERNAME@shiny.middlebury.edu`
+    + Type `R`.
+1. Install package in R via command line
+    + Type `install.packages("ggplot2")` for example
+    + Select a CRAN mirror in the United States.
+    + Say yes to prompts about installing in a new library.
