@@ -103,5 +103,8 @@ If you understand `ggplot()`, you can understand `leaflet()`:
 
 
 
+## Choropleth Maps
 
+Reading on Choropleth Maps that involve classification: <http://indiemapper.com/app/learnmore.php?l=classification>
 
+In particular focus on the "Classification Method" section.
