@@ -105,11 +105,18 @@ slides > slide.backdrop {
 
 <slide class=''><hgroup><h2>Leaflet</h2></hgroup><article  id="leaflet">
 
-<p>Today we will create <strong>interactive</strong> maps.</p>
+<p>Today we will create <strong>interactive</strong> maps. Run the following in the console:</p>
+
+<pre class = 'prettyprint lang-r'>library(leaflet)
+leaflet() %&gt;%
+  addTiles() %&gt;%
+  addMarkers(lng=-73.1755, lat=44.01005, popup=&quot;Warner Hall&quot;)</pre>
 
 </article></slide><slide class=''><hgroup><h2>Open Street Maps</h2></hgroup><article  id="open-street-maps">
 
-<p><a href='https://www.openstreetmap.org/#map=5/51.500/-0.100' title=''>OpenStreetMap (OSM)</a> is a collaborative project to create a free editable map of the world. This is crowd-sourced open source alternative to Google Maps. For example, the following institutions use it instead of Google Maps:</p>
+<p><a href='https://www.openstreetmap.org/#map=5/51.500/-0.100' title=''>OpenStreetMap (OSM)</a> is a collaborative project to create a free editable map of the world. This is crowd-sourced open source alternative to Google Maps.</p>
+
+<p>For example, the following institutions use it instead of Google Maps:</p>
 
 <ul>
 <li>Craigslist</li>
@@ -119,11 +126,9 @@ slides > slide.backdrop {
 
 </article></slide><slide class=''><hgroup><h2>Leaflet</h2></hgroup><article  id="leaflet-1">
 
-<p><a href='http://leafletjs.com/' title=''>Leaflet</a> is the leading open-source JavaScript library for mobile-friendly interactive maps.</p>
+<p><a href='http://leafletjs.com/' title=''>Leaflet</a> is the leading open-source JavaScript library for mobile-friendly interactive maps. This exists independent of R.</p>
 
-<p>Quote on their page: Leaflet doesn&#39;t try to do everything for everyone. Instead it focuses on making the basic things work perfectly.</p>
-
-<p>Example: Classics Major Haley Tilt at Reed&#39;s project on <a href='http://livy.sds.reed.edu/map' title=''>Livy&#39;s Rome</a>.</p>
+<p><strong>Quote on their page</strong>: <em>Leaflet doesn&#39;t try to do everything for everyone. Instead it focuses on making the basic things work perfectly</em>.</p>
 
 </article></slide><slide class=''><hgroup><h2>Leaflet for R</h2></hgroup><article  id="leaflet-for-r">
 
@@ -133,9 +138,9 @@ slides > slide.backdrop {
 
 <p>You create a Leaflet map with these basic steps:</p>
 
-<ol>
+<ol class = 'build'>
 <li>Create a map widget by calling <code>leaflet()</code>.</li>
-<li>Add layers (i.e., features) to the map by using layer functions (e.g. <code>addTiles</code>, <code>addMarkers</code>, <code>addPolygons</code>) to modify the map widget.</li>
+<li>Add layers (i.e., features) to the map by using layer functions (e.g. <code>addTiles</code>, <code>addMarkers</code>, <code>addPolygons</code>) to modify the map widget. Kind of like the way you add layers to a <code>ggplot()</code></li>
 <li>Repeat step 2 as desired.</li>
 <li>Print the map widget to display it.</li>
 </ol>
@@ -159,18 +164,6 @@ slides > slide.backdrop {
 <li>an <code>sp</code> package object. See this <a href='https://rstudio.github.io/leaflet/shapes.html' title=''>link</a></li>
 </ul></li>
 </ul>
-
-</article></slide><slide class=''><hgroup><h2>sp Package Object</h2></hgroup><article  id="sp-package-object">
-
-<p>The <code>sp</code> package is the go-to package for <strong>vector data</strong> (as opposed to raster) for GIS in R. Objects can be either</p>
-
-<ul>
-<li><code>SpatialPoints</code></li>
-<li><code>SpatialLines</code></li>
-<li><code>SpatialPolygons</code></li>
-</ul>
-
-<p>For example, when you load a shapefile into R using <code>rgdal::readOGR</code>, it is loaded as a <code>sp</code> package object.</p>
 
 </article></slide><slide class=''><hgroup><h2>Other leaflet Features</h2></hgroup><article  id="other-leaflet-features">
 
