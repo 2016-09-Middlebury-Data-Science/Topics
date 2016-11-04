@@ -114,6 +114,10 @@ leaflet() %>%
 # need to change your working directory:
 VT <- rgdal::readOGR("VT_shapefiles/tl_2015_50_tract.shp", layer = "tl_2015_50_tract")
 
+# Recall we can view the data attributes that come attached in this shapefile by
+# typing
+VT@data %>% View()
+
 # To add the VT shapefile, we need to specify it in the leaflet() call
 leaflet(VT) %>%
   addTiles()
