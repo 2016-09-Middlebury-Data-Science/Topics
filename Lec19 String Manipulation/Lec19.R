@@ -55,10 +55,10 @@ paste(letters[1:10], 1:10, sep="&")
 #-------------------------------------------------------------------------------
 # Using the paste() command, write-out a command that will print out a message
 # like this one, but by assigning values to the variables below: "Hello, my name
-# is Albert Kim.  My birthday is November 5, 1980"
-day <- 
-month <- 
-year <- 
+# is Albert Kim.  I am from Montreal, Quebec". Now if you have people's data in 
+# a spreadsheet
+city <- 
+province <-
 last_name <- 
 first_name <- 
 
