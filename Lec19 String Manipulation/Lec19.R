@@ -1,33 +1,32 @@
+# Test the auto-indent here. Highlight code and then press COMMAND+I or CTRL+I.
 library(Quandl)
-library(lubridate)
-library(ggplot2)
+      library(lubridate)
+    library(ggplot2)
 library(dplyr)
-
-# Install this
-library(stringr)
+          library(stringr)
 
 
 #-------------------------------------------------------------------------------
 # The paste() function (in base R)
 #-------------------------------------------------------------------------------
-# The greatest of all R string/character commands:  the paste() command
-# You can combine text and R variables.
+# The greatest of all R string/character commands:  the paste() command. You can
+# combine text and R variables.
 PI <- paste("The life of", pi)
 PI
 
-# The next example is one of programming abstractly.  i.e. you assign all
-# specific values to variables, and then use the variable names throughout the
-# rest of your code.  That way if you want to change either the name or the
-# number to order, you only need to change it once, instead of everywhere in
+# The next example is one of programming abstractly.  i.e. you assign all 
+# specific values to variables, and then use the variable names throughout the 
+# rest of your code.  That way if you want to change either the name or the 
+# number to order, you only need to change it once, instead of everywhere in 
 # your document.
 name <- "BORT"
 number_to_order <- 76
 paste("We need to order", number_to_order, "more", name, "novelty license plates.")
 
 # paste() is very useful when you want to automate the creation of strings.  For
-# example say you want to produce a daily chart of bitcoin prices with a title
-# indicating the date range.  It would get tiring to everyday update the title
-# manually.  With paste() you can do this automagically!
+# example say you want to produce a daily chart of bitcoin prices with a title 
+# indicating the date range.  It would get tiring to everyday update the title 
+# manually.  With paste() you can do this automatically.
 bitcoin <- Quandl("BAVERAGE/USD", start_date="2013-01-01") %>% 
   tbl_df() %>%
   mutate(Date=ymd(Date))
@@ -56,7 +55,7 @@ paste(letters[1:10], 1:10, sep="&")
 #-------------------------------------------------------------------------------
 # Using the paste() command, write-out a command that will print out a message
 # like this one, but by assigning values to the variables below: "Hello, my name
-# is Albert Y. Kim.  My birthday is November 5, 1980"
+# is Albert Kim.  My birthday is November 5, 1980"
 day <- 
 month <- 
 year <- 
@@ -99,7 +98,7 @@ gsub(pattern = "apple", replacement="orange", x=text)
 #-------------------------------------------------------------------------------
 # The stringr Package
 #-------------------------------------------------------------------------------
-# These ALL have great help file examples.  Type ?str_ in the console and press
+# These ALL have great help file examples.  Type ?str_ in the console and press 
 # TAB to see all the functions that are available to you!
 
 # Useful basic manipulations:
