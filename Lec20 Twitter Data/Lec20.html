@@ -138,44 +138,7 @@ slides > slide.backdrop {
 
 </article></slide><slide class=''><hgroup><h2>Obtaining a Twitter API Key</h2></hgroup><article  id="obtaining-a-twitter-api-key">
 
-<p>We are getting digital permission to open the Twitter pipeline for our use, just like any other developer would.</p>
-
-</article></slide><slide class=''><hgroup><h2>Steps</h2></hgroup><article  id="steps">
-
-<ul>
-<li>Install <code>twitteR</code> package from RStudio (homepage is <a href='https://github.com/geoffjentry/twitteR' title=''>here</a>)</li>
-<li>Create a Twitter account if you don&#39;t already have one.</li>
-<li>Create a Twitter application at the <a href='https://apps.twitter.com/' title=''>Twitter Application Management page</a>. You will need to give an original name.</li>
-<li>Click the &quot;Keys and Access Tokens&quot; tab
-
-<ul>
-<li>Note your &quot;API key&quot;, &quot;API secret&quot;</li>
-<li>Click on &quot;Create Token&quot; and note your &quot;Access Token&quot;, and &quot;Access Token Secret&quot;.</li>
-</ul></li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>Crucial</h2></hgroup><article  id="crucial">
-
-<p>Do not share these values with anyone nor save them in a publicly viewable file.</p>
-
-</article></slide><slide class=''><hgroup><h2>Authenticating your Twitter API Key in R</h2></hgroup><article  id="authenticating-your-twitter-api-key-in-r">
-
-<ul>
-<li>Replace the four values below with the values in your &quot;Keys and Access Tokens&quot; page. No spaces or line breaks.</li>
-<li>You will be prompted: &quot;Use a local file to cache OAuth access credentials between R sessions?&quot; Say yes.</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>library(twitteR)
-setup_twitter_oauth(
-  &quot;API key&quot;, 
-  &quot;API secret&quot;, 
-  &quot;Access token&quot;, 
-  &quot;Access token secret&quot;
-)</pre>
-
-</article></slide><slide class=''><hgroup><h2>Testing</h2></hgroup><article  id="testing">
-
-<pre class = 'prettyprint lang-r'>some_tweets &lt;- searchTwitter(&quot;prince&quot;, n=100, lang=&quot;en&quot;)</pre></article></slide>
+<p>We are getting digital permission to open the Twitter pipeline for our use, just like any other developer would.</p></article></slide>
 
 
   <slide class="backdrop"></slide>
