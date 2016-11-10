@@ -38,10 +38,10 @@ What is the **most** important thing to keep in mind when observing such maps?
 
 **Strong** selection biases at every step:
 
-* Who signs up to Twitter
-* Who tweets at all
-* Who tweets about these topics
-* Who lets their location be revealed
+> * Who signs up to Twitter
+> * Who tweets at all
+> * Who tweets about these topics
+> * Who lets their location be revealed
 
 i.e. the sample is non-random, so it is not representative of the population as
 a whole, and hence the results of the sample are not generalizable to the
