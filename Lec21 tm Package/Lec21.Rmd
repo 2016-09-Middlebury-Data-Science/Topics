@@ -1,0 +1,116 @@
+---
+title: "Lecture 21: tm Package"
+author: "Albert Y. Kim"
+date: "November 14, 2016"
+output: ioslides_presentation
+---
+
+<style>
+h2 { 
+ color: #3399ff;		
+}
+h3 { 
+ color: #3399ff;		
+}
+slides > slide.backdrop {
+  background: white;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(tm)
+options(width = 50)
+```
+
+
+
+## Choice of Language Matters
+
+[How MLB Announcers Favor American Players Over Foreign
+Ones](http://www.theatlantic.com/entertainment/archive/2012/08/how-mlb-announcers-favor-american-players-over-foreign-ones/261265/)
+
+
+
+## Issue with Text Data: Character Encoding
+
+Working with text data can be a real pain, as there are many different
+[character
+encodings](http://www.iana.org/assignments/character-sets/character-sets.xhtml),
+i.e. how characters are represented on a computer.
+
+Converting between them can be a real nuissance as some characters don't
+translate well, like accented letters, spaces, punctuation.
+
+[UTF-8](https://en.wikipedia.org/wiki/UTF-8) is the safest: RStudio menu bar -> File -> Save with Encoding...
+
+
+
+## Natural Language Processing=
+
+[Natural language
+processing](https://en.wikipedia.org/wiki/Natural_language_processing) (NLP) is
+a field of computer science, artificial intelligence, and linguistics concerned
+with the interactions between computers and human (natural) languages.
+
+
+
+## Bag-of-Words Assumption
+
+One big assumption in much natural language processing is the
+[bag-of-words](https://en.wikipedia.org/wiki/Bag-of-words_model) assumption:
+words exist as single units and information about order is lost.
+
+Ex: "United States" is treated as two separate words "United" and "States".
+
+A lot of information is lost, but this assumption is often necessary as specific
+occurrences of pairs of words tend to be rare. 
+
+
+
+## Term-Document Matrix
+
+If we assume the bag-of-words model, we can represent a corpus, (a collection) of
+texts, as a [document-term matrix](https://en.wikipedia.org/wiki/Document-term_matrix)
+
+
+
+## tm Package
+
+The `tm` (text mining) package puts many such tools at our disposal, including
+
+* Word stemming:  constitution, constitutional, constitutions
+* stopword removal
+```{r}
+stopwords("english")
+```
+
+
+
+## Today's Exercise
+
+We're revisiting OkCupid essay data. Using:
+
+* the `stringr` and `tm` packages
+* basic set operations in R
+
+We're going to evaluate both
+
+* the top 500 words used by men, that ARE NOT in the top 500 words used by women
+* the top 500 words used by women, that ARE NOT in the top 500 words used by men
+
+
+
+
+
+## Dummy Version of tf-idf
+
+This is a dummy version of a more systematic numerical statistic:
+[tf-idf](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) is a numerical statistic
+that
+
+* increases proportionally to the number of times a word appears in the document
+* but is offset by the frequency of the word in a corpus (body of text)
