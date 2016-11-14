@@ -35,7 +35,7 @@ Ones](http://www.theatlantic.com/entertainment/archive/2012/08/how-mlb-announcer
 
 
 
-## Issue with Text Data: Character Encoding
+## Character Encoding
 
 Working with text data can be a real pain, as there are many different
 [character
@@ -49,7 +49,7 @@ translate well, like accented letters, spaces, punctuation.
 
 
 
-## Natural Language Processing=
+## Natural Language Processing
 
 [Natural language
 processing](https://en.wikipedia.org/wiki/Natural_language_processing) (NLP) is
@@ -106,11 +106,23 @@ We're going to evaluate both
 
 
 
+## New Online Textbook
+
+[Tidy Text Mining](http://tidytextmining.com/) for text mining using tidy data principles.
+
+* Chapter 3 - **Sentiment Analysis**: What is the mood?
+* Chapter 4 - **tf-idf**: Term frequency and inverse document frequency
+* Chapter 5 - **n-grams**: Sequence of n text items
+* Chapter 6 - **Topic Modeling**: See example [here](https://github.com/rudeboybert/Federalist)
+
+
+
 ## Dummy Version of tf-idf
 
-This is a dummy version of a more systematic numerical statistic:
-[tf-idf](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) is a numerical statistic
-that
+Today's Exercise is a dummy version of [tf-idf](http://tidytextmining.com/tfidf.html):
 
 * increases proportionally to the number of times a word appears in the document
 * but is offset by the frequency of the word in a corpus (body of text)
+
+
+

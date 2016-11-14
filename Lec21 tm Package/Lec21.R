@@ -7,7 +7,6 @@ library(stringr)
 # text processing (beyond simple string manipulation).  The outputs of tm
 # functions are used in other packages, including the wordcloud package.
 
-# Install the following new packages:
 library(tm)
 library(wordcloud)
 library(SnowballC)
@@ -17,14 +16,14 @@ library(SnowballC)
 #-------------------------------------------------------------------------------
 # Character Encodings
 #-------------------------------------------------------------------------------
-# Let try to avoid some character encoding issues the best we can for now and 
+# Let try to avoid some character encoding issues the best we can for now and
 # revisit "The Old Man and the Sea" from Project Gutenberg:
 # -Go to: http://www.gutenberg.ca/ebooks/hemingwaye-oldmanandthesea/hemingwaye-oldmanandthesea-00-t.txt
 # -Copy all:  COMMAND-A and then COMMAND-C on Macs (CTRL on windows)
 # -In RStudio -> Menu Bar -> File -> New File -> Text File, and paste the
 # contents
 # -Remove the introduction and conclusion fluff
-# -Ensure the last line is a blank line (to avoid the 'incomplete final line' 
+# -Ensure the last line is a blank line (to avoid the 'incomplete final line'
 # error message)
 # -Menu Bar -> File -> Save with Encoding..., select UTF-8.
 
@@ -112,7 +111,7 @@ top_20 %>% names()
 #-------------------------------------------------------------------------------
 # In order to make a wordcloud, we need to first convert the vector into a
 # "corpus" object:
-old_man <- VectorSource(old_man) %>% 
+old_man <- VectorSource(old_man) %>%
   Corpus()
 wordcloud(old_man, scale=c(5,0.5), max.words=25, random.order=FALSE,
           rot.per=0.35, use.r.layout=FALSE, colors=brewer.pal(8, "BuPu"))
@@ -154,18 +153,18 @@ essays <-
   tbl_df()
 
 
-# EXERCISE1:  There are a lot of HTML tags in the essay responses that junk up 
-# reading the responses.  Using the stringr package, replace all instances of 
-# "\n" (return i.e. blank line) and "<br />" (paragraph breaks) with a " " 
+# EXERCISE1:  There are a lot of HTML tags in the essay responses that junk up
+# reading the responses.  Using the stringr package, replace all instances of
+# "\n" (return i.e. blank line) and "<br />" (paragraph breaks) with a " "
 # character. (Solutions below)
 
 
 
 # EXERCISE2:  Get the top 500 words used by men, sorted in decreasing order, and
-# save the words (not the counts) in a vector called "male_words".  Do the same 
-# for females.  Do not correct for punctuation, or numbers, or whitespace. 
+# save the words (not the counts) in a vector called "male_words".  Do the same
+# for females.  Do not correct for punctuation, or numbers, or whitespace.
 # Comment on the first 25 for each case.
-# Hint:  to extract a column from a dplyr data frame and have it be a vector, 
+# Hint:  to extract a column from a dplyr data frame and have it be a vector,
 # use DATA_FRAME_NAME[["COLUMN_NAME"]].  For example: essays[["sex"]] (Solutions
 # below)
 
